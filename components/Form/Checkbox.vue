@@ -2,9 +2,9 @@
 <template>
   <div class="check_group">
     <div class="check-box">
-      <div class="form-check">
+      <div class="form-check d-flex align-items-center flex-wrap">
         <input :name="name" :id="inputId" :value="option" v-model="model[name]" :class="InputClass" class="form-check-input" type="checkbox" />
-        <label class="form-check-label fw-bold" :for="inputId">
+        <label class="form-check-label fw-bold mx-2 line-height-4" :for="inputId">
           {{ label }}
         </label>
       </div>

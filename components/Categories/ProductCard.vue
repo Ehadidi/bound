@@ -3,7 +3,7 @@
         <NuxtLink :to="localPath('/')">
             <div class="flex align-items-center flex-column justify-content-center w-100 gap10">
                 <img :src="productImg" alt="handbag">
-                <span class="price">
+                <span class="price fw-bold">
                     {{ price }}
                 </span>
                 <span class="product-name">
