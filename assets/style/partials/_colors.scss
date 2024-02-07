@@ -1,0 +1,182 @@
+/* colors */
+
+$theme-colors: (
+  primary: #000000,
+  secondary: #505050,
+  success: #04b386,
+  info: #01b8ff,
+  light: #eff1f9,
+  warning: #FFB300,
+  danger: #e73026,
+  grayColor: #8b8b8b,
+  lightGrayColor: #F8F8F8,
+  dark: #000,
+  lightGrayClr: #F2F2F2,
+  lightBlueClr: #1B75BB,
+  cardBg: #fafbfd,
+  cardBorder: #d7e1f2,
+
+  selectionBg: #000,
+  selectionColor: #fff,
+  scrollTrackBg: #f1f1f1,
+  scrollThumbBg: #888,
+  scrollThumbHoverBg: #555
+);
+
+// Tint a color: mix a color with white
+@function tint-color($color, $weight) {
+  @return mix(white, $color, $weight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color($color, $weight) {
+  @return mix(black, $color, $weight);
+}
+
+@each $color, $value in $theme-colors {
+
+  .btn-light-#{$color},
+  .bg-light-#{$color} {
+    background-color: tint-color($value, 20%) !important;
+  }
+
+  .btn-outline-#{$color} {
+    &.up {
+      color: $value !important;
+      background-color: #fff;
+      border-color: $value !important;
+
+      &:hover,
+      &:focus {
+        box-shadow: inset 0 -4.25em 0 0 $value;
+        color: #fff !important;
+      }
+    }
+
+    &.arrow-effect {
+      position: relative;
+      transition: all 0.2s linear 0s;
+
+      &:before {
+        content: "";
+        background: url("../images/ArrowRight.svg") no-repeat center left;
+        font-size: 15px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        height: 100%;
+        width: 40px;
+        transition: all 0.2s linear 0s;
+      }
+
+      &:hover {
+        text-indent: -20px;
+
+        &:before {
+          opacity: 1;
+          text-indent: 0px;
+        }
+      }
+    }
+  }
+
+  .btn-#{$color},
+  .bg-#{$color} {
+    background-color: $value !important;
+  }
+
+  .btn-gradient-#{$color},
+  .bg-gradient-#{$color} {
+    background-image: linear-gradient(to right,
+        shade-color($value, 22%),
+        tint-color($value, 5%)) !important;
+  }
+
+  .border-light-#{$color} {
+    border-color: tint-color($value, 20%) !important;
+  }
+
+  .border-#{$color} {
+    border-color: $value !important;
+  }
+
+  .text-light-#{$color} {
+    color: tint-color($value, 20%) !important;
+  }
+
+  .text-#{$color} {
+    color: $value !important;
+  }
+
+  .btn-light-#{$color} {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $value !important;
+      color: tint-color($value, 20%) !important;
+    }
+  }
+
+  .btn-#{$color} {
+    &.up {
+      color: #fff !important;
+
+      // border-color: $value !important;
+      &:focus,
+      &:hover {
+        color: $value !important;
+        box-shadow: inset 0 -4.25em 0 0 #fff !important;
+      }
+    }
+
+    &.arrow-effect {
+      position: relative;
+      transition: all 0.2s linear 0s;
+
+      &:before {
+        content: "";
+        background: url("../images/ArrowRight.svg") no-repeat center left;
+        font-size: 15px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        height: 100%;
+        width: 40px;
+        transition: all 0.2s linear 0s;
+      }
+
+      &:hover {
+        text-indent: -20px;
+
+        &:before {
+          opacity: 1;
+          text-indent: 0px;
+        }
+      }
+    }
+  }
+
+  html[lang='ar'] {
+    .btn-#{$color} {
+      &.arrow-effect {
+        position: relative;
+        transition: all 0.2s linear 0s;
+        &:before {
+          transform: rotate(180deg);
+          right: unset;
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
