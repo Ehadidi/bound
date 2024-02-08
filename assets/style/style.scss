@@ -4,13 +4,13 @@
 @import "primeicons/primeicons.css";
 
 // *********** header ************** \\
-// .page-content {
-//   padding: 171px 0 50px;
+.page-content {
+  padding: 171px 0 50px;
 
-//   @media (max-width: 767px) {
-//     padding: 130px 0 50px;
-//   }
-// }
+  @media (max-width: 767px) {
+    padding: 130px 0 50px;
+  }
+}
 
 .logo {
   width: 225px;
@@ -92,7 +92,6 @@ header {
         height: auto;
       }
     }
-
     .navbar {
       ul {
         display: flex;
@@ -129,6 +128,7 @@ header {
         }
         &.open {
           @include mixins.prefix(transform, translateX(0), webkit ms o);
+        }
         }
       }
     }
@@ -424,11 +424,14 @@ html[lang="ar"] {
   .swiper-button-next,
   .swiper-button-prev {
     color: #000;
-    // font-size: 15px;
-
+    
     &::after {
       font-size: 25px;
     }
+  }
+
+  &.d-grid {
+    grid-template-columns: auto auto auto auto auto;
   }
 }
 
@@ -533,6 +536,39 @@ html[lang="ar"] {
     height: auto;
     filter: brightness(0.2);
   }
+}
+
+.sub-title {
+  color: map_get(colors.$theme-colors, primary);
+  position: relative;
+  width: fit-content;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    right: -110px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background-color: map_get(colors.$theme-colors, primary);
+  }
+}
+
+html[lang="ar"] {
+  .arrow-btn {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  .sub-title {
+    &::after {
+      left: -110px;
+      right: unset;
+      transform: translateY(50%);
 }
 
 .sub-title {
@@ -677,8 +713,48 @@ html[lang="ar"] {
       .thumbnail_img {
         max-width: 30px;
       }
-    }
 
+    }
+  }
+
+  header {
+    @media (max-width: 992px) {
+      .main-head {
+        .navbar {
+          right: 0;
+          left: unset;
+          @include mixins.prefix(transform, translateX(100%), webkit ms o);
+          @include mixins.prefix(transform-origin, left, webkit ms o);
+          &.open {
+            @include mixins.prefix(transform, translateX(0), webkit ms o);
+          }
+        }
+      }
+    }
+  }
+  .main-sec .text-bg {
+    right: -30%;
+    left: unset;
+  }
+}
+
+@media (max-width: 767px) {
+    
+.product-slide {
+    &.d-grid {
+      grid-template-columns: auto;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    
+.product-slide {
+    &.d-grid {
+      grid-template-columns: auto auto auto;
+    }
+  }
+}
     &.p-galleria-thumbnail-item-current {
       @include mixins.prefix(
         box-shadow,
