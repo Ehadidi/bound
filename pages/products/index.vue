@@ -2,7 +2,7 @@
   <div class="row mx-0">
     <div class="col-md-4 col-lg-3 bg-lightGrayClr py-3 px-0">
       <form action="">
-        <div class="px-lg-5 border-bottom border-white mb-3 pb-3">
+        <div class="px-3 px-lg-5 border-bottom border-white mb-3 pb-3">
           <label class="fw-bold txt_start d-block mb-2">{{
             $t("layout.sub_category")
           }}</label>
@@ -18,7 +18,7 @@
             <div class="feedback city_feedback"></div>
           </div>
         </div>
-        <div class="px-lg-5 border-bottom border-white mb-3">
+        <div class="px-3 px-lg-5 border-bottom border-white mb-3">
           <label class="fw-bold txt_start d-block mb-2">{{
             $t("layout.price")
           }}</label>
@@ -52,14 +52,14 @@
             </FormInput>
           </div>
         </div>
-        <div class="px-lg-5 border-bottom border-white mb-3 pb-3">
+        <div class="px-3 px-lg-5 border-bottom border-white mb-3 pb-3">
           <FormCheckbox
             name="best_selling"
             :model="filterForm"
             :label="$t('layout.best_selling')"
           />
         </div>
-        <div class="px-lg-5 mb-3 pb-3">
+        <div class="px-3 px-lg-5 mb-3 pb-3">
           <button class="btn btn-primary arrow-effect">
             {{ $t("layout.apply") }}
           </button>
@@ -83,8 +83,12 @@
         </template>
       </FormInput>
 
-      <div class="row product-slide">
-        <div class="col-md-3 product-slide-item" v-for="i in 10" :key="i">
+      <div class="d-grid product-slide">
+        <div
+          class=" product-slide-item mb-3"
+          v-for="i in 10"
+          :key="i"
+        >
           <CategoriesProductCard
             productImg="https://www.freepnglogos.com/uploads/women-bag-png/women-bag-png-transparent-images-download-clip-4.png"
             price="250 SAR"
@@ -99,8 +103,10 @@
 </template>
 
 <script setup>
-import { useI18n } from "vue-i18n";
+import Rating from "primevue/rating";
 
+import { useI18n } from "vue-i18n";
+const value = ref(3);
 const { t } = useI18n();
 const filterForm = ref({
   selectedCat: "",
