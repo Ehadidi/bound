@@ -1,13 +1,14 @@
 <template>
     <div class="home-sections">
+
         <div class="home-swiper">
             <!-- :autoplay="{
                 delay: 5000,
                 disableOnInteraction: false,
             }"  -->
             <Swiper :autoplay="false" :pagination="{
-    dynamicBullets: true,
-}" :navigation="true" :modules="modules" class="main-slide">
+                dynamicBullets: true,
+            }" :navigation="true" :modules="modules" class="main-slide">
                 <SwiperSlide class="main-slide-item">
                     <img src="~/assets/images/background-51.png" alt="">
                     <div class="slider-content">
@@ -34,6 +35,7 @@
                 </SwiperSlide>
             </Swiper>
         </div>
+
         <section class="main-sec">
             <div class="container">
                 <div class="sec-title">
@@ -94,14 +96,15 @@
                 </div>
             </div>
         </section>
+
         <section class="main-sec bg-lightGrayClr">
             <div class="container m-bottom-100">
                 <div class="sec-title">
                     <h2 class="title">{{ $t('layout.handbags') }}</h2>
                     <div class="text-bg"><img src="~/assets/images/products-text.png" alt="products"></div>
                 </div>
-                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false" :spaceBetween="30"
-                    :freeMode="true" :modules="modules">
+                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true"
+                    :pagination="false" :spaceBetween="30" :freeMode="true" :modules="modules">
                     <SwiperSlide class="product-slide-item" v-for="i in 10" :key="i">
                         <CategoriesProductCard
                             productImg="https://www.freepnglogos.com/uploads/women-bag-png/women-bag-png-transparent-images-download-clip-4.png"
@@ -113,8 +116,8 @@
                 <div class="sec-title">
                     <h2 class="title">{{ $t('layout.dresses') }}</h2>
                 </div>
-                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false" :spaceBetween="30"
-                    :freeMode="true" :modules="modules">
+                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true"
+                    :pagination="false" :spaceBetween="30" :freeMode="true" :modules="modules">
                     <SwiperSlide class="product-slide-item" v-for="i in 10" :key="i">
                         <CategoriesProductCard
                             productImg="https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png"
@@ -123,14 +126,15 @@
                 </swiper>
             </div>
         </section>
+
         <section class="main-sec">
             <div class="container">
                 <div class="sec-title">
                     <h2 class="title">{{ $t('layout.exclusive_offers') }}</h2>
                     <div class="text-bg"><img src="~/assets/images/Exclusive-text.png" alt="Exclusive Offers"></div>
                 </div>
-                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false" :spaceBetween="30"
-                    :freeMode="true" :modules="modules">
+                <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true"
+                    :pagination="false" :spaceBetween="30" :freeMode="true" :modules="modules">
                     <SwiperSlide class="product-slide-item" v-for="i in 10" :key="i">
                         <CategoriesProductCard
                             productImg="https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png"
@@ -139,9 +143,11 @@
                 </swiper>
             </div>
         </section>
+
         <SettingsSubscribe />
-        
+
         <SettingsContactUs />
+
     </div>
 </template>
 
@@ -160,18 +166,18 @@ const gethtlang = () => {
 }
 const breakpoints = {
     320: {
-      slidesPerView: 1,
+        slidesPerView: 1,
     },
     480: {
-      slidesPerView: 2,
+        slidesPerView: 2,
     },
     767: {
-      slidesPerView: 3,
+        slidesPerView: 3,
     },
     992: {
-      slidesPerView: 4,
+        slidesPerView: 4,
     }
-  }
+}
 
 // ================================================================================ methods
 
@@ -186,15 +192,19 @@ onMounted(() => {
     .main-slide-item {
         width: 100% !important;
         height: 750px;
+
         @media (max-width: 992px) {
             height: 400px;
         }
+
         @media (max-width: 767px) {
             height: 300px;
         }
+
         @media (max-width: 425px) {
             height: 250px;
         }
+
         @media (max-width: 375px) {
             height: 200px;
         }
@@ -230,15 +240,19 @@ onMounted(() => {
                     left: -80%;
                 }
             }
+
             @media (max-width: 767px) {
                 gap: 20px;
-                .title{
+
+                .title {
                     font-size: 20px;
                 }
-                p{
+
+                p {
                     font-size: 12px !important;
                 }
-                .btn{
+
+                .btn {
                     min-width: 130px;
                     font-size: 12px;
                     height: 35px;
@@ -280,4 +294,5 @@ html[lang='ar'] {
             }
         }
     }
-}</style>
+}
+</style>
