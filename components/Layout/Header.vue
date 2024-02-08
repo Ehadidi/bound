@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-white p-3">
+    <header class="bg-white px-3">
         <div class="top-head">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
