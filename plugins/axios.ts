@@ -5,7 +5,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const i18n_redirected = useCookie("i18n_redirected");
 //   const auth = useCookie("auth");
 //   const token = auth.value && auth.value.token ? auth.value.token : "";
-  const lang = i18n_redirected.value == "ar-US" ? "ar" : "en";
+  const lang = i18n_redirected.value == "ar-EG" ? "ar" : "en";
   let api = axios.create({
     baseURL: defaultUrl,
     headers: {
