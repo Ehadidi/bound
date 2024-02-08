@@ -35,7 +35,7 @@ import { toast_handel } from "~/network/ValidTost";
 // ========================================================================== data
 const emit = defineEmits(["returnmsg"]);
 const props = defineProps({
-    user_data: {
+    user_auth: {
         type: [Object]
     },
 })
@@ -61,8 +61,8 @@ const verification = async () => {
     loading.value = true;
     const fd = new FormData();
     fd.append('code', activ_code.value)
-    fd.append("phone", props.user_data.data.phone);
-    fd.append("country_code", props.user_data.data.country_code);
+    fd.append("phone", props.user_auth.phone);
+    fd.append("country_code", props.user_auth.country_code);
     fd.append("device_id", '1');
     fd.append("device_type", 'web');
     await authStore.handelVerification(fd);
