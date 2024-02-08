@@ -51,7 +51,6 @@
                 </FormInput>
 
                 <div class="d-grid product-slide">
-                    <!-- col-6 md:col-4 lg:col-3 -->
                     <div class="" v-for="i in 10" :key="i">
                         <div class=" product-slide-item mb-3">
                             <CategoriesProductCard
@@ -67,7 +66,6 @@
 
 <script setup>
 import Rating from "primevue/rating";
-
 import { useI18n } from "vue-i18n";
 const value = ref(3);
 const { t } = useI18n();
