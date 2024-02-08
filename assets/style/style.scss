@@ -722,7 +722,7 @@ html[lang="ar"] {
   .p-rating-item {
     &.p-rating-item-active {
       .p-rating-icon.p-icon {
-        color: map_get(colors.$theme-colors, orange);
+        color: map_get(colors.$theme-colors, orange-color);
       }
     }
 
