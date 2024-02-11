@@ -65,8 +65,12 @@
   //   height: fit-content;
   // }
 }
-
-i.fa-star {
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+i.fa-star{
   color: map_get(colors.$theme-colors, orange-color);
   font-size: 13px;
 }

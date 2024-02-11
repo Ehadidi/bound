@@ -210,6 +210,7 @@ header {
     padding: 15px;
     position: relative;
     transition: 0.3s all ease-in-out;
+    flex-grow: 1;
 
     .arrow {
       position: absolute;
@@ -237,6 +238,14 @@ header {
       transition: 0.3s all ease-in-out;
     }
 
+    .arrow-btn{
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+    }
     .default-link {
       img {
         width: 20px;

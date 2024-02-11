@@ -22,7 +22,7 @@
                                 <ul v-if="dropShown" class="dropdown-menu">
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/settings')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/settings.svg"
                                                     alt="settings" />
@@ -41,7 +41,7 @@
                                     </li>
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/addresses')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/GPS.svg" alt="GPS" />
                                                 <span class="user-txt">{{ $t("layout.my_addresses") }}</span>
@@ -144,16 +144,16 @@
                                     $t('header.about') }}</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
-                                    $t('header.subscription') }}
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/subscribtions')">
+                                    {{ $t('header.subscription') }}
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/orders')">{{
                                     $t('header.my_orders') }}</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/contact')">{{
                                     $t('header.contact_us') }}
                                 </NuxtLink>
                             </li>
@@ -406,6 +406,7 @@ onMounted(() => {
 watch(useRout, () => {
     if (authStore.user) {
         const localeToken = authStore.user.data.token;
+        console.log(localeToken);
         if (localeToken) {
             IsAuth.value = true;
         } else {

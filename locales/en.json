@@ -33,7 +33,8 @@
     "to": "To",
     "best_selling": "Best selling",
     "apply": "Apply",
-    "search_products": "Search for products here.."
+    "search_products": "Search for products here..",
+    "view_more": "View more"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -110,7 +111,9 @@
     "select_messag_type": "Please select message type",
     "emptyFilterMessage": "No results found",
     "complaint": "Complaint details required",
-    "is_terms": "Please accept the terms and conditions"
+    "is_terms": "Please accept the terms and conditions",
+    "subject": "Subject is required",
+    "message": "Message is required"
   },
   "product":{
     "price": "Price",
@@ -142,5 +145,14 @@
       "home": "Home page",
       "myOrders": "My orders"
     }
+  },
+  "orders": {
+    "order_num": "Order Num",
+    "wait_approv": "Waiting For Approval",
+    "payment": "Payment",
+    "active_orders": "Active orders",
+    "completed_orders": "Completed orders",
+    "wait_payment": "Waiting for Payment",
+    "active": "Active"
   }
 }
