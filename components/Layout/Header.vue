@@ -149,7 +149,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/orders')">{{
                                     $t('header.my_orders') }}</NuxtLink>
                             </li>
                             <li>
