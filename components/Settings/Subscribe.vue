@@ -6,24 +6,23 @@
                 <div class="text-bg"><img src="~/assets/images/Subscription-text.png" alt="subscription"></div>
             </div>
             <div class="grid">
-                <div v-for="i in 3" :key="i" class="col-12 md:col-6 lg:col-4">
+                <div v-for="item in subscriptions" :key="item" class="col-12 md:col-6 lg:col-4">
                     <div class="subscription-card">
                         <div class="sub-head">
                             <div class="flex flex-column font18">
-                                <span class="fw-bold">month subscription</span>
-                                <span class="montagu fw-bold">Name Goes here</span>
+                                <span class="fw-bold">{{ item.period }}</span>
+                                <span class="montagu fw-bold">{{ item.name }}</span>
                             </div>
                             <div class="price-circle">
-                                <span>250</span>
+                                <span>{{ item.price }}</span>
                                 <span>SAR</span>
                             </div>
                         </div>
                         <div class="sub-desc">
-                            <p class="fw-medium">
-                                Lorem ipsum dolor sit met consectetur. vel dial frangula nullar orcin incidents.
-                            </p>
+                            <div class="fw-medium" v-html="item.description">
+                            </div>
                         </div>
-                        <div class="sub-adv">
+                        <!-- <div class="sub-adv">
                             <ul>
                                 <li>
                                     <div class="flex align-items-center gap10">
@@ -44,7 +43,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <div class="sub-btn">
                             <img class="logo-brand" src="~/assets/images/logo-vector.png" alt="logo">
                             <NuxtLink class="default-link arrow-btn" :to="localPath('/')">
@@ -63,7 +62,34 @@
 </template>
 
 <script setup>
+// ========================================================================== imports
+import { response } from "~/network/response";
+import { useAuthStore } from "~/stores/auth";
+// ========================================================================== data
 const localPath = useLocalePath();
+const axios = useNuxtApp().$axios;
+const subscriptions = ref([])
+const authStore = useAuthStore();
+// ========================================================================== methods
+const get_subscriptions = async () => {
+    let config = ''
+    if (authStore.user) {
+        config = {
+            headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+        }
+    }   
+    const res = await axios.get('packages', config)
+    let statuts = response(res).status
+    let data = response(res).data
+    if (statuts === 'success') {
+        subscriptions.value = data
+        console.log(subscriptions.value);
+    }
+}
+// ========================================================================== hooks
+onMounted(() => {
+    get_subscriptions()
+})
 </script>
 
 <style lang="scss" scoped></style>

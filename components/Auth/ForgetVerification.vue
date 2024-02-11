@@ -7,7 +7,7 @@
                 separator="" :num-inputs="4" :should-auto-focus="true" input-type="letter-numeric"
                 :conditionalClass="['one', 'two', 'three', 'four']" @on-complete="handleOnComplete" />
             <div class="flex align-items-center justify-content-between w-100">
-                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min">
+                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min" @click="resend_code" disabled>
                     <span>{{ $t('form_layout.reSend') }}</span>
                     <div class="spinner-border spinner-border-sm d-none" :class="{ 'd-block': LoadBtn }" role="status">
                         <span class="sr-only">Loading...</span>
@@ -106,6 +106,17 @@ const forget_verification = async () => {
     }
 }
 
+//  ======================== resend code
+const resend_code = async () => {
+    const res = await axios.get(`resend-code?phone=${props.user_auth.phone}&country_code=${props.user_auth.country_code}`)
+    let status = response(res).status
+    let msg = response(res).msg
+    if (status === 'success') {
+        notify_toast(msg, "success");
+    } else {
+        notify_toast(msg, "error");
+    }
+}
 // ====================== back to login
 const back_to_login = () => {
     emit('backToLogin')

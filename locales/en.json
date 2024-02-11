@@ -110,6 +110,8 @@
     "select_messag_type": "Please select message type",
     "emptyFilterMessage": "No results found",
     "complaint": "Complaint details required",
-    "is_terms": "Please accept the terms and conditions"
+    "is_terms": "Please accept the terms and conditions",
+    "subject": "Subject is required",
+    "message": "Message is required"
   }
 }
