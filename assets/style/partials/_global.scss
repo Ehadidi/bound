@@ -49,6 +49,14 @@
   filter: invert(1);
 }
 
+.main_shadow {
+  @include mixins.prefix(
+    box-shadow,
+    0 2px 14px 0 rgba(0, 0, 0, 0.1),
+    webkit ms o
+  );
+}
+
 .v-rating__item {
   color: goldenrod;
 
@@ -58,9 +66,13 @@
   // }
 }
 
-i.fa-star{
+i.fa-star {
   color: map_get(colors.$theme-colors, orange-color);
   font-size: 13px;
+}
+
+hr {
+  border-top-color: #c6a3a3 !important;
 }
 
 @keyframes actDown {
@@ -231,6 +243,20 @@ html[lang="ar"] {
   min-width: 200px;
   border: 1px solid #fff;
   border-color: #fff !important;
+
+  .ic {
+    max-width: 17px;
+  }
+
+  &.sm {
+    min-width: 130px;
+  }
+
+  &.transparent {
+    background-color: transparent !important;
+    border-color: map_get(colors.$theme-colors, primary) !important;
+    color: map_get(colors.$theme-colors, primary);
+  }
 }
 
 .btn-unstyed {
@@ -244,6 +270,10 @@ html[lang="ar"] {
 :placeholder-shown::-webkit-input-placeholder {
   opacity: 1;
   color: #656565;
+}
+
+.dir {
+  direction: ltr !important;
 }
 
 .flex-center {
@@ -387,6 +417,13 @@ input.default {
 
 .dir-slider {
   direction: ltr !important;
+}
+
+.ms-auto {
+
+  margin-left: unset !important;
+  margin-right: unset !important;
+  margin-inline-start: auto !important;
 }
 
 .fs-10px {
@@ -993,7 +1030,7 @@ html[lang="en"] {
 /* start footer */
 footer {
   padding: 50px 0 0;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 
   .footer-list {
     ul {
@@ -1037,7 +1074,7 @@ footer {
   }
 
   .footer-bottom {
-    background-color: #E0E0E0;
+    background-color: #e0e0e0;
     text-align: center;
     margin-top: 30px;
     padding: 10px;

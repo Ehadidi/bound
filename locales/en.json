@@ -111,5 +111,36 @@
     "emptyFilterMessage": "No results found",
     "complaint": "Complaint details required",
     "is_terms": "Please accept the terms and conditions"
+  },
+  "product":{
+    "price": "Price",
+    "brand": "Brand",
+    "rating": "Rating",
+    "size": "Size",
+    "color": "Color",
+    "another_products": "You may also like"
+  },
+  "cart":{
+    "items": "Items added to cart",
+    "details": "Order Details",
+    "paymentDetails": "Payment Details",
+    "paymentMethod": "Payment Method",
+    "location": "Location",
+    "other": "Other Details",
+    "rentingCost": "Renting Cost",
+    "deposit": "Refundable Deposit",
+    "delivery": "Delivery",
+    "total": "Total",
+    "sendOrder": "Confirm Order",
+    "depositInfo": "will be Refunded after we retrieve the product",
+    "payment":{
+      "online": "Online Payment",
+      "wallet": "My Wallet"
+    },
+    "done":{
+      "text": "Your order was sent successfully",
+      "home": "Home page",
+      "myOrders": "My orders"
+    }
   }
 }
