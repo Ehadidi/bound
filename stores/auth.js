@@ -28,7 +28,6 @@ export const useAuthStore = defineStore("auth", {
             const response = await $axios.post("sign-in?count_notifications=", form);
             this.authUser = response.data;
         },
-
         async logout(token) {
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
