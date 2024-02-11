@@ -33,7 +33,8 @@
     "to": "الي",
     "best_selling": "افضل مبيعا",
     "apply": "تطبيق",
-    "search_products": "ابحث عن المنتجات هنا.."
+    "search_products": "ابحث عن المنتجات هنا..",
+    "view_more": "عرض المزيد"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -111,5 +112,14 @@
     "emptyFilterMessage": "لا توجد نتائج",
     "complaint": "تفاصيل الشكوي مطلوب",
     "is_terms": "يرجي الموافقة علي الشروط والاحكام"
+  },
+  "orders": {
+    "order_num": "رقم الطلب",
+    "wait_approv": "بانتظار الموافقة",
+    "payment": "دفع",
+    "active_orders": "الطلبات النشطة",
+    "completed_orders": "الطلبات المكتملة",
+    "wait_payment": "في انتظار الدفع",
+    "active": "نشط"
   }
 }

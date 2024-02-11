@@ -46,7 +46,7 @@
               <div class="card-img">
                 <img src="~/assets/images/service-4.png" alt="dresses">
                 <div class="hv-layer">
-                  <NuxtLink :to="localPath('/products')">
+                  <NuxtLink :to="localPath('/products/categories/1')">
                     <div class="flex align-items-end justify-content-center w-100 h-100">
                       <img class="width40 height40" src="~/assets/images/link-icon.svg" alt="link">
                     </div>
@@ -56,7 +56,7 @@
               <div class="card-info">
                 <h5 class="title text-secondary">{{ $t('layout.dresses') }}</h5>
                 <p class="fs-6 text-center p-2">{{ $t('layout.dresses_caption') }}</p>
-                <NuxtLink class="default-link arrow-btn" :to="localPath('/products')">
+                <NuxtLink class="default-link arrow-btn" :to="localPath('/products/categories/1')">
                   <div class="d-flex align-items-center">
                     <span>{{ $t('layout.see_more') }}</span>
                     <img src="~/assets/images/ArrowRight.svg" alt="arrow">
@@ -71,7 +71,7 @@
               <div class="card-info">
                 <h5 class="title text-secondary ">{{ $t('layout.handbags') }}</h5>
                 <p class="fs-6 text-center">{{ $t('layout.handbags_caption') }}</p>
-                <NuxtLink class="default-link  arrow-btn" :to="localPath('/products')">
+                <NuxtLink class="default-link  arrow-btn" :to="localPath('/products/categories/2')">
                   <div class="d-flex align-items-center">
                     <span>{{ $t('layout.see_more') }}</span>
                     <img src="~/assets/images/ArrowRight.svg" alt="arrow">
@@ -82,7 +82,7 @@
               <div class="card-img">
                 <img src="~/assets/images/service-4.png" alt="handbags">
                 <div class="hv-layer">
-                  <NuxtLink :to="localPath('/products')">
+                  <NuxtLink :to="localPath('/products/categories/2')">
                     <div class="flex align-items-center w-100 h-100">
                       <img class="width40 height40" src="~/assets/images/link-icon.svg" alt="link">
                     </div>
