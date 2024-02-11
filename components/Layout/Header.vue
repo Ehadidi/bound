@@ -166,7 +166,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink :to="localPath('/')"><img src="~/assets/images/Cart.svg" alt="cart"></NuxtLink>
+                                <NuxtLink :to="localPath('/cart')"><img src="~/assets/images/Cart.svg" alt="cart"></NuxtLink>
                             </li>
                             <li>
                                 <button @click="search = true" class="btn-unstyed">

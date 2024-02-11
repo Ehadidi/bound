@@ -1,6 +1,7 @@
 <template>
   <div :class="parentClass" class="position-relative">
     <label v-if="label" class="d-block mb-2 fw-bold font14 text-primary">{{ label }}</label>
+    <label v-if="label2" class="d-block mb-2 font13 text-label">{{ label2 }}</label>
     <div
       class="form-inputs"
       :class="{ unIconed: !icon, iconLeft: iconLeft == true, iconRight: iconRight == true }"
@@ -74,6 +75,9 @@ const props = defineProps({
     type: String
   },
   label: {
+    type: String
+  },
+  label2: {
     type: String
   },
   max: {
