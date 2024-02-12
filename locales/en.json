@@ -83,10 +83,9 @@
     "change_password": "Change Password",
     "login_problem": "Do you have a problem logging in?",
     "suggestion":"suggestion",
-    "complaint":"complaint"
+    "complaint":"complaint",
     "change_phone": "Change Phone",
     "delete_account": "Delete Account",
-    "login_problem": "Do you have a problem logging in?",
     "save_changes": "Save changes"
   },
   "validate_msg": {
