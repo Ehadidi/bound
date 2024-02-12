@@ -1,20 +1,20 @@
 <template>
-    <header class="bg-white p-3">
+    <header class="bg-white px-3">
         <div class="top-head">
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
-                    <div v-if="!auth" class="d-flex items-start gap-2">
+                    <div v-if="!IsAuth" class="d-flex items-start gap-2">
                         <span class="pi pi-user"></span>
                         <button @click="auth_modal = true" class="btn p-0 w-fit min-w-min h-fit">{{ $t('header.auth')
                         }}</button>
                     </div>
-                    <div v-else class="d-flex align-items-center flex-wrap side-btns">
-                        <div v-if="user_auth" class="dropdown" ref="target">
+                    <div v-if="IsAuth" class="d-flex align-items-center flex-wrap side-btns">
+                        <div class="dropdown" ref="target">
                             <button class="btn p-0 dropdownToggle min-w-min h-fit" @click="dropShown = !dropShown"
                                 type="button">
                                 <div class="d-flex align-items-center">
                                     <img src="~/assets/images/user.svg" alt="user profile">
-                                    <span class="mx-2 fw-bold">{{ user_auth.name }}</span>
+                                    <span v-if="user_auth.name" class="mx-2 fw-bold">{{ user_auth.name }}</span>
                                     <i class="fa-solid fa-chevron-down text-dark fs-10px"></i>
                                 </div>
                             </button>
@@ -22,7 +22,7 @@
                                 <ul v-if="dropShown" class="dropdown-menu">
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/settings')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/settings.svg"
                                                     alt="settings" />
@@ -41,7 +41,7 @@
                                     </li>
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/addresses')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/GPS.svg" alt="GPS" />
                                                 <span class="user-txt">{{ $t("layout.my_addresses") }}</span>
@@ -144,16 +144,16 @@
                                     $t('header.about') }}</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
-                                    $t('header.subscription') }}
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/subscribtions')">
+                                    {{ $t('header.subscription') }}
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/orders')">{{
                                     $t('header.my_orders') }}</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/contact')">{{
                                     $t('header.contact_us') }}
                                 </NuxtLink>
                             </li>
@@ -166,7 +166,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink :to="localPath('/')"><img src="~/assets/images/Cart.svg" alt="cart"></NuxtLink>
+                                <NuxtLink :to="localPath('/cart')"><img src="~/assets/images/Cart.svg" alt="cart"></NuxtLink>
                             </li>
                             <li>
                                 <button @click="search = true" class="btn-unstyed">
@@ -194,7 +194,7 @@
             <div class="container">
                 <TabView>
                     <TabPanel :header="$t('form_layout.login')">
-                        <AuthLogin @modal-changed="forgetPassword" @login_success="login_success" />
+                        <AuthLogin @login-toForgetPassword="forgetPassword" @login_success="login_success" />
                     </TabPanel>
                     <TabPanel :header="$t('form_layout.sign_up')">
                         <AuthSignUp @activation-signup="Verification_signup" @terms-modal="TermsModal" />
@@ -210,7 +210,7 @@
                 </div>
             </template>
             <div class="container">
-                <AuthVerification @on-complete="activation_code" :user_data="user_data" @returnToLogin="backToLogin"
+                <AuthVerification @on-complete="activation_code" :user_auth="user_auth" @returnToLogin="backToLogin"
                     @returnmsg="returnmsg" />
             </div>
         </Dialog>
@@ -222,7 +222,8 @@
                 </div>
             </template>
             <div class="container">
-                <AuthForgetVerification @backToLogin="backToLogin" />
+                <AuthForgetVerification @backToLogin_from_reset="backToLogin_from_reset" @backToLogin="backToLogin"
+                    :phone_number="phone_number" :country_code="country_code" />
             </div>
         </Dialog>
         <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '25rem' }">
@@ -233,6 +234,18 @@
                         {{ active_msg }}
                     </h5>
                     <button class="btn btn-primary w-100" @click="success_modal = false">{{ $t('form_layout.continue')
+                    }}</button>
+                </div>
+            </div>
+        </Dialog>
+        <Dialog class="site-modal none-header" v-model:visible="success_modal_from_reset" modal :style="{ width: '25rem' }">
+            <div class="container">
+                <div class="flex justify-content-center align-items-center flex-column py-4 gap30">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <h5 class="text-center fw-bold text-primary fw-bold">
+                        {{ active_msg }}
+                    </h5>
+                    <button class="btn btn-primary w-100" @click="reset_password_success">{{ $t('form_layout.login')
                     }}</button>
                 </div>
             </div>
@@ -248,12 +261,14 @@ import { useRoute } from "vue-router";
 import TabPanel from 'primevue/tabpanel';
 import { onClickOutside } from "@vueuse/core";
 import { toast_handel } from "~/network/ValidTost";
+import { response } from '~/network/response';
 // ========================================================================= data
+const axios = useNuxtApp().$axios;
 const localPath = useLocalePath();
 const { notify_toast } = toast_handel();
 const route = useRouter()
 const useRout = useRoute()
-const auth = ref(false)
+const IsAuth = ref(false)
 const authStore = useAuthStore();
 const search = ref(false)
 const phoneMedia = ref(null)
@@ -261,12 +276,14 @@ const auth_modal = ref(false)
 const forget_password = ref(false)
 const Verification = ref(false)
 const active_msg = ref()
-const user_data = ref()
 const user_auth = ref({})
 const success_modal = ref(false)
+const success_modal_from_reset = ref(false)
 const dropShown = ref(false);
 const target = ref(null);
 onClickOutside(target, (event) => (dropShown.value = false));
+const phone_number = ref()
+const country_code = ref()
 // ========================================================================= methods
 // ============================= mediaHandller
 if (window) {
@@ -293,11 +310,15 @@ const closeSideMenu = () => {
         document.querySelector('.navbar').classList.remove('open')
     }
 }
-//  ============================ modal emits
-const forgetPassword = () => {
+//  ================================================================= modal emits
+// ================== close auth modal open forget password modal
+const forgetPassword = (phone, code) => {
     auth_modal.value = false
     forget_password.value = true
+    phone_number.value = phone
+    country_code.value = code
 }
+// ================== backToLogin from forget password modal
 const backToLogin = () => {
     auth_modal.value = true
     forget_password.value = false
@@ -305,37 +326,67 @@ const backToLogin = () => {
         Verification.value = false
     }
 }
+// ================== backToLogin from reset password modal
+const backToLogin_from_reset = (res) => {
+    console.log(res);
+    success_modal_from_reset.value = true
+    forget_password.value = false
+    active_msg.value = res.data.msg
+}
+// ================== return msg from sign up verification
 const returnmsg = (msg) => {
     Verification.value = false
     success_modal.value = true
     active_msg.value = msg
+    setTimeout(() => {
+        success_modal.value = false
+        get_profile()
+    }, 1000);
 }
-const Verification_signup = (user) => {
+// ================== verification after signup
+const Verification_signup = () => {
     Verification.value = true
     setTimeout(() => {
         auth_modal.value = false
     }, 500);
-    user_data.value = user
     user_auth.value = authStore.user.data
-    route.push(localPath({ path: "/" }));
 }
+// ================== login success
 const login_success = () => {
     auth_modal.value = false
     user_auth.value = authStore.user.data
-    route.push(localPath({ path: "/" }));
+    get_profile()
+}
+// ================== reset password success
+const reset_password_success = () => {
+    auth_modal.value = true
+    success_modal_from_reset.value = false
 }
 //========================================== log out handler 
 const logout = async () => {
     dropShown.value = !dropShown.value
     await authStore.logout(authStore.user.data.token)
     if (authStore.logedout.data.key == 'success') {
+        IsAuth.value = false;
         notify_toast(authStore.logedout.data.msg, "success");
         route.push(localPath({ path: "/" }));
-
     } else {
         notify_toast(authStore.logedout.data.msg, "error");
     }
-
+}
+// ==================================== get profile
+const get_profile = async () => {
+    IsAuth.value = true
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get('profile', config)
+    let status = response(res).status
+    if (status === 'success') {
+        user_auth.value = response(res).data
+        // window.location.reload()
+        // IsAuth.value = true
+    }
 }
 // ========================================================================= lifecycle hooks
 onMounted(() => {
@@ -343,21 +394,23 @@ onMounted(() => {
         user_auth.value = authStore.user.data
         const localeToken = authStore.user.data.token;
         if (localeToken) {
-            auth.value = true;
+            IsAuth.value = true;
         } else {
-            auth.value = false;
+            IsAuth.value = false;
             user_auth.value = null
         }
     }
 })
+// watch(user_auth.value, async () => {}, {immediate: true})
 // watch route auth
 watch(useRout, () => {
     if (authStore.user) {
         const localeToken = authStore.user.data.token;
+        console.log(localeToken);
         if (localeToken) {
-            auth.value = true;
+            IsAuth.value = true;
         } else {
-            auth.value = false;
+            IsAuth.value = false;
             user_auth.value = null
         }
     }

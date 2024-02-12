@@ -179,7 +179,7 @@ const handelSignUp = async () => {
         if (authStore.user.key == "success") {
             loading.value = false;
             notify_toast(authStore.user.msg, "success");
-            emit('activation-signup' , authStore.user)
+            emit('activation-signup')
            
         } else {
             loading.value = false;

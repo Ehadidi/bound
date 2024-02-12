@@ -7,7 +7,7 @@
                 separator="   " :num-inputs="4" :should-auto-focus="true" input-type="letter-numeric"
                 :conditionalClass="['one', 'two', 'three', 'four']" @on-complete="handleOnComplete" />
             <div class="flex align-items-center justify-content-between w-100">
-                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min">
+                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min" @click="resend_code" disabled>
                     <span>{{ $t('form_layout.reSend') }}</span>
                     <div class="spinner-border spinner-border-sm d-none" :class="{ 'd-block': LoadBtn }" role="status">
                         <span class="sr-only">Loading...</span>
@@ -32,10 +32,12 @@
 import VOtpInput from "vue3-otp-input";
 import { useAuthStore } from "~/stores/auth";
 import { toast_handel } from "~/network/ValidTost";
+import { response } from '~/network/response';
 // ========================================================================== data
 const emit = defineEmits(["returnmsg"]);
+const axios = useNuxtApp().$axios;
 const props = defineProps({
-    user_data: {
+    user_auth: {
         type: [Object]
     },
 })
@@ -47,7 +49,7 @@ const loading = ref(false)
 const authStore = useAuthStore();
 const activ_code = ref()
 const Count_txt = ref()
-
+const loading_resend = ref(false)
 // ========================================================================== methods
 //  ======================== clear otp
 const clearInput = () => {
@@ -61,8 +63,8 @@ const verification = async () => {
     loading.value = true;
     const fd = new FormData();
     fd.append('code', activ_code.value)
-    fd.append("phone", props.user_data.data.phone);
-    fd.append("country_code", props.user_data.data.country_code);
+    fd.append("phone", props.user_auth.phone);
+    fd.append("country_code", props.user_auth.country_code);
     fd.append("device_id", '1');
     fd.append("device_type", 'web');
     await authStore.handelVerification(fd);
@@ -75,6 +77,17 @@ const verification = async () => {
     } else {
         loading.value = false;
         notify_toast(authStore.user.msg, "error");
+    }
+}
+//  ======================== resend code
+const resend_code = async () => {
+    const res = await axios.get(`resend-code?phone=${props.user_auth.phone}&country_code=${props.user_auth.country_code}`)
+    let status = response(res).status
+    let msg = response(res).msg
+    if (status === 'success') {
+        notify_toast(msg, "success");
+    } else {
+        notify_toast(msg, "error");
     }
 }
 //  ========================================================================== lifecycle

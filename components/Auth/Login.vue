@@ -8,7 +8,7 @@
     </div>
     <form @submit.prevent="login" ref="loginForm">
         <FormInput :label="$t('form_layout.phone')" InputClass="validated" @change="change_valid"
-            :placeholder="$t('form_layout.enter_phone')" :model="form" name="phone" type="number" parentClass="my-3" 
+            :placeholder="$t('form_layout.enter_phone')" :model="form" name="phone" type="number" parentClass="my-3"
             :icon="true" :addition="true">
             <template #icon>
                 <img class="width20" src="~/assets/images/phone.svg" alt="phone">
@@ -29,17 +29,11 @@
             </template>
         </FormInput>
         <div class="flex justify-content-end my-3">
-            <button type="button" @click="toggleModalForhotPassword"
+            <button type="button" @click="forget_send_code"
                 class="btn p-0 w-fit h-fit min-w-min underline fw-bold font13">{{ $t('form_layout.forgot_password')
                 }}</button>
         </div>
         <div class="my-5">
-            <!-- <button class="btn w-100 btn-primary">
-                <div class="flex align-items-baseline justify-content-center">
-                    <span class="font14">{{ $t('form_layout.login') }}</span>
-                    <span><img class="width25 height26" src="~/assets/images/login-arrow.svg" alt="login arrow"></span>
-                </div>
-            </button> -->
             <button class="btn w-100 btn-primary mb-4 mt-3" :loading="loading" :disabled="loading === true">
                 <div class="d-flex align-items-center justify-content-center gap5">
                     <span>{{ $t('form_layout.login') }}</span>
@@ -61,7 +55,7 @@ import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
 import { validate, change_valid } from "~/validation/validation";
 // ========================================================================= data
-const emit = defineEmits(['modal-changed' , 'login_success'])
+const emit = defineEmits(['login-toForgetPassword', 'login_success'])
 const form = reactive({
     phone: '',
     password: ''
@@ -69,17 +63,26 @@ const form = reactive({
 const i18n_redirected = useCookie("i18n_redirected");
 const lang = i18n_redirected.value == "en-US" ? "en" : "ar";
 const axios = useNuxtApp().$axios;
-// const localePath = useLocalePath();
 const { notify_toast } = toast_handel();
-// const router = useRouter();
 const authStore = useAuthStore();
 const loading = ref(null);
 const loginForm = ref()
 
 // ========================================================================= methods
-const toggleModalForhotPassword = () => {
-    emit('modal-changed')
+//  ================================= forget send code
+const forget_send_code = async () => {
+    const fd = new FormData(loginForm.value);
+    const res = await axios.post('forget-password-send-code', fd)
+    let status = response(res).status
+    let msg = response(res).msg
+    if (status === 'success') {
+        console.log(form.phone);
+        emit('login-toForgetPassword' , form.phone , 966)
+    } else {
+        notify_toast(msg, "error");
+    }
 }
+// =================================== login 
 const login = async () => {
     loading.value = true;
     const fd = new FormData(loginForm.value);
