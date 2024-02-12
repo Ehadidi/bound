@@ -34,7 +34,8 @@
     "best_selling": "افضل مبيعا",
     "apply": "تطبيق",
     "search_products": "ابحث عن المنتجات هنا..",
-    "view_more": "عرض المزيد"
+    "view_more": "عرض المزيد",
+    "profile_settings": "الاعدادات الشخصية"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -79,7 +80,10 @@
     "City": "المدينة",
     "ChooseCity": "اختر المدينة",
     "change_password": "تغيير كلمة المرور",
-    "login_problem": "هل لديك مشكلة في تسجيل الدخول؟"
+    "change_phone": "تغيير رقم الهاتف",
+    "delete_account": "حذف الحساب",
+    "login_problem": "هل لديك مشكلة في تسجيل الدخول؟",
+    "save_changes": "حفظ التغييرات"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
