@@ -34,7 +34,8 @@
     "best_selling": "Best selling",
     "apply": "Apply",
     "search_products": "Search for products here..",
-    "view_more": "View more"
+    "view_more": "View more",
+    "profile_settings": "Profile Settings"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -79,7 +80,10 @@
     "City": "City",
     "ChooseCity": "Choose City",
     "change_password": "Change Password",
-    "login_problem": "Do you have a problem logging in?"
+    "change_phone": "Change Phone",
+    "delete_account": "Delete Account",
+    "login_problem": "Do you have a problem logging in?",
+    "save_changes": "Save changes"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
