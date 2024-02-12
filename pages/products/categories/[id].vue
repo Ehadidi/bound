@@ -1,9 +1,9 @@
 <template>
   <div class="bg-sectionBg">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-5 py-3 px-0">
-          <form action="">
+      <form @submit.prevent="handelFilter" ref="filter">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-5 py-3 px-0">
             <div class="px-3 px-lg-5 border-bottom border-white mb-3 pb-3">
               <label class="fw-bold txt_start d-block mb-2">{{
                 $t("layout.sub_category")
@@ -11,7 +11,7 @@
               <div class="form-inputs">
                 <Dropdown
                   filter
-                  v-model="filterForm.selectedCat"
+                  v-model="filterForm.sub_category"
                   :options="categories"
                   optionLabel="name"
                   :placeholder="$t('layout.choose_category')"
@@ -28,7 +28,7 @@
               <form-radio-group
                 :options="priceOptions"
                 :model="filterForm"
-                name="price"
+                name="sort_by"
                 isColumn
               >
               </form-radio-group>
@@ -37,7 +37,7 @@
                 <FormInput
                   :placeholder="$t('layout.from')"
                   :model="filterForm"
-                  name="from"
+                  name="price_from"
                   type="text"
                   parentClass="col-12 lg:col-6"
                   :icon="false"
@@ -46,7 +46,7 @@
                 <FormInput
                   :placeholder="$t('layout.to')"
                   :model="filterForm"
-                  name="to"
+                  name="price_to"
                   type="text"
                   parentClass="col-12 lg:col-6"
                   :icon="false"
@@ -66,60 +66,60 @@
                 {{ $t("layout.apply") }}
               </button>
             </div>
-          </form>
-        </div>
-        <div class="col-lg-9 col-md-8 col-sm-7 py-3">
-          <FormInput
-            :placeholder="$t('layout.search_products')"
-            :model="filterForm"
-            name="search"
-            type="text"
-            parentClass="col-12 lg:col-6"
-            :icon="false"
-            :addition="true"
-          >
-            <template #addition>
-              <button class="btn btn-secondary min-w-unset px-3 h-100">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </template>
-          </FormInput>
+          </div>
+          <div class="col-lg-9 col-md-8 col-sm-7 py-3">
+            <FormInput
+              :placeholder="$t('layout.search_products')"
+              :model="filterForm"
+              name="search"
+              type="text"
+              parentClass="col-12 lg:col-6"
+              :icon="false"
+              :addition="true"
+            >
+              <template #addition>
+                <button class="btn btn-secondary min-w-unset px-3 h-100">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </template>
+            </FormInput>
 
-          <div class="d-grid product-slide">
-            <div
-              v-if="loading"
-              class="product-slide-item mb-3 mx-1"
-              v-for="i in 17"
-            >
-              <Skeleton class="product-item" height="9rem"></Skeleton>
+            <div class="d-grid product-slide">
+              <div
+                v-if="loading"
+                class="product-slide-item mb-3 mx-1"
+                v-for="i in 17"
+              >
+                <Skeleton class="product-item" height="9rem"></Skeleton>
+              </div>
+              <div
+                v-else
+                class="product-slide-item mb-3"
+                v-for="product in products"
+                :key="product.id"
+              >
+                <CategoriesProductCard
+                  :productImg="product.image"
+                  :price="product.price"
+                  :productName="product.name"
+                  :rate="product.average_rate"
+                  :id="product.id"
+                />
+              </div>
             </div>
-            <div
-              v-else
-              class="product-slide-item mb-3"
-              v-for="product in products"
-              :key="product.id"
-            >
-              <CategoriesProductCard
-                :productImg="product.image"
-                :price="product.price"
-                :productName="product.name"
-                :rate="product.average_rate"
-                :id="product.id"
+
+            <div v-if="showPaginate">
+              <Paginator
+                :rows="pageLimit"
+                @page="onPaginate"
+                :totalRecords="totalPage"
+                class="mt-5 bg-transparent"
+                dir="ltr"
               />
             </div>
           </div>
-
-          <div v-if="showPaginate">
-            <Paginator
-              :rows="pageLimit"
-              @page="onPaginate"
-              :totalRecords="totalPage"
-              class="mt-5 bg-transparent"
-              dir="ltr"
-            />
-          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -135,11 +135,13 @@ import { useRoute } from "vue-router";
 // ========================================================================= data
 const axios = useNuxtApp().$axios;
 const { t } = useI18n();
+
+const filter = ref();
 const filterForm = ref({
-  selectedCat: "",
-  price: "",
-  from: "",
-  to: "",
+  sub_category: "",
+  sort_by: "",
+  price_from: "",
+  price_to: "",
   best_selling: false,
   search: "",
 });
@@ -161,7 +163,7 @@ const onPaginate = (e) => {
   loading.value = true;
   currentPage.value = e.page + 1;
   window.scrollTo(0, 0);
-  getData();
+  get_products();
 };
 
 let showPaginate = computed(() => {
@@ -203,6 +205,38 @@ const get_products = async () => {
       console.error(e);
     });
 };
+// ===================================== filter
+
+const handelFilter = async () => {
+  loading.value = true;
+  const fd = new FormData(filter.value);
+  fd.append("category", id);
+  if (filterForm.value.best_selling) {
+    fd.append("best_seller", "1");
+  } else {
+    fd.append("best_seller", "0");
+  }
+  if (filterForm.value.sub_category) {
+    fd.append("sub_category", filterForm.value.sub_category.id);
+  } else {
+    fd.append("sub_category", "");
+  }
+  axios
+    .post("filter", fd)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        products.value = data.data;
+        totalPage.value = data.pagination.total_items;
+        pageLimit.value = data.pagination.per_page;
+        loading.value = false;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
 
 // ========================================================================= lifecycle hooks
 onMounted(() => {
@@ -211,4 +245,8 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.p-paginator {
+  background: transparent;
+}
+</style>
