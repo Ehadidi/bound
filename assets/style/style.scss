@@ -202,7 +202,8 @@ header {
       }
 
       img {
-        
+        width: 500px;
+
         @media (max-width: 767px) {
           width: 300px;
         }
