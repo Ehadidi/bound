@@ -59,7 +59,7 @@
                                     </li>
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/suggestions')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/Shield.svg" alt="Shield" />
                                                 <span class="user-txt">{{ $t("layout.suggestions") }}</span>
