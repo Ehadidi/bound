@@ -9,14 +9,8 @@
                 $t("layout.sub_category")
               }}</label>
               <div class="form-inputs">
-                <Dropdown
-                  filter
-                  v-model="filterForm.selectedCat"
-                  :options="categories"
-                  optionLabel="name"
-                  :placeholder="$t('layout.choose_category')"
-                  class="w-full ps-1"
-                />
+                <Dropdown filter v-model="filterForm.selectedCat" :options="categories" optionLabel="name"
+                  :placeholder="$t('layout.choose_category')" class="w-full ps-1" />
                 <div class="feedback city_feedback"></div>
               </div>
             </div>
@@ -25,41 +19,20 @@
                 $t("layout.price")
               }}</label>
 
-              <form-radio-group
-                :options="priceOptions"
-                :model="filterForm"
-                name="price"
-                isColumn
-              >
+              <form-radio-group :options="priceOptions" :model="filterForm" name="price" isColumn>
               </form-radio-group>
 
               <div class="d-flex flex-wrap">
-                <FormInput
-                  :placeholder="$t('layout.from')"
-                  :model="filterForm"
-                  name="from"
-                  type="text"
-                  parentClass="col-12 lg:col-6"
-                  :icon="false"
-                >
+                <FormInput :placeholder="$t('layout.from')" :model="filterForm" name="from" type="text"
+                  parentClass="col-12 lg:col-6" :icon="false">
                 </FormInput>
-                <FormInput
-                  :placeholder="$t('layout.to')"
-                  :model="filterForm"
-                  name="to"
-                  type="text"
-                  parentClass="col-12 lg:col-6"
-                  :icon="false"
-                >
+                <FormInput :placeholder="$t('layout.to')" :model="filterForm" name="to" type="text"
+                  parentClass="col-12 lg:col-6" :icon="false">
                 </FormInput>
               </div>
             </div>
             <div class="px-3 px-lg-5 border-bottom border-white mb-3 pb-3">
-              <FormCheckbox
-                name="best_selling"
-                :model="filterForm"
-                :label="$t('layout.best_selling')"
-              />
+              <FormCheckbox name="best_selling" :model="filterForm" :label="$t('layout.best_selling')" />
             </div>
             <div class="px-3 px-lg-5 mb-3 pb-3">
               <button class="btn btn-primary arrow-effect">
@@ -69,15 +42,8 @@
           </form>
         </div>
         <div class="col-lg-9 col-md-8 col-sm-7 py-3">
-          <FormInput
-            :placeholder="$t('layout.search_products')"
-            :model="filterForm"
-            name="search"
-            type="text"
-            parentClass="col-12 lg:col-6"
-            :icon="false"
-            :addition="true"
-          >
+          <FormInput :placeholder="$t('layout.search_products')" :model="filterForm" name="search" type="text"
+            parentClass="col-12 lg:col-6" :icon="false" :addition="true">
             <template #addition>
               <button class="btn btn-secondary min-w-unset px-3 h-100">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -86,37 +52,18 @@
           </FormInput>
 
           <div class="d-grid product-slide">
-            <div
-              v-if="loading"
-              class="product-slide-item mb-3 mx-1"
-              v-for="i in 17"
-            >
+            <div v-if="loading" class="product-slide-item mb-3 mx-1" v-for="i in 17">
               <Skeleton class="product-item" height="9rem"></Skeleton>
             </div>
-            <div
-              v-else
-              class="product-slide-item mb-3"
-              v-for="product in products"
-              :key="product.id"
-            >
-              <CategoriesProductCard
-                :productImg="product.image"
-                :price="product.price"
-                :productName="product.name"
-                :rate="product.average_rate"
-                :id="product.id"
-              />
+            <div v-else class="product-slide-item mb-3" v-for="product in products" :key="product.id">
+              <CategoriesProductCard :productImg="product.image" :price="product.price" :productName="product.name"
+                :rate="product.average_rate" :id="product.id" />
             </div>
           </div>
 
           <div v-if="showPaginate">
-            <Paginator
-              :rows="pageLimit"
-              @page="onPaginate"
-              :totalRecords="totalPage"
-              class="mt-5 bg-transparent"
-              dir="ltr"
-            />
+            <Paginator :rows="pageLimit" @page="onPaginate" :totalRecords="totalPage" class="mt-5 bg-transparent"
+              dir="ltr" />
           </div>
         </div>
       </div>

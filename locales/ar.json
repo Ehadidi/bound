@@ -42,7 +42,8 @@
     "about": "من نحن",
     "subscription": "الاشتراك",
     "my_orders": "طلباتي",
-    "contact_us": "اتصل بنا"
+    "contact_us": "اتصل بنا",
+    "suggestionsComplains": " الشكاوى والمقترحات"
   },
   "footer": {
     "quick_links": "روابط سريعة",
@@ -79,7 +80,9 @@
     "City": "المدينة",
     "ChooseCity": "اختر المدينة",
     "change_password": "تغيير كلمة المرور",
-    "login_problem": "هل لديك مشكلة في تسجيل الدخول؟"
+    "login_problem": "هل لديك مشكلة في تسجيل الدخول؟",
+    "complaint": "شكوى",
+    "suggestion": "اقتراح"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",

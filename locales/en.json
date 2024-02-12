@@ -42,7 +42,8 @@
     "about": "Who we are",
     "subscription": "Subscription",
     "my_orders": "My orders",
-    "contact_us": "Contact us"
+    "contact_us": "Contact us",
+    "suggestionsComplains": "Suggestions and Complains"
   },
   "footer": {
     "quick_links": "QUICK LINKS",
@@ -79,7 +80,9 @@
     "City": "City",
     "ChooseCity": "Choose City",
     "change_password": "Change Password",
-    "login_problem": "Do you have a problem logging in?"
+    "login_problem": "Do you have a problem logging in?",
+    "suggestion":"suggestion",
+    "complaint":"complaint"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
