@@ -44,7 +44,8 @@
     "subscription": "Subscription",
     "my_orders": "My orders",
     "contact_us": "Contact us",
-    "suggestionsComplains": "Suggestions and Complains"
+    "suggestionsComplains": "Suggestions and Complains",
+    "aboutQu": "What’s Bond Street ?"
   },
   "footer": {
     "quick_links": "QUICK LINKS",
@@ -161,5 +162,13 @@
     "completed_orders": "Completed orders",
     "wait_payment": "Waiting for Payment",
     "active": "Active"
+  },
+  "about":{
+    "item1": "Dresses",
+    "item2": "Handbags",
+    "more": "And More"
+  },
+  "notFound":{
+    "Images" : "Not Found Images"
   }
 }

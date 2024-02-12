@@ -44,7 +44,8 @@
     "subscription": "الاشتراك",
     "my_orders": "طلباتي",
     "contact_us": "اتصل بنا",
-    "suggestionsComplains": " الشكاوى والمقترحات"
+    "suggestionsComplains": " الشكاوى والمقترحات",
+    "aboutQu": "ما هو بوند ستريت ؟"
   },
   "footer": {
     "quick_links": "روابط سريعة",
@@ -161,5 +162,13 @@
     "completed_orders": "الطلبات المكتملة",
     "wait_payment": "في انتظار الدفع",
     "active": "نشط"
+  },
+  "about":{
+    "item1": "فساتين",
+    "item2": "حقائب يدوية",
+    "more": "وأكثر من ذلك"
+  },
+  "notFound":{
+    "Images" : "لا يوجد صور"
   }
 }
