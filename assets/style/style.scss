@@ -238,7 +238,7 @@ header {
       transition: 0.3s all ease-in-out;
     }
 
-    .arrow-btn{
+    .arrow-btn {
       position: absolute;
       bottom: 20px;
       left: 0;
@@ -429,6 +429,7 @@ html[lang="ar"] {
 
       img {
         width: 60%;
+        height: 100px;
       }
     }
   }
@@ -443,7 +444,8 @@ html[lang="ar"] {
   }
 
   &.d-grid {
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: repeat(auto-fill, calc(100% / 5));
+    justify-content: space-around;
   }
 }
 
