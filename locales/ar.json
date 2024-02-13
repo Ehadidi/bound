@@ -35,7 +35,9 @@
     "apply": "تطبيق",
     "search_products": "ابحث عن المنتجات هنا..",
     "view_more": "عرض المزيد",
-    "profile_settings": "الاعدادات الشخصية"
+    "profile_settings": "الاعدادات الشخصية",
+    "check_password_caption": "من فضلك أدخل كلمة المرور الخاصة بك لتغيير رقم الهاتف",
+    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -87,7 +89,12 @@
     "suggestion": "اقتراح",
     "change_phone": "تغيير رقم الهاتف",
     "delete_account": "حذف الحساب",
-    "save_changes": "حفظ التغييرات"
+    "save_changes": "حفظ التغييرات",
+    "current_password":"كلمة المرور الحالية",
+    "enter_current_password": "ادخل كلمة المرور الحالية",
+    "new_password":"كلمة المرور الجديده",
+    "enter_new_password":"ادخل كلمة المرور الجديده",
+    "re_enter_new_password":"تأكيد كلمة المرور الجديده"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
@@ -121,7 +128,9 @@
     "complaint": "تفاصيل الشكوي مطلوب",
     "is_terms": "يرجي الموافقة علي الشروط والاحكام",
     "subject": "الموضوع مطلوب",
-    "message": "الرسالة مطلوبه"
+    "message": "الرسالة مطلوبه",
+    "old_password":"كلمة المرور الحالية مطلوبه",
+    "success_update":"تم التعديل بنجاح"
   },
   "product":{
     "price": "السعر",
