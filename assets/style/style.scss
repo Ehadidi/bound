@@ -191,7 +191,7 @@ header {
       height: auto;
     }
 
-    &.about{
+    &.about {
       left: unset;
       right: 5%;
       top: 30px;
@@ -207,7 +207,7 @@ header {
         @media (max-width: 767px) {
           width: 300px;
         }
-        
+
         @media (max-width: 425px) {
           width: 220px;
         }
@@ -261,7 +261,7 @@ header {
       transition: 0.3s all ease-in-out;
     }
 
-    .arrow-btn{
+    .arrow-btn {
       position: absolute;
       bottom: 20px;
       left: 0;
@@ -883,6 +883,7 @@ html[lang="ar"] {
   display: flex;
   gap: 8px;
   align-items: flex-start;
+  flex-wrap: wrap;
 
   .pro_btn {
     background-color: #fff;
@@ -1099,19 +1100,19 @@ html[lang="ar"] {
 /********************* End Cart *********************/
 
 /********************* Start about_items *********************/
-.about_items{
+.about_items {
   display: flex;
   gap: 55px;
   margin-top: 40px;
   flex-wrap: wrap;
-  
-  @media screen and (max-width:425px) {
+
+  @media screen and (max-width: 425px) {
     gap: 35px;
     justify-content: center;
   }
 
-  .about_item{
-    .about_icon{
+  .about_item {
+    .about_icon {
       width: 70px;
       height: 70px;
       display: flex;
@@ -1119,35 +1120,35 @@ html[lang="ar"] {
       justify-content: center;
       position: relative;
       z-index: 1;
-      transition: all .3s ease;
-      
-      @media screen and (max-width:425px) {
+      transition: all 0.3s ease;
+
+      @media screen and (max-width: 425px) {
         width: 60px;
         height: 60px;
       }
-      
-      .bg{
+
+      .bg {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: -1;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
       }
 
-      .ic{
+      .ic {
         max-width: 50px;
-        
-        @media screen and (max-width:425px) {
+
+        @media screen and (max-width: 425px) {
           max-width: 40px;
         }
       }
     }
 
-    &:hover{
-      .about_icon{
-        .bg{
+    &:hover {
+      .about_icon {
+        .bg {
           transform: rotate(-100deg);
         }
       }
@@ -1156,18 +1157,27 @@ html[lang="ar"] {
 }
 /********************* End about_items *********************/
 
-
-
 /*************** Start Main Slider Section ***************/
 
-.not_found{
+.not_found {
   width: 100%;
   height: 400px;
-  border: 1px solid rgba($color: #000000, $alpha: .7);
+  border: 1px solid rgba($color: #000000, $alpha: 0.7);
   @include mixins.center;
 
   @media screen and (max-width: 425px) {
     height: 300px;
+  }
+
+  &.galleria {
+    background-color: #fff;
+    border: none;
+    height: 400px;
+    @include mixins.prefix(
+      box-shadow,
+      rgba(99, 99, 99, 0.2) 0px 2px 8px 0px,
+      webkit ms o
+    );
   }
 }
 
@@ -1176,12 +1186,12 @@ html[lang="ar"] {
   width: 100%;
   z-index: 1;
 
-  @media screen and (max-width:425px) {
+  @media screen and (max-width: 425px) {
     width: calc(100% - 40px);
     margin-inline: auto;
   }
 
-  .logo_con{
+  .logo_con {
     position: absolute;
     top: 0;
     left: 0;
@@ -1191,26 +1201,26 @@ html[lang="ar"] {
     @include mixins.center;
     z-index: 2;
 
-    .logo{
+    .logo {
       max-width: 200px;
       width: auto;
       height: auto;
-      
-      @media screen and (max-width:425px) {
+
+      @media screen and (max-width: 425px) {
         max-width: 140px;
       }
     }
   }
 
-  &::after{
-    content: '';
+  &::after {
+    content: "";
     position: absolute;
     top: -15px;
     @include mixins.dir-left(-15px);
-    width: calc(100% );
+    width: calc(100%);
     height: calc(100% - 20px);
     z-index: -1;
-    border: 1px solid rgba($color: #000000, $alpha: .7);
+    border: 1px solid rgba($color: #000000, $alpha: 0.7);
   }
 
   .slider-img {
@@ -1267,10 +1277,10 @@ html[lang="ar"] {
           display: block;
           @include mixins.shape(8px, 50%);
           background-color: #000000;
-          opacity: .5;
-          transition: all .3s ease;
+          opacity: 0.5;
+          transition: all 0.3s ease;
         }
-        
+
         &.p-highlight {
           .p-link {
             opacity: 1;
