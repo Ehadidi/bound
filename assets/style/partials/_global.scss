@@ -109,6 +109,10 @@ hr {
 @for $i from 1 through 100 {
   .font#{$i} {
     font-size: $i + px !important;
+
+    @media screen and (max-width:425px) {
+      font-size: ($i - 2) + px !important;
+    }
   }
 }
 
