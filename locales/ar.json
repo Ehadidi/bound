@@ -41,6 +41,8 @@
     "send_report": "ارسال تقرير",
     "reason": "السبب",
     "enter_reason": "من فضلك , ادخل السبب"
+    "check_password_caption": "من فضلك أدخل كلمة المرور الخاصة بك لتغيير رقم الهاتف",
+    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -49,7 +51,8 @@
     "subscription": "الاشتراك",
     "my_orders": "طلباتي",
     "contact_us": "اتصل بنا",
-    "suggestionsComplains": " الشكاوى والمقترحات"
+    "suggestionsComplains": " الشكاوى والمقترحات",
+    "aboutQu": "ما هو بوند ستريت ؟"
   },
   "footer": {
     "quick_links": "روابط سريعة",
@@ -91,7 +94,12 @@
     "suggestion": "اقتراح",
     "change_phone": "تغيير رقم الهاتف",
     "delete_account": "حذف الحساب",
-    "save_changes": "حفظ التغييرات"
+    "save_changes": "حفظ التغييرات",
+    "current_password":"كلمة المرور الحالية",
+    "enter_current_password": "ادخل كلمة المرور الحالية",
+    "new_password":"كلمة المرور الجديده",
+    "enter_new_password":"ادخل كلمة المرور الجديده",
+    "re_enter_new_password":"تأكيد كلمة المرور الجديده"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
@@ -125,7 +133,9 @@
     "complaint": "تفاصيل الشكوي مطلوب",
     "is_terms": "يرجي الموافقة علي الشروط والاحكام",
     "subject": "الموضوع مطلوب",
-    "message": "الرسالة مطلوبه"
+    "message": "الرسالة مطلوبه",
+    "old_password":"كلمة المرور الحالية مطلوبه",
+    "success_update":"تم التعديل بنجاح"
   },
   "product":{
     "price": "السعر",
@@ -172,6 +182,15 @@
     "preparing": "تجهيز",
     "received": "تم الاستلام",
     "out_delivery": "خرج للتوصيل",
-    "cancel_order": "Cancel order"
+    "cancel_order": "الغاء الطلب",
+    "active": "نشط"
+  },
+  "about":{
+    "item1": "فساتين",
+    "item2": "حقائب يدوية",
+    "more": "وأكثر من ذلك"
+  },
+  "notFound":{
+    "Images" : "لا يوجد صور"
   }
 }

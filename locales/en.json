@@ -41,6 +41,8 @@
     "send_report": "Send report",
     "reason": "Reason",
     "enter_reason": "Please, enter the reason"
+    "check_password_caption": "Please, enter yor password to change phone number",
+    "enter_phone_caption": "Please, enter new phone number to send code"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -49,7 +51,8 @@
     "subscription": "Subscription",
     "my_orders": "My orders",
     "contact_us": "Contact us",
-    "suggestionsComplains": "Suggestions and Complains"
+    "suggestionsComplains": "Suggestions and Complains",
+    "aboutQu": "What’s Bond Street ?"
   },
   "footer": {
     "quick_links": "QUICK LINKS",
@@ -91,7 +94,13 @@
     "complaint":"complaint",
     "change_phone": "Change Phone",
     "delete_account": "Delete Account",
-    "save_changes": "Save changes"
+    "save_changes": "Save changes",
+    "current_password": "Current password",
+    "enter_current_password": "Enter current password",
+    "new_password":"New password",
+    "enter_new_password":"Enter new password",
+    "re_enter_new_password":"Re-enter new password",
+    "success_update":"Update successfully"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
@@ -125,7 +134,8 @@
     "complaint": "Complaint details required",
     "is_terms": "Please accept the terms and conditions",
     "subject": "Subject is required",
-    "message": "Message is required"
+    "message": "Message is required",
+    "old_password":"Old password is required"
   },
   "product":{
     "price": "Price",
@@ -164,7 +174,7 @@
     "payment": "Payment",
     "active_orders": "Active orders",
     "completed_orders": "Completed orders",
-    "wait_payment": "Waiting for Payment",
+    "wait_payment": "Waiting for Payment,
     "active": "Active",
     "active_order": "Active order",
     "completed": "Completed",
@@ -173,5 +183,14 @@
     "received": "Received",
     "out_delivery": "Out For Delivery",
     "cancel_order": "Cancel order"
+    "active": "Active"
+  },
+  "about":{
+    "item1": "Dresses",
+    "item2": "Handbags",
+    "more": "And More"
+  },
+  "notFound":{
+    "Images" : "Not Found Images"
   }
 }

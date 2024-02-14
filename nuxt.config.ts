@@ -57,8 +57,9 @@ export default defineNuxtConfig({
     "assets/style/style.scss",
   ],
   plugins: [
-    "@/plugins/vue-google-maps",
-    "~/plugins/toast.js",
+    "~/map-js/vue-google-maps",
+    "~/toast-service/toast.js",
+    "~/plugins/axios.ts",
   ],
   i18n: {
     lazy: true,
