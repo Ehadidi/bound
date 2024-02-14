@@ -41,6 +41,7 @@
             <OrdersCard
               v-for="i in 4"
               :key="i"
+              :id="i"
               orderNum="#12345"
               time="12 minutes ago"
               :status="$t('orders.wait_approv')"
@@ -51,6 +52,7 @@
             <OrdersCard
               v-for="i in 1"
               :key="i"
+              :id="i"
               orderNum="#1234"
               time="12 minutes ago"
               :status="$t('orders.wait_payment')"
@@ -61,6 +63,7 @@
             <OrdersCard
               v-for="i in 3"
               :key="i"
+              :id="i"
               orderNum="#1234"
               time="12 minutes ago"
               :status="$t('orders.active')"
@@ -69,12 +72,14 @@
           </TabPanel>
           <TabPanel>
             <OrdersCard
+              :id="i"
               orderNum="#1234"
               time="12 minutes ago"
               status="Successful"
               type="successful"
             />
             <OrdersCard
+              :id="i"
               orderNum="#1234"
               time="12 minutes ago"
               status="Cancelled"

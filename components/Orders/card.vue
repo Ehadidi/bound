@@ -62,7 +62,7 @@
         </span>
         {{ status }}
       </span>
-      <NuxtLink class="text-dark fw-bold">
+      <NuxtLink class="text-dark fw-bold" :to="localPath(`/orders/${id}`)">
         {{ $t("layout.view_more") }}
         <img
           src="~/assets/images/ArrowRight.svg"
@@ -80,6 +80,7 @@ import { Navigation, Autoplay, Pagination, FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // ================================================================================ data
 
+const localPath = useLocalePath();
 const modules = [Navigation, Pagination, Autoplay, FreeMode];
 const breakpoints = {
   320: {

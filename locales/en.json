@@ -36,6 +36,11 @@
     "search_products": "Search for products here..",
     "view_more": "View more",
     "profile_settings": "Profile Settings",
+    "date": "Date",
+    "report": "Report",
+    "send_report": "Send report",
+    "reason": "Reason",
+    "enter_reason": "Please, enter the reason"
     "check_password_caption": "Please, enter yor password to change phone number",
     "enter_phone_caption": "Please, enter new phone number to send code"
   },
@@ -169,7 +174,15 @@
     "payment": "Payment",
     "active_orders": "Active orders",
     "completed_orders": "Completed orders",
-    "wait_payment": "Waiting for Payment",
+    "wait_payment": "Waiting for Payment,
+    "active": "Active",
+    "active_order": "Active order",
+    "completed": "Completed",
+    "procees_pay": "Proceed To Payment",
+    "preparing": "Preparing",
+    "received": "Received",
+    "out_delivery": "Out For Delivery",
+    "cancel_order": "Cancel order"
     "active": "Active"
   },
   "about":{

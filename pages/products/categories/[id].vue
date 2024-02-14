@@ -84,17 +84,17 @@
               </template>
             </FormInput>
 
-            <div class="d-grid product-slide">
+            <div class="d-grid product-slide mt-4">
               <div
                 v-if="loading"
-                class="product-slide-item mb-3 mx-1"
+                class="product-slide-item mb-4 mx-1"
                 v-for="i in 17"
               >
                 <Skeleton class="product-item" height="9rem"></Skeleton>
               </div>
               <div
                 v-else
-                class="product-slide-item mb-3"
+                class="product-slide-item mb-4"
                 v-for="product in products"
                 :key="product.id"
               >

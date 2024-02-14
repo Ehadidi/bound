@@ -36,6 +36,11 @@
     "search_products": "ابحث عن المنتجات هنا..",
     "view_more": "عرض المزيد",
     "profile_settings": "الاعدادات الشخصية",
+    "date": "التاريخ",
+    "report": "تقرير",
+    "send_report": "ارسال تقرير",
+    "reason": "السبب",
+    "enter_reason": "من فضلك , ادخل السبب"
     "check_password_caption": "من فضلك أدخل كلمة المرور الخاصة بك لتغيير رقم الهاتف",
     "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز"
   },
@@ -170,6 +175,14 @@
     "active_orders": "الطلبات النشطة",
     "completed_orders": "الطلبات المكتملة",
     "wait_payment": "في انتظار الدفع",
+    "active": "نشط",
+    "active_order": "طلب نشط",
+    "completed": "مكتمل",
+    "procees_pay": "تنفيذ الدفع",
+    "preparing": "تجهيز",
+    "received": "تم الاستلام",
+    "out_delivery": "خرج للتوصيل",
+    "cancel_order": "الغاء الطلب",
     "active": "نشط"
   },
   "about":{
