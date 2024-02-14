@@ -160,7 +160,7 @@
                     <NuxtLink
                       class="dropdown-item defualt-link"
                       @click="dropShown = !dropShown"
-                      :to="localPath('/')"
+                      :to="localPath('/products/add')"
                     >
                       <div class="d-flex align-items-center">
                         <img
@@ -177,8 +177,10 @@
                   <li>
                     <NuxtLink
                       class="dropdown-item defualt-link"
-                      @click="dropShown = !dropShown"
-                      :to="localPath('/')"
+                      @click="
+                        dropShown = !dropShown;
+                        terms_conditions = true;
+                      "
                     >
                       <div class="d-flex align-items-center">
                         <img
@@ -293,6 +295,39 @@
         </div>
       </div>
     </div>
+
+    <Dialog
+      class="site-modal none-header"
+      v-model:visible="terms_conditions"
+      modal
+      :style="{ width: '50vw' }"
+      :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+      <div class="container p-5">
+        <h5 class="fw-bold mb-3 text-primary">{{ $t("layout.terms") }}</h5>
+        <p>
+          Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
+          congue semper. Egestas in eget lectus sed consectetur lacus facilisis.
+          Blandit eu in adipiscing at amet. Laoreet purus dui nibh laoreet
+          commodo adipiscing quam lobortis consectetur. Lorem ipsum dolor sit
+          amet consectetur. Vestibulum odio eu duis eget congue semper. Egestas
+          in eget lectus sed consectetur lacus facilisis. Blandit eu in
+          adipiscing at amet. Laoreet purus dui nibh laoreet commodo adipiscing
+          quam lobortis consectetur.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
+          congue semper. Egestas in eget lectus sed consectetur lacus facilisis.
+          Blandit eu in adipiscing at amet. Laoreet purus dui nibh laoreet
+          commodo adipiscing quam lobortis consectetur. Lorem ipsum dolor sit
+          amet consectetur. Vestibulum odio eu duis eget congue semper. Egestas
+          in eget lectus sed consectetur lacus facilisis. Blandit eu in
+          adipiscing at amet. Laoreet purus dui nibh laoreet commodo adipiscing
+          quam lobortis consectetur.
+        </p>
+      </div>
+    </Dialog>
+
     <Dialog
       class="search-box"
       v-model:visible="search"
@@ -448,6 +483,7 @@ const route = useRouter();
 const useRout = useRoute();
 const IsAuth = ref(false);
 const authStore = useAuthStore();
+const terms_conditions = ref(false)
 const search = ref(false);
 const phoneMedia = ref(null);
 const auth_modal = ref(false);

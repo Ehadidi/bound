@@ -70,7 +70,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
-i.fa-star{
+i.fa-star {
   color: map_get(colors.$theme-colors, orange-color);
   font-size: 13px;
 }
@@ -110,7 +110,7 @@ hr {
   .font#{$i} {
     font-size: $i + px !important;
 
-    @media screen and (max-width:425px) {
+    @media screen and (max-width: 425px) {
       font-size: ($i - 2) + px !important;
     }
   }
@@ -428,7 +428,6 @@ input.default {
 }
 
 .ms-auto {
-
   margin-left: unset !important;
   margin-right: unset !important;
   margin-inline-start: auto !important;
@@ -1675,14 +1674,14 @@ html[lang="ar"] {
 /* Start Media Query */
 
 @media (max-width: 767px) {
-  // .w-75,
-  // .w-25 {
-  //   width: 100% !important;
-  // }
+  .w-75,
+  .w-25 {
+    width: 100% !important;
+  }
 
-  // .w-50 {
-  //   width: 100% !important;
-  // }
+  .w-50 {
+    width: 100% !important;
+  }
 
   .fs-2 {
     font-size: 17px !important;
@@ -1897,17 +1896,17 @@ html[lang="ar"] {
     font-size: 14px;
   }
 
-  // .w-50 {
-  //   width: 75% !important;
-  // }
+  .w-50 {
+    width: 75% !important;
+  }
 
-  // .w-75 {
-  //   width: 100% !important;
-  // }
+  .w-75 {
+    width: 100% !important;
+  }
 
-  // .w-25 {
-  //   width: 50% !important;
-  // }
+  .w-25 {
+    width: 50% !important;
+  }
 
   nav {
     .menu {

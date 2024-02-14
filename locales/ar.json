@@ -42,7 +42,12 @@
     "reason": "السبب",
     "enter_reason": "من فضلك , ادخل السبب",
     "check_password_caption": "من فضلك أدخل كلمة المرور الخاصة بك لتغيير رقم الهاتف",
-    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز"
+    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز",
+    "product_details": "تفاصيل المنتج",
+    "product_name": "اسم المنتج",
+    "product_image": "صورة المنتج",
+    "product_description": "وصف المنتج",
+    "product_price": "سعر المنتج"
   },
   "header": {
     "auth": "دخول / تسجيل",

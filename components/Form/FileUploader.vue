@@ -1,11 +1,26 @@
 <template>
-  <label class="fontBold txt_start d-block mb-2 font11">{{ label }}</label>
-  <div class="form-inputs" :class="{ unIconed: !icon, iconLeft: iconLeft == true, iconRight: iconRight == true }">
+  <label class="d-block mb-2 fw-bold font14 text-primary">{{ label }}</label>
+  <div
+    class="form-inputs"
+    :class="{
+      unIconed: !icon,
+      iconLeft: iconLeft == true,
+      iconRight: iconRight == true,
+    }"
+  >
     <div class="file-placeholder default_input p-0">
-      <input :disabled="readonly" id="civil-id" type="file" class="file-upload" accept="image/*" />
+      <input
+        :disabled="readonly"
+        id="civil-id"
+        type="file"
+        class="file-upload"
+        accept="image/*"
+      />
       <div class="file-browse">
         <span class="file-browse-txt">{{ placeholder }} </span>
-        <span class="browse"> <font-awesome-icon :icon="['fas', 'upload']" /></span>
+        <span class="browse text-gray-500">
+          <i class="fa-solid fa-camera"></i
+        ></span>
       </div>
     </div>
     <span v-if="$slots.icon" class="form-icon">
@@ -15,74 +30,75 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from 'vue'
-const emit = defineEmits(['update:fileUrl'])
+import { watch, onMounted } from "vue";
+const emit = defineEmits(["update:fileUrl"]);
 
 const props = defineProps({
   label: {
-    type: String
+    type: String,
   },
   placeholder: {
-    type: String
+    type: String,
   },
   icon: {
     type: Boolean,
-    default: false
+    default: false,
   },
   readonly: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
 onMounted(() => {
   const pmfFileupload = {
     $filePlaceholder: null,
     $fileUpload: null,
     $fileBrowseTxt: null,
-    newVal: '',
+    newVal: "",
 
     init: function () {
-      this.cacheDom()
-      this.events()
+      this.cacheDom();
+      this.events();
     },
 
     cacheDom: function () {
-      this.$filePlaceholder = document.querySelector('.file-placeholder')
-      this.$fileUpload = this.$filePlaceholder.querySelector('.file-upload')
-      this.$fileBrowseTxt = this.$filePlaceholder.querySelector('.file-browse-txt')
+      this.$filePlaceholder = document.querySelector(".file-placeholder");
+      this.$fileUpload = this.$filePlaceholder.querySelector(".file-upload");
+      this.$fileBrowseTxt =
+        this.$filePlaceholder.querySelector(".file-browse-txt");
     },
 
     events: function () {
-      const self = this
-      this.$fileUpload.addEventListener('change', function (e) {
-        self.getFileName(e)
-      })
+      const self = this;
+      this.$fileUpload.addEventListener("change", function (e) {
+        self.getFileName(e);
+      });
     },
 
     getFileName: function (e) {
-      const file = e.target.files[0]
+      const file = e.target.files[0];
 
       if (file) {
-        const reader = new FileReader()
+        const reader = new FileReader();
         reader.onloadend = (e) => {
           const base64String = reader.result;
           // const base64String = reader.result.split(',')[1] // Extract base64 string
-          emit('update:fileUrl', base64String) // Emitting the event with the file URL
-        }
-        reader.readAsDataURL(file) // Read file as data URL
+          emit("update:fileUrl", base64String); // Emitting the event with the file URL
+        };
+        reader.readAsDataURL(file); // Read file as data URL
       }
 
-      this.newVal = this.$fileUpload.value
-      if (this.newVal !== '') {
-        this.$fileBrowseTxt.textContent = this.newVal
-        this.$fileBrowseTxt.classList.add('hasValue')
+      this.newVal = this.$fileUpload.value;
+      if (this.newVal !== "") {
+        this.$fileBrowseTxt.textContent = this.newVal;
+        this.$fileBrowseTxt.classList.add("hasValue");
       }
-    }
-  }
+    },
+  };
 
-  pmfFileupload.init()
-})
+  pmfFileupload.init();
+});
 </script>
 
 <style lang="scss">
@@ -100,7 +116,7 @@ onMounted(() => {
     height: 100%;
   }
 
-  input[type='file'] {
+  input[type="file"] {
     position: absolute;
     z-index: 3;
     top: 0;
@@ -117,15 +133,14 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.375rem 0.75rem;
-    padding-inline-start: 35px;
+    padding: 10px;
 
     .file-browse-txt {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       display: block;
-      padding-left: 10px;
+      font-size: 12px;
     }
 
     .browse {
@@ -146,7 +161,7 @@ onMounted(() => {
   justify-content: flex-start;
   padding: 15px;
   pointer-events: none;
-  color: #2966B0;
+  color: #2966b0;
 
   &.option {
     left: 0;
@@ -155,7 +170,7 @@ onMounted(() => {
     pointer-events: visible;
   }
 }
-html[lang=en] {
+html[lang="en"] {
   .form-icon {
     &.option {
       right: 0;
