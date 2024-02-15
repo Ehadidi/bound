@@ -42,7 +42,10 @@
     "reason": "Reason",
     "enter_reason": "Please, enter the reason",
     "check_password_caption": "Please, enter yor password to change phone number",
-    "enter_phone_caption": "Please, enter new phone number to send code"
+    "enter_phone_caption": "Please, enter new phone number to send code",
+    "current_balance": "Current Balance",
+    "charge_wallet": "Charge Wallet",
+    "charge_my_wallet": "Charge my wallet"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -100,7 +103,15 @@
     "new_password":"New password",
     "enter_new_password":"Enter new password",
     "re_enter_new_password":"Re-enter new password",
-    "success_update":"Update successfully"
+    "success_update":"Update successfully",
+    "amount":"Amount",
+    "enter_amount":"Add amount here",
+    "confirm_payment":"Confirm and Pay",
+    "add_new_address":"Add new address",
+    "enter_address":"Enter address",
+    "address_description":"Address Description",
+    "enter_address_description":"Enter address description",
+    "location":"Location"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
