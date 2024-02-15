@@ -43,6 +43,12 @@
     "enter_reason": "Please, enter the reason",
     "check_password_caption": "Please, enter yor password to change phone number",
     "enter_phone_caption": "Please, enter new phone number to send code",
+    "product_details": "Product datails",
+    "product_name": "Product name",
+    "product_image": "Product image",
+    "product_description": "Product description",
+    "product_price": "Product price",
+    "product_type": "Product type",
     "current_balance": "Current Balance",
     "charge_wallet": "Charge Wallet",
     "charge_my_wallet": "Charge my wallet"
