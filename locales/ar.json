@@ -37,7 +37,10 @@
     "view_more": "عرض المزيد",
     "profile_settings": "الاعدادات الشخصية",
     "check_password_caption": "من فضلك أدخل كلمة المرور الخاصة بك لتغيير رقم الهاتف",
-    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز"
+    "enter_phone_caption": "من فضلك أدخل رقم هاتفك الجديد لإرسال الرمز",
+    "current_balance": "الرصيد الحالي",
+    "charge_wallet": "شحن المحفظة",
+    "charge_my_wallet": "شحن رصيدي"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -94,7 +97,15 @@
     "enter_current_password": "ادخل كلمة المرور الحالية",
     "new_password":"كلمة المرور الجديده",
     "enter_new_password":"ادخل كلمة المرور الجديده",
-    "re_enter_new_password":"تأكيد كلمة المرور الجديده"
+    "re_enter_new_password":"تأكيد كلمة المرور الجديده",
+    "amount":"المبلغ",
+    "enter_amount":"ادخل المبلغ",
+    "confirm_payment":"تأكيد الدفع",
+    "add_new_address":"اضافة عنوان جديد",
+    "enter_address":"ادخل العنوان",
+    "address_description":"وصف العنوان",
+    "enter_address_description":"ادخل وصف العنوان",
+    "location":"الموقع"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",

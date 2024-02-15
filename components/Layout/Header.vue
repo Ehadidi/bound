@@ -32,7 +32,7 @@
                                     </li>
                                     <li>
                                         <NuxtLink class="dropdown-item defualt-link" @click="dropShown = !dropShown"
-                                            :to="localPath('/')">
+                                            :to="localPath('/wallet')">
                                             <div class="d-flex align-items-center">
                                                 <img class="user-icon me-2" src="~/assets/images/wallet.svg" alt="wallet" />
                                                 <span class="user-txt">{{ $t("layout.wallet") }}</span>
@@ -393,6 +393,7 @@ onMounted(() => {
     if (authStore.user) {
         user_auth.value = authStore.user.data
         const localeToken = authStore.user.data.token;
+        console.log(localeToken);
         if (localeToken) {
             IsAuth.value = true;
         } else {

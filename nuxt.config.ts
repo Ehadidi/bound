@@ -49,7 +49,14 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ["@nuxtjs/i18n", "nuxt-swiper", "nuxt-primevue", "@vueuse/nuxt", "@pinia/nuxt" , '@pinia-plugin-persistedstate/nuxt'],
+  modules: [
+    "@nuxtjs/i18n",
+    "nuxt-swiper",
+    "nuxt-primevue",
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
+  ],
   css: [
     "bootstrap/dist/css/bootstrap.css",
     "/node_modules/primeflex/primeflex.css",
@@ -57,10 +64,12 @@ export default defineNuxtConfig({
     "assets/style/style.scss",
   ],
   plugins: [
-    "~/map-js/vue-google-maps",
     "~/toast-service/toast.js",
     "~/plugins/axios.ts",
   ],
+  // build: {
+  //   transpile: ["@fawmi/vue-google-maps"],
+  // },
   i18n: {
     lazy: true,
     langDir: "locales",
