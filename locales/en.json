@@ -48,7 +48,10 @@
     "product_image": "Product image",
     "product_description": "Product description",
     "product_price": "Product price",
-    "product_type": "Product type"
+    "product_type": "Product type",
+    "current_balance": "Current Balance",
+    "charge_wallet": "Charge Wallet",
+    "charge_my_wallet": "Charge my wallet"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -106,7 +109,15 @@
     "new_password":"New password",
     "enter_new_password":"Enter new password",
     "re_enter_new_password":"Re-enter new password",
-    "success_update":"Update successfully"
+    "success_update":"Update successfully",
+    "amount":"Amount",
+    "enter_amount":"Add amount here",
+    "confirm_payment":"Confirm and Pay",
+    "add_new_address":"Add new address",
+    "enter_address":"Enter address",
+    "address_description":"Address Description",
+    "enter_address_description":"Enter address description",
+    "location":"Location"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
