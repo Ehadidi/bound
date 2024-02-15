@@ -47,7 +47,8 @@
     "product_name": "Product name",
     "product_image": "Product image",
     "product_description": "Product description",
-    "product_price": "Product price"
+    "product_price": "Product price",
+    "product_type": "Product type"
   },
   "header": {
     "auth": "Sign in / Register",

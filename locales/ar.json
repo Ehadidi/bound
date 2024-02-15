@@ -47,7 +47,8 @@
     "product_name": "اسم المنتج",
     "product_image": "صورة المنتج",
     "product_description": "وصف المنتج",
-    "product_price": "سعر المنتج"
+    "product_price": "سعر المنتج",
+    "product_type": "نوع المنتج"
   },
   "header": {
     "auth": "دخول / تسجيل",

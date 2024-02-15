@@ -101,6 +101,22 @@
               <div class="feedback city_feedback"></div>
             </div>
           </div>
+          <div>
+            <label class="fw-bold txt_start d-block mb-2">{{
+              $t("layout.product_type")
+            }}</label>
+            <div class="form-inputs">
+              <Dropdown
+                filter
+                v-model="addForm.product_type"
+                :options="types"
+                optionLabel="name"
+                :placeholder="$t('layout.product_type')"
+                class="w-full ps-1"
+              />
+              <div class="feedback city_feedback"></div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -113,6 +129,7 @@
 import { response } from "~/network/response";
 // ================================================================================ data
 
+const { t } = useI18n();
 const axios = useNuxtApp().$axios;
 const categories = ref([]);
 const sub_categories = ref([]);
@@ -123,10 +140,15 @@ const addForm = ref({
   description: "",
   product_price: "",
   brand: "",
+  product_type: "",
 });
 const brands = ref([
-    { name: 'brand 1', code: 'NY' },
-    { name: 'brand 2', code: 'RM' },
+  { name: "brand 1", code: "NY" },
+  { name: "brand 2", code: "RM" },
+]);
+const types = ref([
+  { name: t("layout.high_low"), code: "desc" },
+  { name: t("layout.low_high"), code: "asc" },
 ]);
 // ================================================================================ methods
 
