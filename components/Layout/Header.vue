@@ -136,25 +136,25 @@
                     <div class="navbar">
                         <ul>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/')">{{ $t('header.home')
-                                }}</NuxtLink>
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/')">{{
+                                    $t("header.home") }}</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">{{
-                                    $t('header.about') }}</NuxtLink>
+                                <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/about')">
+                                    {{ $t("header.about") }}</NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/subscribtions')">
-                                    {{ $t('header.subscription') }}
+                                    {{ $t("header.subscription") }}
                                 </NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/orders')">{{
-                                    $t('header.my_orders') }}</NuxtLink>
+                                    $t("header.my_orders") }}</NuxtLink>
                             </li>
                             <li>
                                 <NuxtLink class="nav_link" @click="closeSideMenu" :to="localPath('/contact')">{{
-                                    $t('header.contact_us') }}
+                                    $t("header.contact_us") }}
                                 </NuxtLink>
                             </li>
                         </ul>
@@ -162,15 +162,16 @@
                     <div class="user_list">
                         <ul>
                             <li>
-                                <NuxtLink :to="localPath('/')"><img src="~/assets/images/BellBing.svg" alt="notification">
+                                <NuxtLink :to="localPath('/')"><img src="~/assets/images/BellBing.svg" alt="notification" />
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink :to="localPath('/cart')"><img src="~/assets/images/Cart.svg" alt="cart"></NuxtLink>
+                                <NuxtLink :to="localPath('/cart')"><img src="~/assets/images/Cart.svg" alt="cart" />
+                                </NuxtLink>
                             </li>
                             <li>
                                 <button @click="search = true" class="btn-unstyed">
-                                    <img class="width18" src="~/assets/images/Magnifer.svg">
+                                    <img class="width18" src="~/assets/images/Magnifer.svg" />
                                 </button>
                             </li>
                             <li>
@@ -183,11 +184,16 @@
                 </div>
             </div>
         </div>
-        <Dialog class="search-box" v-model:visible="search" modal :style="{ width: '50rem' }"
+        <Dialog class="site-modal search-box" v-model:visible="search" modal :style="{ width: '50rem' }"
             :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-            <div class="">
-                <input type="text" class="default px-3 w-100" placeholder="Search">
-            </div>
+            <form @submit.prevent="handelSearch">
+                <div class="input-group">
+                    <input type="text" v-model="productsStore.keyword" class="default px-3 w-100" placeholder="Search" />
+                    <button class="btn btn-primary search-btn" :disabled="!productsStore.keyword">
+                        search
+                    </button>
+                </div>
+            </form>
         </Dialog>
         <Dialog class="site-modal none-header" v-model:visible="auth_modal" modal :style="{ width: '615px' }"
             :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
@@ -206,7 +212,9 @@
             :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <template #header>
                 <div class="border-bottom w-100 pt-2 pb-3">
-                    <h6 class="text-center fw-bold text-primary">{{ $t('layout.Verification') }}</h6>
+                    <h6 class="text-center fw-bold text-primary">
+                        {{ $t("layout.Verification") }}
+                    </h6>
                 </div>
             </template>
             <div class="container">
@@ -218,7 +226,9 @@
             :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <template #header>
                 <div class="border-bottom w-100 pt-2 pb-3">
-                    <h6 class="text-center fw-bold text-primary">{{ $t('layout.forgetPassword') }}</h6>
+                    <h6 class="text-center fw-bold text-primary">
+                        {{ $t("layout.forgetPassword") }}
+                    </h6>
                 </div>
             </template>
             <div class="container">
@@ -229,24 +239,26 @@
         <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '25rem' }">
             <div class="container">
                 <div class="flex justify-content-center align-items-center flex-column py-4 gap30">
-                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="" />
                     <h5 class="text-center fw-bold text-primary fw-bold">
                         {{ active_msg }}
                     </h5>
-                    <button class="btn btn-primary w-100" @click="success_modal = false">{{ $t('form_layout.continue')
-                    }}</button>
+                    <button class="btn btn-primary w-100" @click="success_modal = false">
+                        {{ $t("form_layout.continue") }}
+                    </button>
                 </div>
             </div>
         </Dialog>
         <Dialog class="site-modal none-header" v-model:visible="success_modal_from_reset" modal :style="{ width: '25rem' }">
             <div class="container">
                 <div class="flex justify-content-center align-items-center flex-column py-4 gap30">
-                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="" />
                     <h5 class="text-center fw-bold text-primary fw-bold">
                         {{ active_msg }}
                     </h5>
-                    <button class="btn btn-primary w-100" @click="reset_password_success">{{ $t('form_layout.login')
-                    }}</button>
+                    <button class="btn btn-primary w-100" @click="reset_password_success">
+                        {{ $t("form_layout.login") }}
+                    </button>
                 </div>
             </div>
         </Dialog>
@@ -255,141 +267,156 @@
 
 <script setup>
 // ========================================================================= imports
-import TabView from 'primevue/tabview';
+import TabView from "primevue/tabview";
 import { useAuthStore } from "~/stores/auth";
 import { useRoute } from "vue-router";
-import TabPanel from 'primevue/tabpanel';
+import TabPanel from "primevue/tabpanel";
 import { onClickOutside } from "@vueuse/core";
 import { toast_handel } from "~/network/ValidTost";
-import { response } from '~/network/response';
+import { response } from "~/network/response";
+import { useProductsSearchStore } from "~/stores/productsSearch";
 // ========================================================================= data
 const axios = useNuxtApp().$axios;
 const localPath = useLocalePath();
 const { notify_toast } = toast_handel();
-const route = useRouter()
-const useRout = useRoute()
-const IsAuth = ref(false)
+const route = useRouter();
+const useRout = useRoute();
+const IsAuth = ref(false);
 const authStore = useAuthStore();
-const search = ref(false)
-const phoneMedia = ref(null)
-const auth_modal = ref(false)
-const forget_password = ref(false)
-const Verification = ref(false)
-const active_msg = ref()
-const user_auth = ref({})
-const success_modal = ref(false)
-const success_modal_from_reset = ref(false)
+const search = ref(false);
+const phoneMedia = ref(null);
+const auth_modal = ref(false);
+const forget_password = ref(false);
+const Verification = ref(false);
+const active_msg = ref();
+const user_auth = ref({});
+const success_modal = ref(false);
+const success_modal_from_reset = ref(false);
 const dropShown = ref(false);
 const target = ref(null);
 onClickOutside(target, (event) => (dropShown.value = false));
-const phone_number = ref()
-const country_code = ref()
+const phone_number = ref();
+const country_code = ref();
+const productsStore = useProductsSearchStore();
 // ========================================================================= methods
 // ============================= mediaHandller
 if (window) {
     const mediaHandller = (media) => {
         if (media.matches) {
-            phoneMedia.value = true
+            phoneMedia.value = true;
         } else {
-            phoneMedia.value = false
+            phoneMedia.value = false;
         }
-    }
-    var media = window.matchMedia("(max-width: 992px)")
-    mediaHandller(media)
-    media.addListener(mediaHandller)
+    };
+    var media = window.matchMedia("(max-width: 992px)");
+    mediaHandller(media);
+    media.addListener(mediaHandller);
 }
 // ============================= toggleSideMenu Handller
 const toggleSideMenu = () => {
-    document.querySelector('.overlay').classList.toggle('active')
-    document.querySelector('.navbar').classList.toggle('open')
-}
+    document.querySelector(".overlay").classList.toggle("active");
+    document.querySelector(".navbar").classList.toggle("open");
+};
 const closeSideMenu = () => {
-    let nav_state = document.querySelector('.navbar.open')
+    let nav_state = document.querySelector(".navbar.open");
     if (nav_state) {
-        document.querySelector('.overlay').classList.remove('active')
-        document.querySelector('.navbar').classList.remove('open')
+        document.querySelector(".overlay").classList.remove("active");
+        document.querySelector(".navbar").classList.remove("open");
     }
-}
+};
 //  ================================================================= modal emits
 // ================== close auth modal open forget password modal
 const forgetPassword = (phone, code) => {
-    auth_modal.value = false
-    forget_password.value = true
-    phone_number.value = phone
-    country_code.value = code
-}
+    auth_modal.value = false;
+    forget_password.value = true;
+    phone_number.value = phone;
+    country_code.value = code;
+};
 // ================== backToLogin from forget password modal
 const backToLogin = () => {
-    auth_modal.value = true
-    forget_password.value = false
+    auth_modal.value = true;
+    forget_password.value = false;
     if (Verification.value) {
-        Verification.value = false
+        Verification.value = false;
     }
-}
+};
 // ================== backToLogin from reset password modal
 const backToLogin_from_reset = (res) => {
     console.log(res);
-    success_modal_from_reset.value = true
-    forget_password.value = false
-    active_msg.value = res.data.msg
-}
+    success_modal_from_reset.value = true;
+    forget_password.value = false;
+    active_msg.value = res.data.msg;
+};
 // ================== return msg from sign up verification
 const returnmsg = (msg) => {
-    Verification.value = false
-    success_modal.value = true
-    active_msg.value = msg
+    Verification.value = false;
+    success_modal.value = true;
+    active_msg.value = msg;
     setTimeout(() => {
-        success_modal.value = false
-        get_profile()
+        success_modal.value = false;
+        get_profile();
     }, 1000);
-}
+};
 // ================== verification after signup
 const Verification_signup = () => {
-    Verification.value = true
+    Verification.value = true;
     setTimeout(() => {
-        auth_modal.value = false
+        auth_modal.value = false;
     }, 500);
-    user_auth.value = authStore.user.data
-}
+    user_auth.value = authStore.user.data;
+};
 // ================== login success
 const login_success = () => {
-    auth_modal.value = false
-    user_auth.value = authStore.user.data
-    get_profile()
-}
+    auth_modal.value = false;
+    user_auth.value = authStore.user.data;
+    get_profile();
+};
 // ================== reset password success
 const reset_password_success = () => {
-    auth_modal.value = true
-    success_modal_from_reset.value = false
-}
-//========================================== log out handler 
+    auth_modal.value = true;
+    success_modal_from_reset.value = false;
+};
+//========================================== log out handler
 const logout = async () => {
-    dropShown.value = !dropShown.value
-    await authStore.logout(authStore.user.data.token)
-    if (authStore.logedout.data.key == 'success') {
+    dropShown.value = !dropShown.value;
+    await authStore.logout(authStore.user.data.token);
+    if (authStore.logedout.data.key == "success") {
         IsAuth.value = false;
         notify_toast(authStore.logedout.data.msg, "success");
         route.push(localPath({ path: "/" }));
     } else {
         notify_toast(authStore.logedout.data.msg, "error");
     }
-}
+};
 // ==================================== get profile
 const get_profile = async () => {
-    IsAuth.value = true
+    IsAuth.value = true;
     const config = {
-        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
-    }
-    const res = await axios.get('profile', config)
-    let status = response(res).status
-    if (status === 'success') {
-        user_auth.value = response(res).data
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` },
+    };
+    const res = await axios.get("profile", config);
+    let status = response(res).status;
+    if (status === "success") {
+        user_auth.value = response(res).data;
         // window.location.reload()
         // IsAuth.value = true
     }
-}
+};
+
+// ================== search
+const handelSearch = () => {
+    search.value = false;
+    route.push(localPath({ path: "/products/search" }));
+};
+
 // ========================================================================= lifecycle hooks
+
+watchEffect(() => {
+    productsStore.getProducts(productsStore.keyword);
+});
+
 onMounted(() => {
+    productsStore.getProducts();
     if (authStore.user) {
         user_auth.value = authStore.user.data
         const localeToken = authStore.user.data.token;
@@ -401,7 +428,7 @@ onMounted(() => {
             user_auth.value = null
         }
     }
-})
+});
 // watch(user_auth.value, async () => {}, {immediate: true})
 // watch route auth
 watch(useRout, () => {
@@ -412,7 +439,7 @@ watch(useRout, () => {
             IsAuth.value = true;
         } else {
             IsAuth.value = false;
-            user_auth.value = null
+            user_auth.value = null;
         }
     }
 });
@@ -438,5 +465,21 @@ watch(useRout, () => {
             right: 0;
         }
     }
+}
+
+.input-group {
+    input {
+        padding-inline-end: 100px;
+    }
+}
+
+.search-btn {
+    position: absolute !important;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 5px !important;
+    min-width: 100px;
+    height: 35px;
 }
 </style>
