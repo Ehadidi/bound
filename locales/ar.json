@@ -51,7 +51,10 @@
     "product_type": "نوع المنتج",
     "current_balance": "الرصيد الحالي",
     "charge_wallet": "شحن المحفظة",
-    "charge_my_wallet": "شحن رصيدي"
+    "charge_my_wallet": "شحن رصيدي",
+    "simple": "بسيط",
+    "various_features": "ميزات مختلفة",
+    "add_feature": "اضافه ميزة"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -106,17 +109,17 @@
     "save_changes": "حفظ التغييرات",
     "current_password": "كلمة المرور الحالية",
     "enter_current_password": "ادخل كلمة المرور الحالية",
-    "new_password":"كلمة المرور الجديده",
-    "enter_new_password":"ادخل كلمة المرور الجديده",
-    "re_enter_new_password":"تأكيد كلمة المرور الجديده",
-    "amount":"المبلغ",
-    "enter_amount":"ادخل المبلغ",
-    "confirm_payment":"تأكيد الدفع",
-    "add_new_address":"اضافة عنوان جديد",
-    "enter_address":"ادخل العنوان",
-    "address_description":"وصف العنوان",
-    "enter_address_description":"ادخل وصف العنوان",
-    "location":"الموقع"
+    "new_password": "كلمة المرور الجديده",
+    "enter_new_password": "ادخل كلمة المرور الجديده",
+    "re_enter_new_password": "تأكيد كلمة المرور الجديده",
+    "amount": "المبلغ",
+    "enter_amount": "ادخل المبلغ",
+    "confirm_payment": "تأكيد الدفع",
+    "add_new_address": "اضافة عنوان جديد",
+    "enter_address": "ادخل العنوان",
+    "address_description": "وصف العنوان",
+    "enter_address_description": "ادخل وصف العنوان",
+    "location": "الموقع"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
@@ -128,6 +131,14 @@
     "text": "الرسالة مطلوبه",
     "uncomplete": "من فضلك اكمل الحقول",
     "select_city": "اختر المدينة",
+    "select_category": "اختر القسم",
+    "select_subcategory": "اختر تصنيف فرعي",
+    "select_brand": "اختر الماركة",
+    "name_ar": "الاسم بالعربي مطلوب",
+    "name_en": "الاسم بالانجليزي مطلوب",
+    "price": "السعر بالانجليزي مطلوب",
+    "description_ar": "الوصف بالعربي مطلوب",
+    "description_en": "الوصف بالانجليزي مطلوب",
     "logo": "اللوجو مطلوب",
     "files": "الملفات مطلوبه",
     "account_number": "رقم الحساب البنكي مطلوب",
@@ -160,7 +171,9 @@
     "rating": "التقييم",
     "size": "الحجم",
     "color": "اللون",
-    "another_products": "منتجات قد تعجبك"
+    "another_products": "منتجات قد تعجبك",
+    "select_colors": "اختر الالوان",
+    "select_sizes": "اختر الاحجام"
   },
   "cart": {
     "items": "العناصر المضافة إلى السلة",

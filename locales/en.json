@@ -51,7 +51,11 @@
     "product_type": "Product type",
     "current_balance": "Current Balance",
     "charge_wallet": "Charge Wallet",
-    "charge_my_wallet": "Charge my wallet"
+    "charge_my_wallet": "Charge my wallet",
+    "simple": "Simple",
+    "various_features": "Various features",
+    "add_feature": "Add a feature",
+    "features": "Features"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -99,25 +103,25 @@
     "ChooseCity": "Choose City",
     "change_password": "Change Password",
     "login_problem": "Do you have a problem logging in?",
-    "suggestion":"suggestion",
-    "complaint":"complaint",
+    "suggestion": "suggestion",
+    "complaint": "complaint",
     "change_phone": "Change Phone",
     "delete_account": "Delete Account",
     "save_changes": "Save changes",
     "current_password": "Current password",
     "enter_current_password": "Enter current password",
-    "new_password":"New password",
-    "enter_new_password":"Enter new password",
-    "re_enter_new_password":"Re-enter new password",
-    "success_update":"Update successfully",
-    "amount":"Amount",
-    "enter_amount":"Add amount here",
-    "confirm_payment":"Confirm and Pay",
-    "add_new_address":"Add new address",
-    "enter_address":"Enter address",
-    "address_description":"Address Description",
-    "enter_address_description":"Enter address description",
-    "location":"Location"
+    "new_password": "New password",
+    "enter_new_password": "Enter new password",
+    "re_enter_new_password": "Re-enter new password",
+    "success_update": "Update successfully",
+    "amount": "Amount",
+    "enter_amount": "Add amount here",
+    "confirm_payment": "Confirm and Pay",
+    "add_new_address": "Add new address",
+    "enter_address": "Enter address",
+    "address_description": "Address Description",
+    "enter_address_description": "Enter address description",
+    "location": "Location"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
@@ -129,6 +133,14 @@
     "text": "Message required",
     "uncomplete": "Please complete the fields",
     "select_city": "City is required",
+    "select_category": "Category is required",
+    "select_subcategory": "Sub category is required",
+    "select_brand": "Brand is required",
+    "name_ar": "Name in arabic is required",
+    "name_en": "Name in english is required",
+    "price": "Price is required",
+    "description_ar": "Description in arabic is required",
+    "description_en": "Description in english is required",
     "logo": "Logo required",
     "files": "Files Required",
     "account_number": "Bank account number is required",
@@ -152,17 +164,19 @@
     "is_terms": "Please accept the terms and conditions",
     "subject": "Subject is required",
     "message": "Message is required",
-    "old_password":"Old password is required"
+    "old_password": "Old password is required"
   },
-  "product":{
+  "product": {
     "price": "Price",
     "brand": "Brand",
     "rating": "Rating",
     "size": "Size",
     "color": "Color",
-    "another_products": "You may also like"
+    "another_products": "You may also like",
+    "select_colors": "Select colors",
+    "select_sizes": "Select sizes"
   },
-  "cart":{
+  "cart": {
     "items": "Items added to cart",
     "details": "Order Details",
     "paymentDetails": "Payment Details",
@@ -175,11 +189,11 @@
     "total": "Total",
     "sendOrder": "Confirm Order",
     "depositInfo": "will be Refunded after we retrieve the product",
-    "payment":{
+    "payment": {
       "online": "Online Payment",
       "wallet": "My Wallet"
     },
-    "done":{
+    "done": {
       "text": "Your order was sent successfully",
       "home": "Home page",
       "myOrders": "My orders"
@@ -201,12 +215,12 @@
     "out_delivery": "Out For Delivery",
     "cancel_order": "Cancel order"
   },
-  "about":{
+  "about": {
     "item1": "Dresses",
     "item2": "Handbags",
     "more": "And More"
   },
-  "notFound":{
-    "Images" : "Not Found Images"
+  "notFound": {
+    "Images": "Not Found Images"
   }
 }

@@ -11,16 +11,17 @@
     <div class="file-placeholder default_input p-0">
       <input
         :disabled="readonly"
-        id="civil-id"
+        :id="id"
         type="file"
         class="file-upload"
         accept="image/*"
+        ref="fileUploadRef"
       />
       <div class="file-browse">
         <span class="file-browse-txt">{{ placeholder }} </span>
         <span class="browse text-gray-500">
-          <i class="fa-solid fa-camera"></i
-        ></span>
+          <i class="fa-solid fa-camera"></i>
+        </span>
       </div>
     </div>
     <span v-if="$slots.icon" class="form-icon">
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 const emit = defineEmits(["update:fileUrl"]);
 
 const props = defineProps({
@@ -38,6 +39,12 @@ const props = defineProps({
     type: String,
   },
   placeholder: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  id: {
     type: String,
   },
   icon: {
@@ -50,55 +57,33 @@ const props = defineProps({
   },
 });
 
+const fileUploadRef = ref(null);
+
 onMounted(() => {
-  const pmfFileupload = {
-    $filePlaceholder: null,
-    $fileUpload: null,
-    $fileBrowseTxt: null,
-    newVal: "",
-
-    init: function () {
-      this.cacheDom();
-      this.events();
-    },
-
-    cacheDom: function () {
-      this.$filePlaceholder = document.querySelector(".file-placeholder");
-      this.$fileUpload = this.$filePlaceholder.querySelector(".file-upload");
-      this.$fileBrowseTxt =
-        this.$filePlaceholder.querySelector(".file-browse-txt");
-    },
-
-    events: function () {
-      const self = this;
-      this.$fileUpload.addEventListener("change", function (e) {
-        self.getFileName(e);
-      });
-    },
-
-    getFileName: function (e) {
-      const file = e.target.files[0];
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = (e) => {
-          const base64String = reader.result;
-          // const base64String = reader.result.split(',')[1] // Extract base64 string
-          emit("update:fileUrl", base64String); // Emitting the event with the file URL
-        };
-        reader.readAsDataURL(file); // Read file as data URL
-      }
-
-      this.newVal = this.$fileUpload.value;
-      if (this.newVal !== "") {
-        this.$fileBrowseTxt.textContent = this.newVal;
-        this.$fileBrowseTxt.classList.add("hasValue");
-      }
-    },
-  };
-
-  pmfFileupload.init();
+  if (fileUploadRef.value) {
+    fileUploadRef.value.addEventListener("change", getFileName);
+  }
 });
+
+const getFileName = (e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = (e) => {
+      const base64String = reader.result;
+      emit("update:fileUrl", base64String); // Emitting the event with the file URL
+    };
+    reader.readAsDataURL(file); // Read file as data URL
+  }
+
+  const newVal = fileUploadRef.value.value;
+  if (newVal !== "") {
+    fileUploadRef.value.nextElementSibling.querySelector(
+      ".file-browse-txt"
+    ).textContent = newVal;
+  }
+};
 </script>
 
 <style lang="scss">

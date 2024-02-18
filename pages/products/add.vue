@@ -1,158 +1,419 @@
 <template>
-  <div class="bg-sectionBg py-5">
+  <section class="bg-lightGrayClr py-5">
     <div class="container">
-      <h1 class="title text-center mb-4 fs-3 fw-bold">
-        {{ $t("layout.AddMyProduct") }}
-      </h1>
-
-      <div class="w-50 mx-auto">
-        <h6 class="fs-14px mb-3">
-          {{ $t("layout.product_details") }}
-        </h6>
-        <form class="bg-white p-3 main_shadow">
-          <FormInput
-            :label="$t('layout.product_name')"
-            :placeholder="$t('layout.product_name')"
-            :model="addForm"
-            name="product_name"
-            type="text"
-            parentClass="w-100 mb-3"
-            :icon="false"
+      <div class="grid">
+        <div class="col-12 md:col-8 lg:col-7 mx-auto">
+          <h3 class="fw-bold text-center py-3">
+            {{ $t("layout.AddMyProduct") }}
+          </h3>
+        </div>
+        <div class="col-12 md:col-8 lg:col-7 mx-auto">
+          <h6 class="fw-bold text-start">
+            {{ $t("layout.product_details") }}
+          </h6>
+        </div>
+        <div class="col-12 md:col-8 lg:col-7 mx-auto bg-white main_shadow">
+          <form
+            style="max-width: 90%"
+            class="mx-auto py-3"
+            @submit.prevent="handelAddProduct"
+            ref="addProoduct"
           >
-          </FormInput>
-          <div>
-            <label class="fw-bold txt_start d-block mb-2">{{
-              $t("layout.categories")
-            }}</label>
-            <div class="form-inputs">
-              <Dropdown
-                filter
-                @change="category_check"
-                v-model="addForm.category"
-                :options="categories"
-                optionLabel="name"
-                :placeholder="$t('layout.categories')"
-                class="w-full ps-1"
-              />
-              <div class="feedback city_feedback"></div>
-            </div>
-          </div>
-          <div>
-            <label class="fw-bold txt_start d-block mb-2">{{
-              $t("layout.sub_category")
-            }}</label>
-            <div class="form-inputs">
-              <Dropdown
-                filter
-                v-model="addForm.sub_category"
-                :options="sub_categories"
-                optionLabel="name"
-                :placeholder="$t('layout.sub_category')"
-                class="w-full ps-1"
-              />
-              <div class="feedback city_feedback"></div>
-            </div>
-          </div>
-
-          <div class="w-100 mb-3">
-            <FormFileUploader
-              name="image"
+            <FormInput
+              :label="$t('layout.product_name') + ' (Ar)'"
+              :placeholder="$t('layout.product_name') + ' (Ar)'"
+              :model="addForm.name"
+              name="name_ar"
+              type="text"
+              parentClass="w-100 mb-3"
               :icon="false"
-              :label="$t('layout.product_image')"
-              :placeholder="$t('layout.product_image')"
+              InputClass="validated"
+              @change="change_valid"
             >
-            </FormFileUploader>
-          </div>
-
-          <FormInput
-            :textarea="true"
-            :label="$t('layout.product_description')"
-            :placeholder="$t('layout.product_description')"
-            :model="addForm"
-            name="description"
-            InputClass="height120 w-100 mb-3"
-            type="text"
-          >
-          </FormInput>
-
-          <FormInput
-            :label="$t('layout.product_price')"
-            :placeholder="$t('layout.product_price')"
-            :model="addForm"
-            name="product_price"
-            type="text"
-            parentClass="w-100 mb-3"
-            :icon="false"
-          >
-          </FormInput>
-          <div>
-            <label class="fw-bold txt_start d-block mb-2">{{
-              $t("product.brand")
-            }}</label>
-            <div class="form-inputs">
-              <Dropdown
-                filter
-                v-model="addForm.brand"
-                :options="brands"
-                optionLabel="name"
-                :placeholder="$t('product.brand')"
-                class="w-full ps-1"
-              />
-              <div class="feedback city_feedback"></div>
+            </FormInput>
+            <FormInput
+              :label="$t('layout.product_name') + ' (En)'"
+              :placeholder="$t('layout.product_name') + ' (En)'"
+              :model="addForm.name"
+              name="name_en"
+              type="text"
+              parentClass="w-100 mb-3"
+              :icon="false"
+              InputClass="validated"
+              @change="change_valid"
+            >
+            </FormInput>
+            <div class="mb-3">
+              <label class="fw-bold txt_start d-block mb-2">{{
+                $t("layout.categories")
+              }}</label>
+              <div class="form-inputs">
+                <Dropdown
+                  filter
+                  @change="category_check"
+                  v-model="addForm.category"
+                  :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="categories"
+                  optionLabel="name"
+                  :placeholder="$t('layout.categories')"
+                  class="w-full ps-1"
+                />
+                <div class="feedback category_feedback"></div>
+              </div>
             </div>
-          </div>
-          <div>
-            <label class="fw-bold txt_start d-block mb-2">{{
-              $t("layout.product_type")
-            }}</label>
-            <div class="form-inputs">
-              <Dropdown
-                filter
-                v-model="addForm.product_type"
-                :options="types"
-                optionLabel="name"
-                :placeholder="$t('layout.product_type')"
-                class="w-full ps-1"
-              />
-              <div class="feedback city_feedback"></div>
+            <div class="mb-3">
+              <label class="fw-bold txt_start d-block mb-2">{{
+                $t("layout.sub_category")
+              }}</label>
+              <div class="form-inputs">
+                <Dropdown
+                  filter
+                  @change="subCategory_check"
+                  v-model="addForm.sub_category"
+                  :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="sub_categories"
+                  optionLabel="name"
+                  :placeholder="$t('layout.sub_category')"
+                  class="w-full ps-1"
+                />
+                <div class="feedback subCategory_feedback"></div>
+              </div>
             </div>
-          </div>
-        </form>
+
+            <div class="w-100 mb-3">
+              <FormFileUploader
+                name="image"
+                id="product-image"
+                :icon="false"
+                :label="$t('layout.product_image')"
+                :placeholder="$t('layout.product_image')"
+              >
+              </FormFileUploader>
+            </div>
+
+            <div class="mb-3">
+              <FormInput
+                :textarea="true"
+                :label="$t('layout.product_description') + ' (Ar)'"
+                :placeholder="$t('layout.product_description') + ' (Ar)'"
+                :model="addForm.description"
+                name="description_ar"
+                InputClass="height120 w-100 validated"
+                type="text"
+                @change="change_valid"
+              >
+              </FormInput>
+            </div>
+            <div class="mb-3">
+              <FormInput
+                :textarea="true"
+                :label="$t('layout.product_description') + ' (En)'"
+                :placeholder="$t('layout.product_description') + ' (En)'"
+                :model="addForm.description"
+                name="description_en"
+                InputClass="height120 w-100 validated"
+                type="text"
+                @change="change_valid"
+              >
+              </FormInput>
+            </div>
+            <FormInput
+              :label="$t('layout.product_price')"
+              :placeholder="$t('layout.product_price')"
+              :model="addForm"
+              name="price"
+              type="text"
+              parentClass="w-100 mb-3"
+              :icon="false"
+              InputClass="validated"
+              @change="change_valid"
+            >
+            </FormInput>
+            <div class="mb-3">
+              <label class="fw-bold txt_start d-block mb-2">{{
+                $t("product.brand")
+              }}</label>
+              <div class="form-inputs">
+                <Dropdown
+                  filter
+                  @change="brand_check"
+                  v-model="addForm.brand"
+                  :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="brands"
+                  optionLabel="name"
+                  :placeholder="$t('product.brand')"
+                  class="w-full ps-1"
+                />
+                <div class="feedback brand_feedback"></div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="fw-bold txt_start d-block mb-2">{{
+                $t("layout.product_type")
+              }}</label>
+              <div class="form-inputs">
+                <Dropdown
+                  filter
+                  v-model="addForm.product_type"
+                  :options="types"
+                  optionLabel="name"
+                  :placeholder="$t('layout.product_type')"
+                  class="w-full ps-1"
+                />
+                <div class="feedback city_feedback"></div>
+              </div>
+            </div>
+
+            <div
+              class="mb-3"
+              v-for="(row, index) in addForm.features_rows"
+              :key="index"
+            >
+              <div class="bg-gray-200 mb-3 p-3">
+                <div v-if="!featureExist">
+                  <label class="fw-bold txt_start d-block mb-2">{{
+                    $t("layout.features")
+                  }}</label>
+                  <div class="form-inputs">
+                    <Dropdown
+                      filter
+                      v-model="addForm.features_rows[index].feature"
+                      :options="features"
+                      optionLabel="name"
+                      :placeholder="$t('layout.features')"
+                      class="w-full ps-1"
+                    />
+                    <div class="feedback city_feedback"></div>
+                  </div>
+                </div>
+                <div v-if="addForm.features_rows[index].feature.id == 'color'">
+                  <label class="fw-bold txt_start d-block mb-2">{{
+                    $t("product.select_colors")
+                  }}</label>
+                  <div class="form-inputs mb-3">
+                    <MultiSelect
+                      v-model="addForm.features_rows[index].color"
+                      :options="colors"
+                      optionLabel="color"
+                      :placeholder="$t('product.color')"
+                      class="w-full ps-1"
+                    />
+                  </div>
+
+                  <div
+                    v-for="(color, colorIndex) in addForm.features_rows[index]
+                      .color"
+                    :key="colorIndex"
+                    class="w-100 mb-3"
+                  >
+                    <FormFileUploader
+                      name="images[]"
+                      :id="color.id"
+                      :icon="false"
+                      :label="color.color"
+                      :placeholder="color.color"
+                    >
+                    </FormFileUploader>
+                  </div>
+                </div>
+                <div v-if="addForm.features_rows[index].feature.id == 'size'">
+                  <label class="fw-bold txt_start d-block mb-2">{{
+                    $t("product.select_sizes")
+                  }}</label>
+                  <div class="form-inputs">
+                    <MultiSelect
+                      v-model="addForm.features_rows[index].size"
+                      :options="sizes"
+                      optionLabel="size"
+                      :placeholder="$t('product.size')"
+                      class="w-full ps-1"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              v-if="
+                (addForm.product_type.id == 'various') &
+                !bothColorAndSizeSelected
+              "
+              @click="addFeatureRow"
+              type="button"
+              class="btn w-100 transparent btn-primary fw-bold"
+            >
+              {{ $t("layout.add_feature") }}
+              <i class="fa-solid fa-circle-plus mx-1 fs-5 text-gray-600"></i>
+            </button>
+
+            <button
+              class="btn btn-primary w-100 mt-3"
+              :loading="loading"
+              :disabled="loading === true"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center gap5"
+              >
+                <span>{{ $t("layout.send") }}</span>
+                <div
+                  class="spinner-border spinner-border-sm"
+                  :class="loading ? 'd-block' : 'd-none'"
+                  role="status"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
 // ================================================================================ imports
 
 import { response } from "~/network/response";
+import { toast_handel } from "~/network/ValidTost";
+import { validate, change_valid } from "~/validation/validation";
 // ================================================================================ data
 
 const { t } = useI18n();
 const axios = useNuxtApp().$axios;
+const { notify_toast } = toast_handel();
+const loading = ref(false);
 const categories = ref([]);
 const sub_categories = ref([]);
+const sizes = ref([]);
+const brands = ref([]);
+const colors = ref([]);
+const featureExist = ref(false);
+const addProoduct = ref();
 const addForm = ref({
-  product_name: "",
+  name: {},
   category: "",
   sub_category: "",
-  description: "",
-  product_price: "",
+  description: {},
+  price: "",
   brand: "",
   product_type: "",
+  features_rows: [],
 });
-const brands = ref([
-  { name: "brand 1", code: "NY" },
-  { name: "brand 2", code: "RM" },
-]);
 const types = ref([
-  { name: t("layout.high_low"), code: "desc" },
-  { name: t("layout.low_high"), code: "asc" },
+  { name: t("layout.simple"), id: "simple" },
+  { name: t("layout.various_features"), id: "various" },
 ]);
+const features = ref([
+  { name: t("product.color"), id: "color" },
+  { name: t("product.size"), id: "size" },
+]);
+
 // ================================================================================ methods
 
-// ===================================== get categories & sub categories
+// Computed property to check if both color and size are selected
+const bothColorAndSizeSelected = computed(() => {
+  const colorSelected = addForm.value.features_rows.some(
+    (row) => row.feature && row.feature.id === "color"
+  );
+  const sizeSelected = addForm.value.features_rows.some(
+    (row) => row.feature && row.feature.id === "size"
+  );
+  return colorSelected && sizeSelected;
+});
+const addFeatureRow = () => {
+  const colorSelected = addForm.value.features_rows.some(
+    (row) => row.feature && row.feature.id === "color"
+  );
+  const sizeSelected = addForm.value.features_rows.some(
+    (row) => row.feature && row.feature.id === "size"
+  );
+
+  const featureSelected = addForm.value.features_rows.some(
+    (row) => row.feature
+  );
+
+  // If color and size both not selected yet, add it
+  if (!colorSelected && !sizeSelected) {
+    addForm.value.features_rows.push({
+      feature: "",
+    });
+    return;
+  }
+
+  // If color is not selected yet, add it
+  if (!colorSelected) {
+    addForm.value.features_rows.push({
+      feature: { id: "color" },
+    });
+    if (featureSelected) {
+      featureExist.value = true;
+    }
+    return;
+  }
+
+  // If size is not selected yet, add it
+  if (!sizeSelected) {
+    addForm.value.features_rows.push({
+      feature: { id: "size" },
+    });
+    if (featureSelected) {
+      featureExist.value = true;
+    }
+  }
+};
+
+// ===================================== brands
+const get_brands = async () => {
+  axios
+    .get(`brands`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        brands.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+// ===================================== colors
+const get_colors = async () => {
+  axios
+    .get(`colors`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        colors.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+
+// ===================================== sizes
+const get_sizes = async () => {
+  axios
+    .get(`sizes`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        sizes.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+
+// ===================================== get categories
 const get_categories = async () => {
   axios
     .get(`categories`)
@@ -168,6 +429,7 @@ const get_categories = async () => {
     });
 };
 
+// ===================================== sub categories
 const get_sub_categories = async () => {
   axios
     .get(`categories/${addForm.value.category.id}`)
@@ -182,14 +444,113 @@ const get_sub_categories = async () => {
       console.error(e);
     });
 };
+
+// validate category
 const category_check = () => {
-  get_sub_categories();
+  let category_feedback =
+    document.getElementsByClassName("category_feedback")[0];
+  if (!addForm.value.category.id) {
+    category_feedback.classList.add("valid");
+    category_feedback.innerHTML = `<span>${t(
+      `validate_msg.select_category`
+    )}</span>`;
+    return false;
+  } else {
+    get_sub_categories();
+    category_feedback.classList.remove("valid");
+    category_feedback.innerHTML = "";
+    return true;
+  }
+};
+
+// validate sub category
+const subCategory_check = () => {
+  let subCategory_feedback = document.getElementsByClassName(
+    "subCategory_feedback"
+  )[0];
+  if (!addForm.value.sub_category.id) {
+    subCategory_feedback.classList.add("valid");
+    subCategory_feedback.innerHTML = `<span>${t(
+      `validate_msg.select_subcategory`
+    )}</span>`;
+    return false;
+  } else {
+    subCategory_feedback.classList.remove("valid");
+    subCategory_feedback.innerHTML = "";
+    return true;
+  }
+};
+
+// validate brand
+const brand_check = () => {
+  let brand_feedback = document.getElementsByClassName("brand_feedback")[0];
+  if (!addForm.value.brand.id) {
+    brand_feedback.classList.add("valid");
+    brand_feedback.innerHTML = `<span>${t(`validate_msg.select_brand`)}</span>`;
+    return false;
+  } else {
+    brand_feedback.classList.remove("valid");
+    brand_feedback.innerHTML = "";
+    return true;
+  }
+};
+
+// ===================================== filter
+
+const handelAddProduct = async () => {
+  loading.value = true;
+  const fd = new FormData(addProoduct.value);
+  if (addForm.value.category) {
+    fd.append("category_id", addForm.value.category.id);
+  }
+  if (addForm.value.sub_category) {
+    fd.append("sub_category_id", addForm.value.sub_category.id);
+  }
+  category_check();
+  subCategory_check();
+  brand_check();
+  let valid = validate(addProoduct.value).valid;
+  let valid_ruls = valid === "isValid";
+  if (valid_ruls && category_check() && subCategory_check() && brand_check()) {
+    alert();
+    // axios
+    //   .post("store-product", fd)
+    //   .then((res) => {
+    //     let status = response(res).status;
+    //     let data = response(res).data;
+    //     if (status === "success") {
+    //       notify_toast(msg, "success");
+    //       loading.value = false;
+    //     } else {
+    //       notify_toast(msg, "error");
+    //       loading.value = false;
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+  } else {
+    notify_toast(t(`validate_msg.uncomplete`), "error");
+    loading.value = false;
+  }
 };
 
 // ================================================================================ lifecycle hooks
 onMounted(() => {
   get_categories();
+  get_brands();
+  get_colors();
+  get_sizes();
 });
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.p-checkbox {
+  &.p-highlight {
+    .p-checkbox-box {
+      border-color: #505050;
+      background: #505050;
+    }
+  }
+}
+</style>
