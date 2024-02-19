@@ -84,6 +84,7 @@
 
             <div class="w-100 mb-3">
               <FormFileUploader
+                @update:fileUrl="handleFileUrlUpdate"
                 name="image"
                 id="product-image"
                 :icon="false"
@@ -91,6 +92,7 @@
                 :placeholder="$t('layout.product_image')"
               >
               </FormFileUploader>
+              <div class="feedback product_image_feedback"></div>
             </div>
 
             <div class="mb-3">
@@ -157,13 +159,16 @@
               <div class="form-inputs">
                 <Dropdown
                   filter
+                  @change="productType_check"
                   v-model="addForm.product_type"
+                  :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
                   :options="types"
                   optionLabel="name"
                   :placeholder="$t('layout.product_type')"
                   class="w-full ps-1"
                 />
-                <div class="feedback city_feedback"></div>
+                <div class="feedback product_type_feedback"></div>
               </div>
             </div>
 
@@ -210,7 +215,14 @@
                     class="w-100 mb-3"
                   >
                     <FormFileUploader
-                      name="images[]"
+                      :name="color.color"
+                      @update:fileUrl="
+                        handleColorUrlUpdate(
+                          $event,
+                          color.id,
+                          addForm.features_rows[index].color
+                        )
+                      "
                       :id="color.id"
                       :icon="false"
                       :label="color.color"
@@ -226,6 +238,7 @@
                   <div class="form-inputs">
                     <MultiSelect
                       v-model="addForm.features_rows[index].size"
+                      @change="getSelectedSize()"
                       :options="sizes"
                       optionLabel="size"
                       :placeholder="$t('product.size')"
@@ -277,11 +290,13 @@
 <script setup>
 // ================================================================================ imports
 
+import { useAuthStore } from "~/stores/auth";
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
 import { validate, change_valid } from "~/validation/validation";
 // ================================================================================ data
 
+const authStore = useAuthStore();
 const { t } = useI18n();
 const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
@@ -295,6 +310,7 @@ const featureExist = ref(false);
 const addProoduct = ref();
 const addForm = ref({
   name: {},
+  product_image: "",
   category: "",
   sub_category: "",
   description: {},
@@ -312,7 +328,37 @@ const features = ref([
   { name: t("product.size"), id: "size" },
 ]);
 
+const selectedSizes = ref([]);
+
 // ================================================================================ methods
+
+
+// get selected size
+const getSelectedSize = () => {
+  addForm.value.features_rows.forEach((row) => {
+    selectedSizes.value = [];
+    if (row.feature && row.feature.id === "size") {
+      row.size.forEach((size) => {
+        selectedSizes.value.push(size.id);
+      });
+    }
+  });
+};
+
+// handel product image
+function handleFileUrlUpdate(fileUrl) {
+  addForm.value.product_image = fileUrl;
+  productImage_check();
+}
+
+// append image for each selected color
+function handleColorUrlUpdate(fileUrl, id, myColors) {
+  myColors = myColors.map((color) => {
+    if (color.id == id) {
+      color.image = fileUrl;
+    }
+  });
+}
 
 // Computed property to check if both color and size are selected
 const bothColorAndSizeSelected = computed(() => {
@@ -324,6 +370,8 @@ const bothColorAndSizeSelected = computed(() => {
   );
   return colorSelected && sizeSelected;
 });
+
+// add feature
 const addFeatureRow = () => {
   const colorSelected = addForm.value.features_rows.some(
     (row) => row.feature && row.feature.id === "color"
@@ -494,41 +542,95 @@ const brand_check = () => {
     return true;
   }
 };
+// validate product type
+const productType_check = () => {
+  let product_type_feedback = document.getElementsByClassName(
+    "product_type_feedback"
+  )[0];
+  if (!addForm.value.product_type.id) {
+    product_type_feedback.classList.add("valid");
+    product_type_feedback.innerHTML = `<span>${t(
+      `validate_msg.select_product_type`
+    )}</span>`;
+    return false;
+  } else {
+    product_type_feedback.classList.remove("valid");
+    product_type_feedback.innerHTML = "";
+    return true;
+  }
+};
+// validate product image
+const productImage_check = () => {
+  let product_image_feedback = document.getElementsByClassName(
+    "product_image_feedback"
+  )[0];
+  if (!addForm.value.product_image) {
+    product_image_feedback.classList.add("valid");
+    product_image_feedback.innerHTML = `<span>${t(
+      `validate_msg.select_product_image`
+    )}</span>`;
+    return false;
+  } else {
+    product_image_feedback.classList.remove("valid");
+    product_image_feedback.innerHTML = "";
+    return true;
+  }
+};
 
 // ===================================== filter
 
 const handelAddProduct = async () => {
+  let config = "";
+  if (authStore.user) {
+    config = {
+      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
+    };
+  }
   loading.value = true;
   const fd = new FormData(addProoduct.value);
-  if (addForm.value.category) {
-    fd.append("category_id", addForm.value.category.id);
-  }
-  if (addForm.value.sub_category) {
-    fd.append("sub_category_id", addForm.value.sub_category.id);
-  }
+
   category_check();
   subCategory_check();
   brand_check();
+  productType_check();
+  productImage_check();
+
   let valid = validate(addProoduct.value).valid;
   let valid_ruls = valid === "isValid";
-  if (valid_ruls && category_check() && subCategory_check() && brand_check()) {
-    alert();
-    // axios
-    //   .post("store-product", fd)
-    //   .then((res) => {
-    //     let status = response(res).status;
-    //     let data = response(res).data;
-    //     if (status === "success") {
-    //       notify_toast(msg, "success");
-    //       loading.value = false;
-    //     } else {
-    //       notify_toast(msg, "error");
-    //       loading.value = false;
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.error(e);
-    //   });
+  if (
+    valid_ruls &&
+    category_check() &&
+    subCategory_check() &&
+    brand_check() &&
+    productType_check() &&
+    productImage_check()
+  ) {
+    fd.append("name[ar]", addForm.value.name.name_ar);
+    fd.append("name[en]", addForm.value.name.name_en);
+    fd.append("description[ar]", addForm.value.description.description_ar);
+    fd.append("description[en]", addForm.value.description.description_en);
+    fd.append("category_id", addForm.value.category.id);
+    fd.append("sub_category_id", addForm.value.sub_category.id);
+    fd.append("brand_id", addForm.value.brand.id);
+    fd.append("type", addForm.value.product_type.id);
+    fd.append("size_id[]", selectedSizes.value);
+
+    axios
+      .post("store-product", fd, config)
+      .then((res) => {
+        let status = response(res).status;
+        let data = response(res).data;
+        if (status === "success") {
+          notify_toast(msg, "success");
+          loading.value = false;
+        } else {
+          notify_toast(msg, "error");
+          loading.value = false;
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   } else {
     notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;

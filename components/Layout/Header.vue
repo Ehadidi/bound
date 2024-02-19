@@ -271,10 +271,68 @@
           </div>
           <div class="user_list">
             <ul>
-              <li>
-                <NuxtLink :to="localPath('/')"
+              <li class="dropdown" ref="noti_target">
+                <NuxtLink
+                  class="cursor-pointer"
+                  @click="noti_dropShown = !noti_dropShown"
                   ><img src="~/assets/images/BellBing.svg" alt="notification" />
                 </NuxtLink>
+
+                <Transition name="dropShow">
+                  <ul
+                    v-if="noti_dropShown"
+                    class="dropdown-menu flex-column fs-13px p-2 noti-dropdown"
+                  >
+                    <li>
+                      <div class="d-flex">
+                        <div class="flex-shrink-0">
+                          <img
+                            src="~/assets/images/noti.svg"
+                            alt="notifications"
+                            width="30"
+                          />
+                        </div>
+                        <div
+                          class="flex-grow-1 ms-3 d-flex align-items-baseline"
+                        >
+                          <div class="d-flex flex-column">
+                            Lorem ipsum dolor sit met cons.
+                            <span class="text-gray-500 fs-10px">
+                              1 hour ago
+                            </span>
+                          </div>
+                          <i
+                            class="fa-solid fa-trash-can text-danger mx-2 cursor-pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="d-flex">
+                        <div class="flex-shrink-0">
+                          <img
+                            src="~/assets/images/noti.svg"
+                            alt="notifications"
+                            width="30"
+                          />
+                        </div>
+                        <div
+                          class="flex-grow-1 ms-3 d-flex align-items-baseline"
+                        >
+                          <div class="d-flex flex-column">
+                            Lorem ipsum dolor sit met cons.
+                            <span class="text-gray-500 fs-10px">
+                              1 hour ago
+                            </span>
+                          </div>
+                          <i
+                            class="fa-solid fa-trash-can text-danger mx-2 cursor-pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </Transition>
               </li>
               <li>
                 <NuxtLink :to="localPath('/cart')"
@@ -495,7 +553,10 @@ const success_modal = ref(false);
 const success_modal_from_reset = ref(false);
 const dropShown = ref(false);
 const target = ref(null);
+const noti_dropShown = ref(false);
+const noti_target = ref(null);
 onClickOutside(target, (event) => (dropShown.value = false));
+onClickOutside(noti_target, (event) => (noti_dropShown.value = false));
 const phone_number = ref();
 const country_code = ref();
 const productsStore = useProductsSearchStore();

@@ -136,6 +136,8 @@
     "select_category": "Category is required",
     "select_subcategory": "Sub category is required",
     "select_brand": "Brand is required",
+    "select_product_type": "Product type is required",
+    "select_product_image": "Product image is required",
     "name_ar": "Name in arabic is required",
     "name_en": "Name in english is required",
     "price": "Price is required",

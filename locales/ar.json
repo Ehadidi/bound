@@ -134,6 +134,8 @@
     "select_category": "اختر القسم",
     "select_subcategory": "اختر تصنيف فرعي",
     "select_brand": "اختر الماركة",
+    "select_product_type": "اختر نوع المنتج",
+    "select_product_image": "اختر صورة المنتج",
     "name_ar": "الاسم بالعربي مطلوب",
     "name_en": "الاسم بالانجليزي مطلوب",
     "price": "السعر بالانجليزي مطلوب",
