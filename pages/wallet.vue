@@ -3,7 +3,7 @@
         <div class="container">
             <div class="grid">
                 <div class="col-12 md:col-8 lg:col-7 mx-auto">
-                    <div class="bg-white border">
+                    <div class="bg-white border main_shadow">
                         <h6 class="fw-bold text-center py-3 border-bottom">{{ $t('layout.wallet') }}</h6>
                         <div class="container">
                             <div class="flex align-items-center justify-content-center flex-column gap20 p-5">
@@ -37,7 +37,7 @@
                     </FormInput>
 
                     <div class="flex flex-column gap15 w-100">
-                        <label class="payment mb-0" v-for="item in brands" :key="item" :class="form.brand === item.id ? 'active' : ''">
+                        <label class="radio-bar mb-0" v-for="item in brands" :key="item" :class="form.brand === item.id ? 'active' : ''">
                             <div class="flex align-items-center gap15">
                                 <FormRadio name="brand" :model="form" :option="item.id" />
                                 <span>{{ item.name }}</span>

@@ -117,7 +117,8 @@
     "enter_address":"Enter address",
     "address_description":"Address Description",
     "enter_address_description":"Enter address description",
-    "location":"Location"
+    "location":"Location",
+    "select_location":"Select location on map"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
@@ -156,13 +157,22 @@
   },
   "product":{
     "price": "Price",
+    "unit": "Day",
     "brand": "Brand",
     "rating": "Rating",
     "size": "Size",
     "color": "Color",
-    "another_products": "You may also like"
+    "another_products": "You may also like",
+    "currency": "SAR",
+    "startDate": "Start Date",
+    "selectDate": "Select Date and duration",
+    "select_duration": "Please select duration",
+    "save": "Save",
+    "cancel": "Cancel",
+    "add_to_cart": "Add to cart"
   },
   "cart":{
+    "change": "Change",
     "items": "Items added to cart",
     "details": "Order Details",
     "paymentDetails": "Payment Details",
@@ -175,6 +185,8 @@
     "total": "Total",
     "sendOrder": "Confirm Order",
     "depositInfo": "will be Refunded after we retrieve the product",
+    "save_changes": "Save changes",
+    "cancel": "Cancel",
     "payment":{
       "online": "Online Payment",
       "wallet": "My Wallet"

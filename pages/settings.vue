@@ -5,7 +5,7 @@
                 <div class="col-12 md:col-8 lg:col-7 mx-auto">
                     <h5 class="fw-bold text-start py-3">{{ $t('layout.profile_settings') }}</h5>
                 </div>
-                <div class="col-12 md:col-8 lg:col-7 mx-auto bg-white">
+                <div class="col-12 md:col-8 lg:col-7 mx-auto bg-white main_shadow">
                     <form @submit.prevent="edit_profile" ref="edit_form" style="max-width: 90%" class="mx-auto py-3">
                         <FormInput :label="$t('form_layout.user_name')" :placeholder="$t('form_layout.enter_user_name')"
                             :model="form" name="name" type="text" parentClass="w-100 my-3" :icon="true">

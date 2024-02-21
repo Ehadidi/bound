@@ -116,7 +116,8 @@
     "enter_address":"ادخل العنوان",
     "address_description":"وصف العنوان",
     "enter_address_description":"ادخل وصف العنوان",
-    "location":"الموقع"
+    "location":"الموقع",
+    "select_location":"اختر الموقع على الخريطة"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
@@ -156,13 +157,22 @@
   },
   "product": {
     "price": "السعر",
+    "unit": "يوم",
     "brand": "الماركة",
     "rating": "التقييم",
     "size": "الحجم",
     "color": "اللون",
-    "another_products": "منتجات قد تعجبك"
+    "another_products": "منتجات قد تعجبك",
+    "currency": "ريال سعودي",
+    "startDate": "تاريخ البدء",
+    "selectDate": "تحديد التاريخ والمدة",
+    "select_duration": "يرجي تحديد المدة",
+    "save": "حفظ",
+    "cancel": "الغاء",
+    "add_to_cart": "اضف للسلة"
   },
   "cart": {
+    "change": "تغيير",
     "items": "العناصر المضافة إلى السلة",
     "details": "تفاصيل الطلب",
     "paymentDetails": "بيانات الدفع",
@@ -175,6 +185,8 @@
     "total": "المجموع",
     "sendOrder": "تأكيد الطلب",
     "depositInfo": "سيتم رد المبلغ المدفوع بعد استرجاع المنتج",
+    "save_changes": "حفظ التغييرات",
+    "cancel": "الغاء",
     "payment": {
       "online": "الدفع الالكتروني",
       "wallet": "المحفظة"

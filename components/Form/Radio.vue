@@ -7,6 +7,7 @@
       :id="option"
       v-model="model[name]"
       :name="name"
+      :checked="isChecked"
     />
     <label class="form-check-label ms-2" :for="option">
       {{ label }}
@@ -31,10 +32,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  // class: {
-  //   type: String,
-  //   default: ''
-  // },
+  isChecked: {
+    type: Boolean,
+    default: false
+  },
   parentClass: {
     type: String,
     default: ''

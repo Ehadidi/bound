@@ -1,39 +1,34 @@
 <template>
   <div class="home-sections">
-    <div class="home-swiper">
+
+    <div class="home-swiper" v-if="home_data.sliders">
       <!-- :autoplay="{
               delay: 5000,
               disableOnInteraction: false,
           }"  -->
-      <Swiper
-        :autoplay="false"
-        :pagination="{
-          dynamicBullets: true,
-        }"
-        :navigation="true"
-        :modules="modules"
-        class="main-slide"
-      >
-        <SwiperSlide
-          class="main-slide-item"
-          v-for="item in home_data.sliders"
-          :key="item"
-        >
-          <img :src="item.image" :alt="item.title" />
+      <Swiper :autoplay="false" :pagination="{
+        dynamicBullets: true,
+      }" :navigation="true" :modules="modules" class="main-slide">
+        <SwiperSlide class="main-slide-item" v-for="item in home_data.sliders" :key="item">
+          <img v-if="item.image" :src="item.image" :alt="item.title" />
+          <div class="not_found h-100 bg-primary" v-else>
+            <p>{{ $t('notFound.Images') }}</p>
+          </div>
           <div class="slider-content">
             <!-- <h6>FOR ANY OCCATION</h6> -->
             <h1 class="title">{{ item.title }}</h1>
             <p class="fs-6 w-75 text-center">
               {{ item.description }}
             </p>
-            <NuxtLink
-              :to="localPath(`/products/categories/${item.category_id}`)"
-              class="btn btn-primary arrow-effect"
-              >{{ $t("layout.see_more") }}
+            <NuxtLink :to="localPath(`/products/categories/${item.category_id}`)" class="btn btn-primary arrow-effect">{{
+              $t("layout.see_more") }}
             </NuxtLink>
           </div>
         </SwiperSlide>
       </Swiper>
+    </div>
+    <div v-else class="home-swiper">
+      <Skeleton height="40rem"></Skeleton>
     </div>
     <section class="main-sec">
       <div class="container">
@@ -44,46 +39,30 @@
           </div>
         </div>
         <div class="grid">
-          <div
-            class="col-12 md:col-6 lg:col-4"
-            v-for="item in categories"
-            :key="item"
-            :class="
-              item.id == 2
-                ? 'col-12 md:col-6 lg:col-8'
-                : 'col-12 md:col-6 lg:col-4'
-            "
-          >
+          <div class="col-12 md:col-6 lg:col-4" v-for="item in categories" :key="item" :class="item.id == 2
+            ? 'col-12 md:col-6 lg:col-8'
+            : 'col-12 md:col-6 lg:col-4'
+            ">
             <div class="category-card wide" v-if="item.id == 2">
               <div class="card-info">
                 <h5 class="title text-secondary">{{ item.name }}</h5>
                 <p class="fs-6 text-center ellipsis w-75">
                   {{ item.description }}
                 </p>
-                <NuxtLink
-                  class="default-link arrow-btn"
-                  :to="localPath(`/products/categories/${item.id}`)"
-                >
+                <NuxtLink class="default-link arrow-btn" :to="localPath(`/products/categories/${item.id}`)">
                   <div class="d-flex align-items-center mx-auto">
                     <span>{{ $t("layout.see_more") }}</span>
                     <img src="~/assets/images/ArrowRight.svg" alt="arrow" />
                   </div>
                 </NuxtLink>
-                <span
-                  class="arrow"
-                  :class="htlang === 'ar' ? 'left' : 'right'"
-                ></span>
+                <span class="arrow" :class="htlang === 'ar' ? 'left' : 'right'"></span>
               </div>
               <div class="card-img">
                 <img :src="item.image" :alt="item.name" />
                 <div class="hv-layer">
                   <NuxtLink :to="localPath(`/products/categories/${item.id}`)">
                     <div class="flex align-items-center w-100 h-100">
-                      <img
-                        class="width40 height40"
-                        src="~/assets/images/link-icon.svg"
-                        alt="link"
-                      />
+                      <img class="width40 height40" src="~/assets/images/link-icon.svg" alt="link" />
                     </div>
                   </NuxtLink>
                 </div>
@@ -94,14 +73,8 @@
                 <img :src="item.image" :alt="item.name" />
                 <div class="hv-layer">
                   <NuxtLink :to="localPath(`/products/categories/${item.id}`)">
-                    <div
-                      class="flex align-items-end justify-content-center w-100 h-100"
-                    >
-                      <img
-                        class="width40 height40"
-                        src="~/assets/images/link-icon.svg"
-                        alt="link"
-                      />
+                    <div class="flex align-items-end justify-content-center w-100 h-100">
+                      <img class="width40 height40" src="~/assets/images/link-icon.svg" alt="link" />
                     </div>
                   </NuxtLink>
                 </div>
@@ -111,10 +84,7 @@
                 <p class="fs-6 text-center p-2 ellipsis">
                   {{ item.description }}
                 </p>
-                <NuxtLink
-                  class="default-link arrow-btn"
-                  :to="localPath(`/products/categories/${item.id}`)"
-                >
+                <NuxtLink class="default-link arrow-btn" :to="localPath(`/products/categories/${item.id}`)">
                   <div class="d-flex align-items-center mx-auto">
                     <span>{{ $t("layout.see_more") }}</span>
                     <img src="~/assets/images/ArrowRight.svg" alt="arrow" />
@@ -161,28 +131,11 @@
             <img src="~/assets/images/products-text.png" alt="products" />
           </div>
         </div>
-        <swiper
-          class="product-slide"
-          :slidesPerView="5"
-          :breakpoints="breakpoints"
-          :navigation="true"
-          :pagination="false"
-          :spaceBetween="30"
-          :freeMode="true"
-          :modules="modules"
-        >
-          <SwiperSlide
-            class="product-slide-item"
-            v-for="item in home_data.products_1"
-            :key="item.id"
-          >
-            <CategoriesProductCard
-              :productImg="item.image"
-              :price="item.price"
-              :productName="item.name"
-              :rate="item.average_rate"
-              :id="item.id"
-            />
+        <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false"
+          :spaceBetween="30" :freeMode="true" :modules="modules">
+          <SwiperSlide class="product-slide-item" v-for="item in home_data.products_1" :key="item.id">
+            <CategoriesProductCard :productImg="item.image" :price="item.price" :productName="item.name"
+              :rate="item.average_rate" :id="item.id" />
           </SwiperSlide>
         </swiper>
       </div>
@@ -190,28 +143,11 @@
         <div class="sec-title">
           <h2 class="title">{{ $t("layout.dresses") }}</h2>
         </div>
-        <swiper
-          class="product-slide"
-          :slidesPerView="5"
-          :breakpoints="breakpoints"
-          :navigation="true"
-          :pagination="false"
-          :spaceBetween="30"
-          :freeMode="true"
-          :modules="modules"
-        >
-          <SwiperSlide
-            class="product-slide-item"
-            v-for="item in home_data.products_2"
-            :key="item.id"
-          >
-            <CategoriesProductCard
-              :productImg="item.image"
-              :price="item.price"
-              :productName="item.name"
-              :rate="item.average_rate"
-              :id="item.id"
-            />
+        <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false"
+          :spaceBetween="30" :freeMode="true" :modules="modules">
+          <SwiperSlide class="product-slide-item" v-for="item in home_data.products_2" :key="item.id">
+            <CategoriesProductCard :productImg="item.image" :price="item.price" :productName="item.name"
+              :rate="item.average_rate" :id="item.id" />
           </SwiperSlide>
         </swiper>
       </div>
@@ -221,36 +157,15 @@
         <div class="sec-title">
           <h2 class="title">{{ $t("layout.exclusive_offers") }}</h2>
           <div class="text-bg">
-            <img
-              src="~/assets/images/Exclusive-text.png"
-              alt="Exclusive Offers"
-            />
+            <img src="~/assets/images/Exclusive-text.png" alt="Exclusive Offers" />
           </div>
         </div>
-        <swiper
-          class="product-slide"
-          :slidesPerView="5"
-          :breakpoints="breakpoints"
-          :navigation="true"
-          :pagination="false"
-          :spaceBetween="30"
-          :freeMode="true"
-          :modules="modules"
-        >
-          <SwiperSlide
-            class="product-slide-item"
-            v-for="item in home_data.offers"
-            :key="item"
-          >
-            <CategoriesProductCard
-              :productImg="item.product_image"
-              :price_before="item.price_before_discount"
-              :price="item.price_after_discount"
-              :productName="item.product_name"
-              :rate="item.product_avg_rate"
-              :id="item.product_id"
-              :end_date="item.end_date"
-            />
+        <swiper class="product-slide" :slidesPerView="5" :breakpoints="breakpoints" :navigation="true" :pagination="false"
+          :spaceBetween="30" :freeMode="true" :modules="modules">
+          <SwiperSlide class="product-slide-item" v-for="item in home_data.offers" :key="item">
+            <CategoriesProductCard :productImg="item.product_image" :price_before="item.price_before_discount"
+              :price="item.price_after_discount" :productName="item.product_name" :rate="item.product_avg_rate"
+              :id="item.product_id" :end_date="item.end_date" />
           </SwiperSlide>
         </swiper>
       </div>
@@ -437,6 +352,7 @@ watch(useRout, () => {
 html[lang="ar"] {
   .slider-content {
     h6 {
+
       &:before,
       &:after {
         right: unset !important;
