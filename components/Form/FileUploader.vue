@@ -10,6 +10,7 @@
   >
     <div class="file-placeholder default_input p-0">
       <input
+        :name="name"
         :disabled="readonly"
         :id="id"
         type="file"
@@ -70,9 +71,10 @@ const getFileName = (e) => {
 
   if (file) {
     const reader = new FileReader();
+    const customFile = URL.createObjectURL(file);
     reader.onloadend = (e) => {
-      const base64String = reader.result;
-      emit("update:fileUrl", base64String); // Emitting the event with the file URL
+      // const base64String = reader.result;
+      emit("update:fileUrl", file); // Emitting the event with the file URL
     };
     reader.readAsDataURL(file); // Read file as data URL
   }

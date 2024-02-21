@@ -400,7 +400,7 @@ input.default {
   white-space: nowrap;
 
   span {
-    background-color: #fff;
+    // background-color: #fff;
     padding: 0 5px;
     border-radius: 5px;
   }
@@ -1619,7 +1619,7 @@ html[lang="ar"] {
   list-style: none;
   padding: 0;
   margin: auto;
-  top: 50px;
+  top: 40px;
   left: 0;
   right: 0;
   min-width: fit-content;
@@ -1655,11 +1655,25 @@ html[lang="ar"] {
     gap: 0;
     align-items: baseline;
     li {
+      width: 100%;
       &:not(:last-of-type) {
         border-bottom: 1px solid #eee;
         margin-bottom: 10px;
         padding-bottom: 10px;
       }
+    }
+  }
+}
+
+html[lang="ar"] {
+  .text-start {
+    text-align: right !important;
+  }
+  .dropdown-menu {
+    text-align: right;
+    &.noti-dropdown {
+      right: -100px;
+      left: auto;
     }
   }
 }
@@ -1688,6 +1702,26 @@ html[lang="ar"] {
         height: 15px;
       }
     }
+  }
+}
+
+// start count
+.count {
+  @extend .flex-center;
+  font-size: 9px;
+  font-weight: bold;
+  position: absolute;
+  color: white;
+  @include mixins.shape(12px, 50%);
+  background-color: map_get(colors.$theme-colors, danger);
+  top: -10px;
+  right: -5px;
+}
+
+html[lang="ar"] {
+  .count {
+    left: -5px;
+    right: auto;
   }
 }
 
@@ -1857,6 +1891,22 @@ html[lang="ar"] {
     }
   }
 
+  .dropdown-menu {
+    &.noti-dropdown {
+      min-width: 220px;
+      left: -100px;
+    }
+  }
+
+  html[lang="ar"] {
+    .dropdown-menu {
+      &.noti-dropdown {
+        right: -100px;
+        left: auto;
+      }
+    }
+  }
+
   footer {
     font-size: 13px;
 
@@ -1950,6 +2000,22 @@ html[lang="ar"] {
       margin-top: 20px;
     }
   }
+
+  .dropdown-menu {
+    &.noti-dropdown {
+      min-width: 260px;
+      left: -110px;
+    }
+  }
+
+  html[lang="ar"] {
+    .dropdown-menu {
+      &.noti-dropdown {
+        right: -110px;
+        left: auto;
+      }
+    }
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -1966,9 +2032,19 @@ html[lang="ar"] {
       margin-top: 25px;
     }
   }
+  .dropdown-menu {
+    &.noti-dropdown {
+      min-width: 230px;
+    }
+  }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .dropdown-menu {
+    &.noti-dropdown {
+      min-width: 245px;
+    }
+  }
 }
 
 /*Larger Screen*/

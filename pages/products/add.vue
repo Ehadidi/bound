@@ -200,7 +200,8 @@
                   }}</label>
                   <div class="form-inputs mb-3">
                     <MultiSelect
-                      v-model="addForm.features_rows[index].color"
+                      v-model="addForm.features_rows[index].colors"
+                      @change="getSelectedcolor()"
                       :options="colors"
                       optionLabel="color"
                       :placeholder="$t('product.color')"
@@ -210,17 +211,17 @@
 
                   <div
                     v-for="(color, colorIndex) in addForm.features_rows[index]
-                      .color"
+                      .colors"
                     :key="colorIndex"
                     class="w-100 mb-3"
                   >
                     <FormFileUploader
-                      :name="color.color"
+                      :name="`colors.${colorIndex}.image`"
                       @update:fileUrl="
                         handleColorUrlUpdate(
                           $event,
                           color.id,
-                          addForm.features_rows[index].color
+                          addForm.features_rows[index].colors
                         )
                       "
                       :id="color.id"
@@ -229,6 +230,10 @@
                       :placeholder="color.color"
                     >
                     </FormFileUploader>
+                    <div
+                      class="feedback"
+                      :class="`color_image${color.id}_feedback`"
+                    ></div>
                   </div>
                 </div>
                 <div v-if="addForm.features_rows[index].feature.id == 'size'">
@@ -237,7 +242,7 @@
                   }}</label>
                   <div class="form-inputs">
                     <MultiSelect
-                      v-model="addForm.features_rows[index].size"
+                      v-model="addForm.features_rows[index].sizes"
                       @change="getSelectedSize()"
                       :options="sizes"
                       optionLabel="size"
@@ -285,18 +290,46 @@
       </div>
     </div>
   </section>
+
+  <Dialog
+    class="site-modal none-header"
+    v-model:visible="success_modal"
+    modal
+    :style="{ width: '25rem' }"
+  >
+    <div class="container">
+      <div
+        class="flex justify-content-center align-items-center flex-column py-4 gap30"
+      >
+        <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="" />
+        <h5 class="text-center fw-bold text-primary">
+          {{ $t("layout.product_sent") }}
+        </h5>
+        <h6 class="text-center text-primary">
+          {{ $t("layout.contact_soon") }}
+        </h6>
+        <NuxtLink
+          class="btn btn-primary w-100"
+          @click="success_modal = false"
+          :to="localPath('/')"
+        >
+          {{ $t("cart.done.home") }}
+        </NuxtLink>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 <script setup>
 // ================================================================================ imports
 
-import { useAuthStore } from "~/stores/auth";
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
 import { validate, change_valid } from "~/validation/validation";
 // ================================================================================ data
 
-const authStore = useAuthStore();
+const success_modal = ref(false);
+const localPath = useLocalePath();
 const { t } = useI18n();
 const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
@@ -329,17 +362,29 @@ const features = ref([
 ]);
 
 const selectedSizes = ref([]);
+const selectedColors = ref([]);
+const selectedColorsIds = ref([]);
 
 // ================================================================================ methods
 
-
 // get selected size
 const getSelectedSize = () => {
+  selectedSizes.value = [];
   addForm.value.features_rows.forEach((row) => {
-    selectedSizes.value = [];
     if (row.feature && row.feature.id === "size") {
-      row.size.forEach((size) => {
+      row.sizes.forEach((size) => {
         selectedSizes.value.push(size.id);
+      });
+    }
+  });
+};
+// get selected color Ids
+const getSelectedcolor = () => {
+  selectedColorsIds.value = [];
+  addForm.value.features_rows.forEach((row) => {
+    if (row.feature && row.feature.id === "color") {
+      row.colors.forEach((color) => {
+        selectedColorsIds.value.push(color.id);
       });
     }
   });
@@ -356,6 +401,18 @@ function handleColorUrlUpdate(fileUrl, id, myColors) {
   myColors = myColors.map((color) => {
     if (color.id == id) {
       color.image = fileUrl;
+      const index = selectedColors.value.findIndex(
+        (color) => color.color_id === id
+      );
+      if (index !== -1) {
+        selectedColors.value[index].image = fileUrl;
+      } else {
+        selectedColors.value.push({
+          image: fileUrl,
+          color_id: id,
+        });
+      }
+      colorImage_check();
     }
   });
 }
@@ -576,17 +633,33 @@ const productImage_check = () => {
     return true;
   }
 };
+// validate color image
+const colorImage_check = () => {
+  return selectedColorsIds.value.every((id, index) => {
+    let color_image_feedback = document.getElementsByClassName(
+      `color_image${id}_feedback`
+    )[0];
+    if (
+      selectedColors.value.length === 0 ||
+      index >= selectedColors.value.length || // Check if index is out of bounds
+      !selectedColors.value[index].image
+    ) {
+      color_image_feedback.classList.add("valid");
+      color_image_feedback.innerHTML = `<span>${t(
+        `validate_msg.select_color_image`
+      )}</span>`;
+      return false;
+    } else {
+      color_image_feedback.classList.remove("valid");
+      color_image_feedback.innerHTML = "";
+      return true;
+    }
+  });
+};
 
 // ===================================== filter
 
 const handelAddProduct = async () => {
-  let config = "";
-  if (authStore.user) {
-    config = {
-      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-    };
-  }
-  loading.value = true;
   const fd = new FormData(addProoduct.value);
 
   category_check();
@@ -594,6 +667,7 @@ const handelAddProduct = async () => {
   brand_check();
   productType_check();
   productImage_check();
+  colorImage_check();
 
   let valid = validate(addProoduct.value).valid;
   let valid_ruls = valid === "isValid";
@@ -603,8 +677,10 @@ const handelAddProduct = async () => {
     subCategory_check() &&
     brand_check() &&
     productType_check() &&
-    productImage_check()
+    productImage_check() &&
+    colorImage_check()
   ) {
+    loading.value = true;
     fd.append("name[ar]", addForm.value.name.name_ar);
     fd.append("name[en]", addForm.value.name.name_en);
     fd.append("description[ar]", addForm.value.description.description_ar);
@@ -613,16 +689,29 @@ const handelAddProduct = async () => {
     fd.append("sub_category_id", addForm.value.sub_category.id);
     fd.append("brand_id", addForm.value.brand.id);
     fd.append("type", addForm.value.product_type.id);
-    fd.append("size_id[]", selectedSizes.value);
+    fd.append("size_id", JSON.stringify(selectedSizes.value));
+    selectedColors.value.forEach(({ color_id, image }, index) => {
+      fd.append(`colors[${index}][color_id]`, color_id);
+      fd.append(`colors[${index}][image]`, image);
+    });
 
     axios
-      .post("store-product", fd, config)
+      .post("store-product", fd)
       .then((res) => {
         let status = response(res).status;
-        let data = response(res).data;
+        let msg = response(res).msg;
         if (status === "success") {
           notify_toast(msg, "success");
           loading.value = false;
+          addProoduct.value.reset();
+          addForm.value.category = "";
+          addForm.value.sub_category = "";
+          addForm.value.brand = "";
+          addForm.value.product_type = "";
+          addForm.value.features_rows = [];
+          featureExist.value = false;
+          document.querySelector(".file-browse-txt").textContent = "";
+          success_modal.value = true;
         } else {
           notify_toast(msg, "error");
           loading.value = false;

@@ -54,7 +54,10 @@
     "charge_my_wallet": "شحن رصيدي",
     "simple": "بسيط",
     "various_features": "ميزات مختلفة",
-    "add_feature": "اضافه ميزة"
+    "add_feature": "اضافه ميزة",
+    "features": "مميزات",
+    "product_sent": "تم إرسال تفاصيل منتجك بنجاح",
+    "contact_soon": "سوف نتصل بك قريبا.."
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -136,6 +139,7 @@
     "select_brand": "اختر الماركة",
     "select_product_type": "اختر نوع المنتج",
     "select_product_image": "اختر صورة المنتج",
+    "select_color_image": "اختر صورة اللون",
     "name_ar": "الاسم بالعربي مطلوب",
     "name_en": "الاسم بالانجليزي مطلوب",
     "price": "السعر بالانجليزي مطلوب",

@@ -55,7 +55,9 @@
     "simple": "Simple",
     "various_features": "Various features",
     "add_feature": "Add a feature",
-    "features": "Features"
+    "features": "Features",
+    "product_sent": "Your product details sent successfully",
+    "contact_soon": "We will contact you soon.."
   },
   "header": {
     "auth": "Sign in / Register",
@@ -138,6 +140,7 @@
     "select_brand": "Brand is required",
     "select_product_type": "Product type is required",
     "select_product_image": "Product image is required",
+    "select_color_image": "Color image is required",
     "name_ar": "Name in arabic is required",
     "name_en": "Name in english is required",
     "price": "Price is required",

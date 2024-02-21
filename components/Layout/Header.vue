@@ -273,9 +273,13 @@
             <ul>
               <li class="dropdown" ref="noti_target">
                 <NuxtLink
-                  class="cursor-pointer"
-                  @click="noti_dropShown = !noti_dropShown"
-                  ><img src="~/assets/images/BellBing.svg" alt="notification" />
+                  class="cursor-pointer position-relative"
+                  @click="get_all_noti()"
+                >
+                  <span v-if="noti_count" class="count">
+                    {{ noti_count }}
+                  </span>
+                  <img src="~/assets/images/BellBing.svg" alt="notification" />
                 </NuxtLink>
 
                 <Transition name="dropShow">
@@ -283,7 +287,7 @@
                     v-if="noti_dropShown"
                     class="dropdown-menu flex-column fs-13px p-2 noti-dropdown"
                   >
-                    <li>
+                    <li v-for="noti in notifications" :key="noti.id">
                       <div class="d-flex">
                         <div class="flex-shrink-0">
                           <img
@@ -293,39 +297,16 @@
                           />
                         </div>
                         <div
-                          class="flex-grow-1 ms-3 d-flex align-items-baseline"
+                          class="flex-grow-1 justify-content-between mx-2 d-flex align-items-baseline"
                         >
                           <div class="d-flex flex-column">
-                            Lorem ipsum dolor sit met cons.
+                            {{ noti.body }}
                             <span class="text-gray-500 fs-10px">
-                              1 hour ago
+                              {{ noti.created_at }}
                             </span>
                           </div>
                           <i
-                            class="fa-solid fa-trash-can text-danger mx-2 cursor-pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="d-flex">
-                        <div class="flex-shrink-0">
-                          <img
-                            src="~/assets/images/noti.svg"
-                            alt="notifications"
-                            width="30"
-                          />
-                        </div>
-                        <div
-                          class="flex-grow-1 ms-3 d-flex align-items-baseline"
-                        >
-                          <div class="d-flex flex-column">
-                            Lorem ipsum dolor sit met cons.
-                            <span class="text-gray-500 fs-10px">
-                              1 hour ago
-                            </span>
-                          </div>
-                          <i
+                            @click="delete_notification(noti.id)"
                             class="fa-solid fa-trash-can text-danger mx-2 cursor-pointer"
                           ></i>
                         </div>
@@ -335,7 +316,8 @@
                 </Transition>
               </li>
               <li>
-                <NuxtLink :to="localPath('/cart')"
+                <NuxtLink :to="localPath('/cart')" class="position-relative">
+                  <span class="count"> 4 </span
                   ><img src="~/assets/images/Cart.svg" alt="cart" />
                 </NuxtLink>
               </li>
@@ -560,6 +542,8 @@ onClickOutside(noti_target, (event) => (noti_dropShown.value = false));
 const phone_number = ref();
 const country_code = ref();
 const productsStore = useProductsSearchStore();
+const notifications = ref([]);
+const noti_count = ref("");
 // ========================================================================= methods
 // ============================= mediaHandller
 if (window) {
@@ -653,10 +637,7 @@ const logout = async () => {
 // ==================================== get profile
 const get_profile = async () => {
   IsAuth.value = true;
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.get("profile", config);
+  const res = await axios.get("profile");
   let status = response(res).status;
   if (status === "success") {
     user_auth.value = response(res).data;
@@ -671,6 +652,58 @@ const handelSearch = () => {
   route.push(localPath({ path: "/products/search" }));
 };
 
+// ===================================== notifications
+const get_all_noti = async () => {
+  get_notifications();
+  noti_dropShown.value = !noti_dropShown.value;
+};
+const get_notifications = async () => {
+  axios
+    .get(`notifications`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        notifications.value = data.notifications.data;
+        // noti_count.value = data.notifications.pagination.total_items;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+const get_notifications_count = async () => {
+  axios
+    .get(`count-notifications`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        noti_count.value = data.count;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+const delete_notification = async (id) => {
+  axios
+    .delete(`delete-notification/${id}`)
+    .then((res) => {
+      let status = response(res).status;
+      let msg = response(res).msg;
+      if (status === "success") {
+        notify_toast(msg, "success");
+        get_notifications();
+      } else {
+        notify_toast(msg, "error");
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
+
 // ========================================================================= lifecycle hooks
 
 watchEffect(() => {
@@ -680,6 +713,7 @@ watchEffect(() => {
 onMounted(() => {
   productsStore.getProducts();
   if (authStore.user) {
+    get_notifications_count();
     user_auth.value = authStore.user.data;
     const localeToken = authStore.user.data.token;
     console.log(localeToken);
@@ -699,6 +733,8 @@ watch(useRout, () => {
     console.log(localeToken);
     if (localeToken) {
       IsAuth.value = true;
+      get_notifications_count();
+      get_notifications();
     } else {
       IsAuth.value = false;
       user_auth.value = null;
