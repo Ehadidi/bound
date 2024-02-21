@@ -290,11 +290,11 @@
                       <li v-for="noti in notifications" :key="noti.id">
                         <div class="d-flex">
                           <div class="flex-shrink-0">
-                            <!-- <img
+                            <img
                               src="~/assets/images/noti.svg"
                               alt="notifications"
                               width="30"
-                            /> -->
+                            />
                           </div>
                           <div
                             class="flex-grow-1 justify-content-between mx-2 d-flex align-items-baseline"

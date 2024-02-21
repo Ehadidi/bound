@@ -62,7 +62,7 @@ const availableLocales = computed(() => {
     </NuxtLink> -->
     <NuxtLink v-for="locale in availableLocales" :key="locale.code"
       @click="switch_dir(locale.code == 'ar-EG' ? 'ar' : 'en')" :to="switchLocalePath(locale.code)">{{ locale.name }} <i
-        class="fa-solid fa-globe ms-2"></i></NuxtLink>
+        class="fa-solid fa-globe mx-2"></i></NuxtLink>
 
 
   </div>

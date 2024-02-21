@@ -51,7 +51,13 @@
     "product_type": "نوع المنتج",
     "current_balance": "الرصيد الحالي",
     "charge_wallet": "شحن المحفظة",
-    "charge_my_wallet": "شحن رصيدي"
+    "charge_my_wallet": "شحن رصيدي",
+    "simple": "بسيط",
+    "various_features": "ميزات مختلفة",
+    "add_feature": "اضافه ميزة",
+    "features": "مميزات",
+    "product_sent": "تم إرسال تفاصيل منتجك بنجاح",
+    "contact_soon": "سوف نتصل بك قريبا.."
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -129,6 +135,17 @@
     "text": "الرسالة مطلوبه",
     "uncomplete": "من فضلك اكمل الحقول",
     "select_city": "اختر المدينة",
+    "select_category": "اختر القسم",
+    "select_subcategory": "اختر تصنيف فرعي",
+    "select_brand": "اختر الماركة",
+    "select_product_type": "اختر نوع المنتج",
+    "select_product_image": "اختر صورة المنتج",
+    "select_color_image": "اختر صورة اللون",
+    "name_ar": "الاسم بالعربي مطلوب",
+    "name_en": "الاسم بالانجليزي مطلوب",
+    "price": "السعر بالانجليزي مطلوب",
+    "description_ar": "الوصف بالعربي مطلوب",
+    "description_en": "الوصف بالانجليزي مطلوب",
     "logo": "اللوجو مطلوب",
     "files": "الملفات مطلوبه",
     "account_number": "رقم الحساب البنكي مطلوب",
@@ -169,7 +186,9 @@
     "select_duration": "يرجي تحديد المدة",
     "save": "حفظ",
     "cancel": "الغاء",
-    "add_to_cart": "اضف للسلة"
+    "add_to_cart": "اضف للسلة",
+    "select_colors": "اختر الالوان",
+    "select_sizes": "اختر الاحجام"
   },
   "cart": {
     "change": "تغيير",
