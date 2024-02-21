@@ -15,16 +15,24 @@
                                 <div class="cart_item" v-for="item in cartItems" :key="item.id">
 
                                     <div class="left">
-                                        <button type="button" class="btn_remove">
+                                        <button type="button" class="btn_remove"
+                                            @click="remove_from_cart(item.id, $event)">
                                             <img src="~/assets/images/Trash.png" alt="cart" class="ic">
                                         </button>
-                                        <img :src="item.image" alt="" class="cart_pro_img">
+                                        <img :src="item.product_image" alt="" class="cart_pro_img">
 
                                         <div class="product_info">
-                                            <h6 class="name">{{ item.name }}</h6>
-                                            <span class="info">{{ item.price }}</span>
-                                            <span class="info">{{ item.date }}</span>
-                                            <span class="info">{{ item.size }}</span>
+                                            <h6 class="name">{{ item.product_name }}</h6>
+                                            <span class="info">{{ item.price_per_day }} / {{ $t('product.unit') }}</span>
+                                            <div class="info">
+                                                <span>{{ item.date }}</span>
+                                                <span>({{ item.duration }}{{ $t('product.unit') }})</span>
+                                                <button class="btn p-0 border-0 min-w-min h-fit bg-transparent"
+                                                    @click="update_modal(item.id)">
+                                                    <span class="pi pi-pencil font13"></span>
+                                                </button>
+                                            </div>
+                                            <span class="info">{{ item.size }} {{ item.color }}</span>
                                         </div>
                                     </div>
 
@@ -32,16 +40,15 @@
                                         <div class="cart_text mb-2">
                                             <span>{{ $t('cart.rentingCost') }}: </span>
 
-                                            <span>750 SAR</span>
+                                            <span>{{ item.renting_cost }}</span>
                                         </div>
                                         <div class="cart_text">
                                             <span>{{ $t('cart.deposit') }}: </span>
 
                                             <div class="d-flex align-items-center gap-2">
-                                                <span>250 SAR</span>
+                                                <span>{{ item.refundable_value }}</span>
                                                 <img src="~/assets/images/info.png"
-                                                    v-tooltip.bottom="$t('cart.depositInfo')"
-                                                    alt="" class="icon">
+                                                    v-tooltip.bottom="$t('cart.depositInfo')" alt="" class="icon">
                                             </div>
                                         </div>
                                     </div>
@@ -83,9 +90,15 @@
                             </div>
 
                             <FormInput :label2="$t('cart.location')" :placeholder="$t('cart.location')" :model="form"
-                                name="subject" type="text" parentClass="my-3" :icon="true">
+                                name="location" type="text" parentClass="my-3" :icon="true" :addition="true">
                                 <template #icon>
                                     <img class="width20" src="~/assets/images/GPS.svg" alt="phone">
+                                </template>
+                                <template #addition>
+                                    <button class="btn border-0 min-w-min h-100 bg-transparent underline" type="button"
+                                        @click="address_modal = true">
+                                        <span class="fw-bold text-primary font15">{{ $t('cart.change') }}</span>
+                                    </button>
                                 </template>
                             </FormInput>
 
@@ -101,7 +114,7 @@
 
                             <div class="cart_text mb-2">
                                 <span>{{ $t('cart.rentingCost') }}: </span>
-                                <span>750 SAR</span>
+                                <span>{{ cartSummary.total_products }} {{ $t('product.currency') }}</span>
                             </div>
 
                             <div class="cart_text mb-2">
@@ -111,24 +124,25 @@
                                         v-tooltip.bottom="'will be Refunded after we retrieve the product'" alt=""
                                         class="icon">
                                 </div>
-                                <span>250 SAR</span>
+                                <span>{{ cartSummary.total_refundable_value }} {{ $t('product.currency') }}</span>
                             </div>
 
                             <div class="cart_text mb-2">
                                 <span>{{ $t('cart.delivery') }}: </span>
-                                <span>250 SAR</span>
+                                <span>{{ cartSummary.delivery_price }} {{ $t('product.currency') }}</span>
                             </div>
 
                             <hr />
 
                             <div class="cart_text total mb-3">
                                 <span>{{ $t('cart.total') }}: </span>
-                                <span>1000 SAR</span>
+                                <span>{{ cartSummary.final_price }} {{ $t('product.currency') }}</span>
                             </div>
 
-                            <button type="button" class="btn btn-primary ms-auto gap-2" @click="success_modal = true">
+                            <button type="button" class="btn btn-primary arrow-effect ms-auto"
+                                @click="confirm_order">
                                 {{ $t('cart.sendOrder') }}
-                                <img src="~/assets/images/ArrowRight.svg" class="ic" alt="">
+                                <!-- <img src="~/assets/images/ArrowRight.svg" class="ic" alt=""> -->
                             </button>
                         </div>
 
@@ -137,49 +151,99 @@
                 </div>
             </div>
         </div>
-
-    </div>
-
-    <!-- Success Modal -->
-    <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '20rem' }">
-        <div class="container">
-            <div class="flex justify-content-center align-items-center flex-column py-5 gap30">
-                <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
-                <h5 class="text-center fw-bold text-primary fw-bold fs-6">
-                    {{ $t('cart.done.text') }}
-                </h5>
-
-                <div class="d-flex gap-2">
-                    <NuxtLink :to="localPath('/')" class="btn sm transparent btn-primary">
-                        {{ $t('cart.done.home') }}
-                    </NuxtLink>
-                    <NuxtLink to="/my-orders" class="btn sm btn-primary">
-                        {{ $t('cart.done.myOrders') }}
-                    </NuxtLink>
+        <!-- change address modal -->
+        <Dialog class="site-modal none-header" v-model:visible="address_modal" modal :style="{ width: '767px' }"
+            :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+            <div class="container" v-if="address_modal">
+                <!-- @change="update_location" @modal_changed="update_location" -->
+                <LayoutAddresses />
+                <div class="flex align-items-center justify-content-center my-4 gap20">
+                    <button class="btn btn-primary up" @click="update_location">{{ $t('cart.save_changes') }}</button>
+                    <button class="btn btn-outline-primary up" @click="address_modal = false">{{ $t('cart.cancel')
+                    }}</button>
                 </div>
             </div>
-        </div>
-    </Dialog>
+            <div class="container" v-else>
+            </div>
+        </Dialog>
+        <!-- edit duration modal -->
+        <Dialog class="site-modal none-header" v-model:visible="edit_modal" modal :style="{ width: '30rem' }">
+            <div class="container">
+                <div class="rent_date">
+                    <div class="my-2">
+                        <label class="fw-bold txt_start font12 d-block mb-2">{{ $t('product.startDate')
+                        }}</label>
+                        <div class="form-inputs height50">
+                            <Calendar dateFormat="yy-m-d" ref="calender" :minDate="today" v-model="start_date" showIcon
+                                icon="pi pi-calendar" :placeholder="$t('product.selectDate')" name="time" />
+                        </div>
+                    </div>
+                    <div class="mt-4" v-if="start_date">
+                        <div class="fw-bold text-center font14 d-block mb-2">
+                            {{ $t('product.select_duration') }}
+                        </div>
+                        <div class="pro_filter_btns justify-content-center mt-2">
+                            <label class="pro_btn" v-for="item in durations" :key="item.id">
+                                <input type="radio" name="duration" v-model="selectedDuration" :value="item.id">
+                                <span class="fw-bold">{{ item.day }} {{ $t('product.unit') }}</span>
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="flex align-items-center justify-content-center">
+                            <button @click="update_cart()" style="min-width: 135px;" class="btn btn-primary fw-bold up">{{
+                                $t('product.save') }}</button>
+                            <button style="min-width: 135px;" type="button" class="btn fw-bold ms-2"
+                                @click="start_date = null">{{ $t('product.cancel') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Dialog>
+        <!-- Success Modal -->
+        <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '20rem' }">
+            <div class="container">
+                <div class="flex justify-content-center align-items-center flex-column py-5 gap30">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <h5 class="text-center fw-bold text-primary fw-bold fs-6">
+                        {{ $t('cart.done.text') }}
+                    </h5>
+
+                    <div class="d-flex gap-2">
+                        <NuxtLink :to="localPath('/')" class="btn sm transparent btn-primary">
+                            {{ $t('cart.done.home') }}
+                        </NuxtLink>
+                        <NuxtLink :to="localPath('/orders')" class="btn sm btn-primary">
+                            {{ $t('cart.done.myOrders') }}
+                        </NuxtLink>
+                    </div>
+                </div>
+            </div>
+        </Dialog>
+    </div>
 </template>
 
 <script setup>
-
 // ================================================================================ imports
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n({ useScope: 'global' });
+import { useAuthStore } from "~/stores/auth";
+import { response } from "~/network/response";
+import { toast_handel } from "~/network/ValidTost";
 
 // ================================================================================ data
 const localPath = useLocalePath();
-
+const today = new Date();
+const route = useRouter();
 // pay Icons
 import pay1 from '~/assets/images/payment.png'
 import pay2 from '~/assets/images/wallet.png'
-
+const address_modal = ref(false);
 // success_modal
 const success_modal = ref(false);
 
 // form
 const form = reactive({
+    location: '',
     detailes: '',
 });
 
@@ -189,63 +253,163 @@ const paymentItems = ref([
     {
         id: 1,
         icon: pay1,
-        name:  t('cart.payment.online'),
+        name: t('cart.payment.online'),
     },
     {
         id: 2,
         icon: pay2,
-        name:  t('cart.payment.wallet'),
+        name: t('cart.payment.wallet'),
     },
 ]);
 
 // cartItems
-const cartItems = ref([
-    {
-        id: 1,
-        image: 'https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png',
-        name: 'Product Name Goes Here',
-        price: '250 / Day',
-        date: '20 November 2023  To  23 November (3 Days)',
-        size: 'XL , Red'
-    },
-    {
-        id: 1,
-        image: 'https://www.freepnglogos.com/uploads/women-bag-png/women-bag-png-transparent-images-download-clip-4.png',
-        name: 'Product Name Goes Here',
-        price: '250 / Day',
-        date: '20 November 2023  To  23 November (3 Days)',
-        size: 'XL , Red'
-    },
-    {
-        id: 1,
-        image: 'https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png',
-        name: 'Product Name Goes Here',
-        price: '250 / Day',
-        date: '20 November 2023  To  23 November (3 Days)',
-        size: 'XL , Red'
-    },
-    {
-        id: 1,
-        image: 'https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png',
-        name: 'Product Name Goes Here',
-        price: '250 / Day',
-        date: '20 November 2023  To  23 November (3 Days)',
-        size: 'XL , Red'
-    },
-    {
-        id: 1,
-        image: 'https://i.pinimg.com/originals/d6/0c/ae/d60cae213c52ae8111a55da8ff28e5b8.png',
-        name: 'Product Name Goes Here',
-        price: '250 / Day',
-        date: '20 November 2023  To  23 November (3 Days)',
-        size: 'XL , Red'
-    },
-]);
-
+const cartItems = ref([]);
+const cartSummary = ref({});
+const edit_modal = ref(false);
+const authStore = useAuthStore();
+const axios = useNuxtApp().$axios;
+const { notify_toast } = toast_handel();
+const durations = ref([]);
+const start_date = ref();
+const selectedDuration = ref();
+const editable_id = ref();
 // ================================================================================ methods
+// ========================================== formating Date
+const formatingDate = computed(() => {
+    var d = new Date(start_date.value),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+});
+//  =========================================== handell update modal
+const update_modal = (id) => {
+    edit_modal.value = true
+    editable_id.value = id
+}
+//  =========================================== get durations
+const get_durations = async () => {
+    const res = await axios.get('durations')
+    let status = response(res).status
+    let data = response(res).data
+    if (status === 'success') {
+        durations.value = data
+    } else {
+        notify_toast(data, "error");
+    }
+}
+//  =========================================== get cart items
+const get_cart_items = async () => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get('get-cart-items', config)
+    let status = response(res).status
+    let data = response(res).data
+    if (status === 'success') {
+        cartItems.value = data.cart
+        form.location = data.location
+    } else {
+        notify_toast(data, "error");
+    }
+}
+//  ===================================== update duration
+const update_cart = async () => {
+    const fd = new FormData();
+    fd.append("start_date", formatingDate.value);
+    fd.append("duration_id", selectedDuration.value);
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.post(`update-cart-item/${editable_id.value}`, fd, config)
+    let status = response(res).status
+    let msg = response(res).msg
+    if (status === 'success') {
+        notify_toast(msg, "success");
+        get_cart_items()
+        start_date.value = null
+        setTimeout(() => {
+            edit_modal.value = false
+        }, 300);
+    } else {
+        notify_toast(msg, "error");
+    }
+}
+// ============================================ get cart summary
+const get_cart_summary = async () => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get('get-cart-summary', config)
+    let status = response(res).status
+    let data = response(res).data
+    if (status === 'success') {
+        cartSummary.value = data
+    } else {
+        notify_toast(data, "error");
+    }
+}
+//  ===================================== remove item from cart
+const remove_from_cart = async (id) => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.delete(`delete-cart-item/${id}`, config)
+    let status = response(res).status
+    let msg = response(res).msg
+    if (status === 'success') {
+        notify_toast(msg, "success");
+        setTimeout(() => {
+            get_cart_items()
+            get_cart_summary()
+        }, 1000);
+    } else {
+        notify_toast(msg, "error");
+    }
+}
+// ====================================== handel confirm order
+const confirm_order = async () => {
+    const fd = new FormData();
+    fd.append("notes", form.detailes);
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.post('confirm-order', fd, config)
+    let status = response(res).status
+    let msg = response(res).msg
+    // let data = response(res).data
+    if (status === 'success') {
+        notify_toast(msg, "success");
+        get_cart_items()
+        get_cart_summary()
+        success_modal.value = true
+        // setTimeout(() => {
+        //     route.push(localPath({ path: `/orders/${data.id}` }));
+        // })
+    } else {
+        notify_toast(msg, "error");
+    }
+}
+//  ===================================== update location
+const update_location = () => {
+    form.location = ''
+    setTimeout(() => {
+        get_cart_items()
+        address_modal.value = false
+    }, 300);
+}
 // ================================================================================ lifecycle hooks
-
+onMounted(() => {
+    get_cart_items()
+    get_durations()
+    get_cart_summary()
+})
 </script>
 
 <style scoped></style>
