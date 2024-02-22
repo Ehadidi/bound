@@ -180,6 +180,7 @@
                       @click="
                         dropShown = !dropShown;
                         terms_conditions = true;
+                        get_terms();
                       "
                     >
                       <div class="d-flex align-items-center">
@@ -346,26 +347,7 @@
     >
       <div class="container p-5">
         <h5 class="fw-bold mb-3 text-primary">{{ $t("layout.terms") }}</h5>
-        <p>
-          Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
-          congue semper. Egestas in eget lectus sed consectetur lacus facilisis.
-          Blandit eu in adipiscing at amet. Laoreet purus dui nibh laoreet
-          commodo adipiscing quam lobortis consectetur. Lorem ipsum dolor sit
-          amet consectetur. Vestibulum odio eu duis eget congue semper. Egestas
-          in eget lectus sed consectetur lacus facilisis. Blandit eu in
-          adipiscing at amet. Laoreet purus dui nibh laoreet commodo adipiscing
-          quam lobortis consectetur.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
-          congue semper. Egestas in eget lectus sed consectetur lacus facilisis.
-          Blandit eu in adipiscing at amet. Laoreet purus dui nibh laoreet
-          commodo adipiscing quam lobortis consectetur. Lorem ipsum dolor sit
-          amet consectetur. Vestibulum odio eu duis eget congue semper. Egestas
-          in eget lectus sed consectetur lacus facilisis. Blandit eu in
-          adipiscing at amet. Laoreet purus dui nibh laoreet commodo adipiscing
-          quam lobortis consectetur.
-        </p>
+        <div v-html="terms"></div>
       </div>
     </Dialog>
     <Dialog
@@ -517,6 +499,7 @@ import { response } from "~/network/response";
 import { useProductsSearchStore } from "~/stores/productsSearch";
 // ========================================================================= data
 const axios = useNuxtApp().$axios;
+const { t } = useI18n();
 const localPath = useLocalePath();
 const { notify_toast } = toast_handel();
 const route = useRouter();
@@ -544,6 +527,7 @@ const country_code = ref();
 const productsStore = useProductsSearchStore();
 const notifications = ref([]);
 const noti_count = ref("");
+const terms = ref("");
 // ========================================================================= methods
 // ============================= mediaHandller
 if (window) {
@@ -652,6 +636,21 @@ const handelSearch = () => {
   route.push(localPath({ path: "/products/search" }));
 };
 
+// ===================================== terms
+const get_terms = async () => {
+  axios
+    .get(`terms`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        terms.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
 // ===================================== notifications
 const get_all_noti = async () => {
   get_notifications();
@@ -696,7 +695,7 @@ const delete_notification = async (id) => {
         notify_toast(msg, "success");
         get_notifications();
       } else {
-        notify_toast(msg, "error");
+        notify_toast(msg, "success");
       }
     })
     .catch((e) => {
@@ -708,6 +707,10 @@ const delete_notification = async (id) => {
 
 watchEffect(() => {
   productsStore.getProducts(productsStore.keyword);
+  if (authStore.isNavigatingToLogin) {
+    notify_toast(t("layout.login_first"), "error");
+    authStore.setIsNavigatingToLogin(false);
+  }
 });
 
 onMounted(() => {

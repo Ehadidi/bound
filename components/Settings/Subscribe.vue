@@ -76,25 +76,16 @@
 // ========================================================================== imports
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { useAuthStore } from "~/stores/auth";
 // ========================================================================== data
 const localPath = useLocalePath();
 const axios = useNuxtApp().$axios;
 const subscriptions = ref([]);
-const authStore = useAuthStore();
 const { notify_toast } = toast_handel();
 
 // ========================================================================== methods
 
 const handelSubscribe = async (id) => {
-  let config = "";
-  if (authStore.user) {
-    config = {
-      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-    };
-  }
-  console.log("config", config);
-  const res = await axios.post(`subscribe/${id}` , '' , config);
+  const res = await axios.post(`subscribe/${id}`);
   let status = response(res).status;
   if (status === "success") {
     notify_toast(response(res).msg, "success");
@@ -104,18 +95,11 @@ const handelSubscribe = async (id) => {
 };
 
 const get_subscriptions = async () => {
-  let config = "";
-  if (authStore.user) {
-    config = {
-      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-    };
-  }
-  const res = await axios.get("packages", config);
+  const res = await axios.get("packages");
   let statuts = response(res).status;
   let data = response(res).data;
   if (statuts === "success") {
     subscriptions.value = data;
-    console.log(subscriptions.value);
   }
 };
 // ========================================================================== hooks
