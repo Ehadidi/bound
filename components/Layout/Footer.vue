@@ -6,9 +6,7 @@
           <div class="flex flex-column gap-3">
             <img class="logo" src="~/assets/images/logo.png" alt="logo" />
             <p class="fw-bold">
-              Founded in 2020, Bond Street is an online platform that
-              specializes in providing rental services for a wide range of
-              items, such as dresses and handbags.
+              {{ intro_text }}
             </p>
             <Divider type="solid" align="center" />
             <div class="flex align-items-center flex-wrap gap-4 mt-3">
@@ -65,7 +63,7 @@
                   ><img src="~/assets/images/location.svg" alt="location"
                 /></span>
                 <span class="fw-bold"
-                  >SA, Riyadh, 99 Name St. more sample data</span
+                  >{{ contact_us[0] }}</span
                 >
               </li>
               <li>
@@ -74,8 +72,8 @@
                     src="~/assets/images/phoneIcon.svg"
                     alt="contact us phone"
                 /></span>
-                <a href="tel:+966 1234 567" class="default-link fw-bold"
-                  >+966 1234 567</a
+                <a :href="`tel:${contact_us[1]}`" class="default-link fw-bold"
+                  >{{ contact_us[1] }}</a
                 >
               </li>
               <li>
@@ -85,7 +83,7 @@
                     alt="contact us mail"
                 /></span>
                 <a href="mailto:Sample.21@g.com" class="default-link fw-bold"
-                  >Sample.21@g.com</a
+                  >{{ contact_us[2] }}</a
                 >
               </li>
             </ul>
@@ -166,19 +164,15 @@ const form = reactive({
   email: "",
 });
 const socials = ref([]);
+const intro_text = ref('');
+const contact_us = ref([]);
 
 // ===================================== filter
 
 const newsLetter = async () => {
   const fd = new FormData(news.value);
-  let config = "";
-  if (authStore.user) {
-    config = {
-      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-    };
-  }
   axios
-    .post("store-newsletter", fd, config)
+    .post("store-newsletter", fd)
     .then((res) => {
       let status = response(res).status;
       if (status === "success") {
@@ -201,9 +195,20 @@ const getSocials = async () => {
     socials.value = data;
   }
 };
+// ===================================== get footer
+const get_footer = async () => {
+  const res = await axios.get("footer");
+  let status = response(res).status;
+  let data = response(res).data;
+  if (status === "success") {
+    contact_us.value = data.contact_us;
+    intro_text.value = data.intro_text;
+  }
+};
 
 onMounted(() => {
   getSocials();
+  get_footer();
 });
 </script>
 

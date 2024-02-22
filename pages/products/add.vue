@@ -639,11 +639,10 @@ const colorImage_check = () => {
     let color_image_feedback = document.getElementsByClassName(
       `color_image${id}_feedback`
     )[0];
-    if (
-      selectedColors.value.length === 0 ||
-      index >= selectedColors.value.length || // Check if index is out of bounds
-      !selectedColors.value[index].image
-    ) {
+    const colorExist = selectedColors.value.findIndex(
+      (color) => color.color_id === id
+    );
+    if (colorExist == -1) {
       color_image_feedback.classList.add("valid");
       color_image_feedback.innerHTML = `<span>${t(
         `validate_msg.select_color_image`
