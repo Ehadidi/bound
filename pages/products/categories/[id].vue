@@ -84,7 +84,7 @@
               </template>
             </FormInput>
 
-            <div class="d-grid product-slide mt-4">
+            <div v-if="products.length" class="d-grid product-slide mt-4">
               <div
                 v-if="loading"
                 class="product-slide-item mb-4 mx-1"
@@ -107,7 +107,7 @@
                 />
               </div>
             </div>
-
+            <LayoutNoData v-else />
             <div v-if="showPaginate">
               <Paginator
                 :rows="pageLimit"
@@ -230,6 +230,9 @@ const handelFilter = async () => {
         products.value = data.data;
         totalPage.value = data.pagination.total_items;
         pageLimit.value = data.pagination.per_page;
+        loading.value = false;
+      } else {
+        products.value = [];
         loading.value = false;
       }
     })
