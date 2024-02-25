@@ -272,7 +272,7 @@
           </div>
           <div class="user_list">
             <ul>
-              <li class="dropdown" ref="noti_target">
+              <li class="dropdown" ref="noti_target" v-if="IsAuth">
                 <NuxtLink
                   class="cursor-pointer position-relative"
                   @click="get_all_noti()"
@@ -316,7 +316,7 @@
                   </ul>
                 </Transition>
               </li>
-              <li>
+              <li v-if="IsAuth">
                 <NuxtLink :to="localPath('/cart')" class="position-relative">
                   <span class="count"> 4 </span
                   ><img src="~/assets/images/Cart.svg" alt="cart" />
@@ -602,7 +602,7 @@ const login_success = () => {
   get_profile();
   setTimeout(() => {
     window.location.reload();
-  }, 500);
+  }, 200);
 };
 // ================== reset password success
 const reset_password_success = () => {
@@ -619,7 +619,7 @@ const logout = async () => {
     route.push(localPath({ path: "/" }));
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 200);
   } else {
     notify_toast(authStore.logedout.data.msg, "error");
   }
