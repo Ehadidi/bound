@@ -25,6 +25,10 @@ header {
   left: 0;
   z-index: 999;
 
+  .overlay {
+    display: none;
+  }
+
   .top-head {
     display: flex;
     align-items: center;
@@ -57,6 +61,7 @@ header {
     }
 
     .overlay {
+      display: block;
       position: fixed;
       background-color: rgba(00, 00, 00, 0.6);
       width: 100%;
