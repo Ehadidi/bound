@@ -27,20 +27,37 @@
                                 <Skeleton height="9rem"></Skeleton>
                             </div>
                         </div>
-                        <OrdersCard v-else v-for="item in pending_orders" :key="item" :orderNum="item.order_num"
+                        <OrdersCard v-else v-for="item in pending_orders" :key="item" :orderNum="item.order_num" :id="item.order_id"
                             :time="item.order_date" :status="item.order_status" type="waiting" :products="item.products" />
                     </TabPanel>
                     <TabPanel>
-                        <OrdersCard v-for="i in 1" :key="i" orderNum="#1234" time="12 minutes ago"
-                            :status="$t('orders.wait_payment')" type="payment" />
+                        <div v-if="loading_data">
+                            <div class="mb-3 mx-1" v-for="i in 3" :key="i">
+                                <Skeleton height="9rem"></Skeleton>
+                            </div>
+                        </div>
+                        <OrdersCard v-else v-for="item in payment_orders" :key="item" :orderNum="item.order_num" :id="item.order_id"
+                            :time="item.order_date" :status="item.order_status" type="waiting" :products="item.products" />
                     </TabPanel>
                     <TabPanel>
-                        <OrdersCard v-for="i in 3" :key="i" orderNum="#1234" time="12 minutes ago"
-                            :status="$t('orders.active')" type="active" />
+                        <div v-if="loading_data">
+                            <div class="mb-3 mx-1" v-for="i in 3" :key="i">
+                                <Skeleton height="9rem"></Skeleton>
+                            </div>
+                        </div>
+                        <OrdersCard v-else v-for="item in active_orders" :key="item" :orderNum="item.order_num" :id="item.order_id"
+                            :time="item.order_date" :status="item.order_status" type="waiting" :products="item.products" />
                     </TabPanel>
                     <TabPanel>
-                        <OrdersCard orderNum="#1234" time="12 minutes ago" status="Successful" type="successful" />
-                        <OrdersCard orderNum="#1234" time="12 minutes ago" status="Cancelled" type="cancelled" />
+                        <div v-if="loading_data">
+                            <div class="mb-3 mx-1" v-for="i in 3" :key="i">
+                                <Skeleton height="9rem"></Skeleton>
+                            </div>
+                        </div>
+                        <OrdersCard v-else v-for="item in completed_orders" :key="item" :orderNum="item.order_num" :id="item.order_id"
+                            :time="item.order_date" :status="item.order_status" type="waiting" :products="item.products" />
+                        <!-- <OrdersCard orderNum="#1234" time="12 minutes ago" status="Successful" type="successful" />
+                        <OrdersCard orderNum="#1234" time="12 minutes ago" status="Cancelled" type="cancelled" /> -->
                     </TabPanel>
                 </TabView>
             </div>
@@ -62,8 +79,12 @@ const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
 const ActiveTab = ref(0);
 const pending_orders = ref([])
+const payment_orders = ref([])
+const active_orders = ref([])
+const completed_orders = ref([])
 const loading_data = ref(true)
 // ================================================================================ methods
+//  ======================================== get pending orders
 const get_pending_orders = async () => {
     const config = {
         headers: { Authorization: `Bearer ${authStore.user.data.token}` }
@@ -71,19 +92,76 @@ const get_pending_orders = async () => {
     const res = await axios.get("pending-orders", config);
     let status = response(res).status;
     let data = response(res).data;
+    let msg = response(res).msg;
 
     if (status === "success") {
         loading_data.value = false
         pending_orders.value = data.orders;
     } else {
-        notify_toast(data.message, "error");
+        notify_toast(msg, "error");
         loading_data.value = false
     }
 }
+//  ======================================== get payment orders
+const get_payment_orders = async () => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get("payment-orders", config);
+    let status = response(res).status;
+    let data = response(res).data;
+    let msg = response(res).msg;
 
+    if (status === "success") {
+        loading_data.value = false
+        payment_orders.value = data.orders;
+    } else {
+        notify_toast(msg, "error");
+        loading_data.value = false
+    }
+}
+//  ======================================== get active orders
+const get_active_orders = async () => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get("active-orders", config);
+    let status = response(res).status;
+    let data = response(res).data;
+    let msg = response(res).msg;
+
+    if (status === "success") {
+        loading_data.value = false
+        active_orders.value = data.orders;
+    } else {
+        notify_toast(msg, "error");
+        loading_data.value = false
+    }
+}
+//  ======================================== get completed orders
+const get_completed_orders = async () => {
+    const config = {
+        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
+    }
+    const res = await axios.get("completed-orders", config);
+    let status = response(res).status;
+    let data = response(res).data;
+    let msg = response(res).msg;
+
+    if (status === "success") {
+        loading_data.value = false
+        completed_orders.value = data.orders;
+    } else {
+        notify_toast(msg, "error");
+        loading_data.value = false
+    }
+}
 // ================================================================================ onMounted
 onMounted(() => {
     get_pending_orders()
+    get_payment_orders()
+    get_active_orders()
+    get_completed_orders()
 })
 </script>
   
