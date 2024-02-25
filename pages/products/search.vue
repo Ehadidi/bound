@@ -1,7 +1,7 @@
 <template>
   <div class="bg-sectionBg">
     <div class="container">
-      <div class="d-grid product-slide py-4">
+      <div v-if="productsStore.products.data.length"  class="d-grid product-slide py-4">
         <div
           class="product-slide-item mb-4"
           v-for="product in productsStore.products.data"
@@ -16,6 +16,8 @@
           />
         </div>
       </div>
+
+      <LayoutNoData v-else />
     </div>
   </div>
 </template>
