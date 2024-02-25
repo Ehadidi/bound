@@ -600,6 +600,9 @@ const login_success = () => {
   auth_modal.value = false;
   user_auth.value = authStore.user.data;
   get_profile();
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
 };
 // ================== reset password success
 const reset_password_success = () => {
@@ -614,6 +617,9 @@ const logout = async () => {
     IsAuth.value = false;
     notify_toast(authStore.logedout.data.msg, "success");
     route.push(localPath({ path: "/" }));
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   } else {
     notify_toast(authStore.logedout.data.msg, "error");
   }
@@ -709,6 +715,7 @@ watchEffect(() => {
   productsStore.getProducts(productsStore.keyword);
   if (authStore.isNavigatingToLogin) {
     notify_toast(t("layout.login_first"), "error");
+    auth_modal.value = true;
     authStore.setIsNavigatingToLogin(false);
   }
 });
