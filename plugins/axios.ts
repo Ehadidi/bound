@@ -21,6 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   const lang = i18n_redirected == "ar-EG" ? "ar" : "en";
+  // console.log('lang' , lang)
   let api = axios.create({
     baseURL: defaultUrl,
     headers: {

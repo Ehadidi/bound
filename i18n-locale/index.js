@@ -5,6 +5,6 @@ import ar from "~/locales/ar.json";
 import nuxtStorage from 'nuxt-storage';
 
 export default createI18n({
-    locale: nuxtStorage.localStorage.getData('lang') || "ar",
+    locale: nuxtStorage.localStorage.getData('lang') || "en",
     messages: { en , ar }
 })
