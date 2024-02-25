@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     "assets/style/style.scss",
   ],
   plugins: [
-    "~/toast-service/toast.js",
+    // "~/toast-service/toast.js",
     "~/plugins/axios.ts",
   ],
   // build: {
