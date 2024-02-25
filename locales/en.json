@@ -125,7 +125,8 @@
     "address_description":"Address Description",
     "enter_address_description":"Enter address description",
     "location":"Location",
-    "select_location":"Select location on map"
+    "select_location":"Select location on map",
+    "confirm":"Confirm"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
@@ -231,7 +232,12 @@
     "preparing": "Preparing",
     "received": "Received",
     "out_delivery": "Out For Delivery",
-    "cancel_order": "Cancel order"
+    "cancel_order": "Cancel order",
+    "Retrieving": "Retrieving",
+    "rate_products": "Rate Products",
+    "delivered": "Delivered",
+    "cancel_order_caption": "Are you sure you want to cancel this order?",
+    "this_order_canceled": "This order was canceled"
   },
   "about": {
     "item1": "Dresses",

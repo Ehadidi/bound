@@ -3,7 +3,7 @@
     <div class="container">
       <div class="py-5">
         <div class="d-flex align-items-center justify-content-between flex-wrap">
-          <div class="status-progress d-flex align-items-center flex-wrap">
+          <div class="status-progress d-flex align-items-center flex-wrap" v-if="order_status < 8">
             <div v-for="(item, index) in items" :key="index" class="status-progress-item mb-3 d-flex align-items-center"
               :class="{ active: isActiveState(item.states) }">
               <div class="status d-flex align-items-center justify-content-center">
@@ -11,19 +11,34 @@
               </div>
               <div v-if="item.content">
                 <span class="fw-bold">{{ item.content }}</span>
-                <span class="fw-bold d-block mt-1" v-if="status.state === 'preparing' && index == 2">{{ $t("orders.preparing") }}</span>
-                <span class="fw-bold d-block mt-1" v-if="status.state === 'delivered' && index == 2">{{ $t("orders.out_delivery")
+
+                <span class="fw-bold d-block mt-1" v-if="status.state === 'preparing' && index == 2">{{
+                  $t("orders.preparing") }}</span>
+
+                <span class="fw-bold d-block mt-1" v-if="status.state === 'out_for_delivery' && index == 2">{{
+                  $t("orders.out_delivery") }}</span>
+
+                <span class="fw-bold d-block mt-1" v-if="status.state === 'delivered' && index == 2">{{
+                  $t("orders.delivered")
                 }}</span>
+
+                <span class="fw-bold d-block mt-1" v-if="status.state === 'Retrieving' && index == 2">{{
+                  $t("orders.Retrieving") }}</span>
+
               </div>
             </div>
           </div>
 
-          <button class="btn btn-primary arrow-effect mb-3">
+          <button v-if="order_status == 2" class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.procees_pay") }}
           </button>
-          <!-- <button class="btn btn-primary arrow-effect mb-3">
-          {{ $t("orders.received") }}
-        </button> -->
+          <button @click="recieved_order"
+            v-if="order_status == 4" class="btn btn-primary arrow-effect mb-3">
+            {{ $t("orders.received") }}
+          </button>
+          <button v-if="order_status == 7" class="btn btn-primary arrow-effect mb-3">
+            {{ $t("orders.rate_products") }}
+          </button>
         </div>
 
         <div class="row">
@@ -44,12 +59,15 @@
                     <div class="product_bread">{{ $t("layout.date") }}</div>
                     <div class="fw-bold mt-1 fs-13px">{{ order_data.date }}</div>
                   </div>
-                  <!-- <button
-                    class="btn btn-outline-danger up fw-bold min-w-unset mb-3 h-40px"
-                  >
+                  <div v-if="order_status == 9" class="text-danger">
+                    {{ $t("orders.this_order_canceled") }}
+                  </div>
+                  <button v-if="order_status < 3" @click="cancelModal = true"
+                    class="btn btn-outline-danger up fw-bold min-w-unset mb-3 h-40px">
                     {{ $t("orders.cancel_order") }}
-                  </button> -->
-                  <button class="btn btn-outline-danger up fw-bold min-w-unset mb-3 h-40px" @click="success_modal = true">
+                  </button>
+                  <button v-if="order_status < 6 && order_status > 2"
+                    class="btn btn-outline-danger up fw-bold min-w-unset mb-3 h-40px" @click="report_modal = true">
                     {{ $t("layout.report") }}
                     <img src="~/assets/images/flag.svg" alt="report" class="mx-1" />
                   </button>
@@ -150,7 +168,7 @@
       </div>
     </div>
     <!-- report Modal -->
-    <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '30rem' }">
+    <Dialog class="site-modal none-header" v-model:visible="report_modal" modal :style="{ width: '30rem' }">
       <div class="container">
         <div class="flex justify-content-center align-items-center flex-column pb-5 gap30">
           <h5 class="text-center fw-bold text-primary fw-bold fs-6 border-bottom w-100 py-3">
@@ -159,13 +177,13 @@
           <div class="text-center">
             {{ $t("layout.enter_reason") }}
           </div>
-          <form class="w-100">
+          <form class="w-100" @submit.prevent="report_order" ref="report_form">
             <FormInput :textarea="true" :label2="$t('layout.reason')" :placeholder="$t('layout.enter_reason')"
               :model="form" name="reason" InputClass="height120" type="text">
             </FormInput>
 
             <div class="d-flex justify-content-between gap-2 w-100 mt-4">
-              <button type="button" class="btn sm transparent btn-primary flex-1" @click.prevent="success_modal = false">
+              <button type="button" class="btn sm transparent btn-primary flex-1" @click.prevent="report_modal = false">
                 {{ $t("form_layout.back") }}
               </button>
               <button class="btn sm btn-primary flex-1">
@@ -173,6 +191,24 @@
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    </Dialog>
+
+    <!-- cancel Modal -->
+    <Dialog class="site-modal none-header" v-model:visible="cancelModal" modal :style="{ width: '30rem' }">
+      <div class="container">
+        <div class="flex justify-content-center align-items-center flex-column pb-5 gap30">
+          <h5 class="text-center fw-bold text-primary fw-bold fs-6 border-bottom w-100 py-3">
+            {{ $t("orders.cancel_order") }}
+          </h5>
+          <div class="text-center">
+            {{ $t("orders.cancel_order_caption") }}
+          </div>
+          <div class="d-flex justify-content-between gap-2 w-100">
+            <button class="btn sm btn-primary flex-1 up" @click="cancel_order">{{ $t("form_layout.confirm") }}</button>
+            <button class="btn sm btn-danger flex-1 up" @click="cancelModal = false">{{ $t("product.cancel") }}</button>
+          </div>
         </div>
       </div>
     </Dialog>
@@ -191,15 +227,23 @@ const { t } = useI18n();
 const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
 const route = useRoute();
+const cancelModal = ref(false);
 const order_data = ref({});
 const payment_details = ref({});
-const success_modal = ref(false);
+const report_modal = ref(false);
 const order_status = ref();
+const report_form = ref();
 const form = ref({
   reason: "",
 });
 // productsItems
 const productsItems = ref([]);
+const items = [
+  { states: ['wait_approv', 'payment', 'preparing', 'out_for_delivery', 'delivered', 'Retrieving', 'completed'], checkState: 'wait_approv', content: t("orders.wait_approv") },
+  { states: ['payment', 'preparing', 'out_for_delivery', 'delivered', 'Retrieving', 'completed'], checkState: 'payment', content: t("orders.payment") },
+  { states: ['preparing', 'out_for_delivery', 'delivered', 'Retrieving', 'completed'], checkState: 'active_order', content: t("orders.active_order") },
+  { states: ['completed'], checkState: 'completed', content: t("orders.completed") }
+];
 // ================================================================================ methods
 //  ============================================== get order details
 const get_order_details = async () => {
@@ -219,15 +263,7 @@ const get_order_details = async () => {
     notify_toast(msg, "error");
   }
 }
-
-
-const items = [
-  { states: ['wait_approv', 'payment', 'active_order' ,'preparing', 'delivered' , 'completed'], checkState: 'wait_approv', content: t("orders.wait_approv") },
-  { states: ['payment', 'active_order' ,'preparing', 'delivered' , 'completed'], checkState: 'payment', content: t("orders.payment") },
-  { states: ['active_order' ,'preparing', 'delivered' , 'completed'], checkState: 'active_order', content: t("orders.active_order") },
-  { states: ['completed'], checkState: 'completed', content: t("orders.completed") }
-];
-
+//  ================================ order status computed
 const status = computed(() => {
   const orderStatusValue = order_status.value;
 
@@ -241,15 +277,19 @@ const status = computed(() => {
     };
   } else if (orderStatusValue === 3) {
     return {
-      state: "active_order",
+      state: "preparing",
     };
   } else if (orderStatusValue === 4) {
     return {
-      state: "preparing",
+      state: "out_for_delivery",
     };
   } else if (orderStatusValue === 5) {
     return {
       state: "delivered",
+    };
+  } else if (orderStatusValue === 6) {
+    return {
+      state: "Retrieving",
     };
   } else if (orderStatusValue === 7) {
     return {
@@ -261,10 +301,48 @@ const status = computed(() => {
     };
   }
 });
-
 const isActiveState = (states) => {
   return states.includes(status.value.state);
 };
+
+// ================================================== cancel order
+const cancel_order = async () => {
+  const res = await axios.post(`cancel-order/${route.params.id}`);
+  let status = response(res).status;
+  let msg = response(res).msg;
+  if (status === "success") {
+    notify_toast(msg, "success");
+    cancelModal.value = false;
+  } else {
+    notify_toast(msg, "error");
+  }
+}
+// ================================================== report order
+const report_order = async () => {
+  const fd = new FormData(report_form.value);
+  fd.append("order_id", route.params.id);
+  const res = await axios.post(`add-report` , fd);
+  let status = response(res).status;
+  let msg = response(res).msg;
+  if (status === "success") {
+    notify_toast(msg, "success");
+    report_modal.value = false;
+  } else {
+    notify_toast(msg, "error");
+  }
+}
+
+// ================================================== recieve order
+const recieved_order = async () => {
+  const res = await axios.post(`recieved-order/${route.params.id}`);
+  let status = response(res).status;
+  let msg = response(res).msg;
+  if (status === "success") {
+    notify_toast(msg, "success");
+  } else {
+    notify_toast(msg, "error");
+  }
+}
 // ================================================================================ lifecycle hooks
 onMounted(() => {
   get_order_details()

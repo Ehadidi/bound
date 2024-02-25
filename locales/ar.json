@@ -171,7 +171,8 @@
     "subject": "الموضوع مطلوب",
     "message": "الرسالة مطلوبه",
     "old_password": "كلمة المرور الحالية مطلوبه",
-    "success_update": "تم التعديل بنجاح"
+    "success_update": "تم التعديل بنجاح",
+    "confirm": "تاكيد"
   },
   "product": {
     "price": "السعر",
@@ -231,7 +232,12 @@
     "preparing": "تجهيز",
     "received": "تم الاستلام",
     "out_delivery": "خرج للتوصيل",
-    "cancel_order": "الغاء الطلب"
+    "cancel_order": "الغاء الطلب",
+    "Retrieving": "إسترجاع",
+    "rate_products": "تقييم المنتجات",
+    "delivered": "تم التوصيل",
+    "cancel_order_caption": "هل تريد الغاء هذا الطلب؟",
+    "this_order_canceled": "هذا الطلب تم إلغاؤه"
   },
   "about": {
     "item1": "فساتين",
