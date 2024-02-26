@@ -142,7 +142,7 @@
                     <NuxtLink
                       class="dropdown-item defualt-link"
                       @click="dropShown = !dropShown"
-                      :to="localPath('/')"
+                      :to="localPath('/orders/receipts')"
                     >
                       <div class="d-flex align-items-center">
                         <img
@@ -318,8 +318,10 @@
               </li>
               <li v-if="IsAuth">
                 <NuxtLink :to="localPath('/cart')" class="position-relative">
-                  <span class="count"> 4 </span
-                  ><img src="~/assets/images/Cart.svg" alt="cart" />
+                  <span v-if="cart_count" class="count">
+                    {{ cart_count }}
+                  </span>
+                  <img src="~/assets/images/Cart.svg" alt="cart" />
                 </NuxtLink>
               </li>
               <li>
@@ -527,6 +529,7 @@ const country_code = ref();
 const productsStore = useProductsSearchStore();
 const notifications = ref([]);
 const noti_count = ref("");
+const cart_count = ref("");
 const terms = ref("");
 // ========================================================================= methods
 // ============================= mediaHandller
@@ -709,6 +712,22 @@ const delete_notification = async (id) => {
     });
 };
 
+// ===================================== get cart count
+
+const get_cart_count = async () => {
+  axios
+    .get(`count-cart-items`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        cart_count.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+};
 // ========================================================================= lifecycle hooks
 
 watchEffect(() => {
@@ -723,6 +742,7 @@ watchEffect(() => {
 onMounted(() => {
   productsStore.getProducts();
   if (authStore.user) {
+    get_cart_count();
     get_notifications_count();
     user_auth.value = authStore.user.data;
     const localeToken = authStore.user.data.token;
@@ -743,6 +763,7 @@ watch(useRout, () => {
     console.log(localeToken);
     if (localeToken) {
       IsAuth.value = true;
+      get_cart_count();
       get_notifications_count();
       get_notifications();
     } else {

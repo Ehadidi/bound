@@ -237,7 +237,9 @@
     "rate_products": "Rate Products",
     "delivered": "Delivered",
     "cancel_order_caption": "Are you sure you want to cancel this order?",
-    "this_order_canceled": "This order was canceled"
+    "this_order_canceled": "This order was canceled",
+    "my_orders_Receipts": "My orders Receipts",
+    "view_order": "View order"
   },
   "about": {
     "item1": "Dresses",

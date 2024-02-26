@@ -2,7 +2,9 @@
   <div class="order-card bg-white fs-14px shadow-sm mb-3">
     <div class="p-3 border-bottom">
       <div class="d-flex align-items-center justify-content-between flex-wrap">
-        <span class="text-grayColor">{{ $t("orders.order_num") }} {{ orderNum }}</span>
+        <span class="text-grayColor"
+          >{{ $t("orders.order_num") }} {{ orderNum }}</span
+        >
         <span class="text-grayColor">
           <i class="fa-solid fa-clock mx-1"></i>
           {{ time }}
@@ -10,25 +12,34 @@
       </div>
 
       <div class="py-3">
-        <swiper :slidesPerView="7" :breakpoints="breakpoints" :navigation="true" :pagination="false" :spaceBetween="10"
-          :freeMode="true" :modules="modules">
+        <swiper
+          :slidesPerView="7"
+          :breakpoints="breakpoints"
+          :navigation="true"
+          :pagination="false"
+          :spaceBetween="10"
+          :freeMode="true"
+          :modules="modules"
+        >
           <SwiperSlide v-for="i in products" :key="i">
             <div class="px-3">
-              <img :src="i.image" alt="product name"
-                class="mw-100" />
+              <img :src="i.image" alt="product name" class="mw-100" />
             </div>
           </SwiperSlide>
         </swiper>
       </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-between flex-wrap p-3">
+    <div
+      class="d-flex align-items-center justify-content-between flex-wrap p-3"
+    >
       <span v-if="type == 'waiting'" class="text-dark fw-bold">
         {{ status }}
       </span>
       <span v-if="type == 'payment'" class="text-dark fw-bold">
         <span class="mx-1 bg-primary rounded-circle circle-shape">
-          <i class="fa-solid fa-dollar-sign"></i></span>
+          <i class="fa-solid fa-dollar-sign"></i
+        ></span>
         {{ status }}
       </span>
       <span v-if="type == 'active'" class="text-dark fw-bold">
@@ -47,10 +58,32 @@
         </span>
         {{ status }}
       </span>
-      <NuxtLink class="text-dark fw-bold" :to="localPath(`/orders/${id}`)">
+      <NuxtLink
+        v-if="type != 'receipts'"
+        class="text-dark fw-bold"
+        :to="localPath(`/orders/${id}`)"
+      >
         {{ $t("layout.view_more") }}
-        <img src="~/assets/images/ArrowRight.svg" alt="arrow" class="mx-2 filter-arrow" />
+        <img
+          src="~/assets/images/ArrowRight.svg"
+          alt="arrow"
+          class="mx-2 filter-arrow"
+        />
       </NuxtLink>
+      <div v-else class="d-flex justify-content-end w-100">
+        <NuxtLink
+          class="btn btn-primary fw-bold"
+          :to="localPath(`/orders/${id}`)"
+        >
+          {{ $t("orders.view_order") }}
+          <img
+            src="~/assets/images/Eye.svg"
+            alt="arrow"
+            class="mx-2"
+            width="22"
+          />
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -105,8 +138,13 @@ const props = defineProps({
   },
   products: {
     type: Array,
-    default: [{image: 'https://bondstreet.vip/public/storage/images/products/1707746893_4461.jpg'}],
-  }
+    default: [
+      {
+        image:
+          "https://bondstreet.vip/public/storage/images/products/1707746893_4461.jpg",
+      },
+    ],
+  },
 });
 </script>
 
