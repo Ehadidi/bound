@@ -1,28 +1,9 @@
 <script setup>
-// const route = useRoute()
-// const switchLocalePath = useSwitchLocalePath()
-// const switch_dir = (lang) => {
-//   let html = document.getElementsByTagName("html")[0];
-//   html.setAttribute("lang", lang);
-// }
-// const set_dir = () => {
-//   if (route.path.includes('ar-EG')) {
-//     let html = document.getElementsByTagName("html")[0];
-//     html.setAttribute("lang", 'ar');
-//   } else {
-//     let html = document.getElementsByTagName("html")[0];
-//     html.setAttribute("lang", 'en');
-//   }
-// }
-// onMounted(() => {
-//   set_dir()
-// })
-
 import nuxtStorage from "nuxt-storage";
 // set html dir
 const route = useRoute();
 const checkLang = () => {
-  const lang = route.path.startsWith("/en-US") ? "en" : "ar";
+  const lang = route.path.startsWith("/ar") ? "ar" : "en";
   let html = document.getElementsByTagName("html")[0];
   html.setAttribute("lang", lang);
 };
