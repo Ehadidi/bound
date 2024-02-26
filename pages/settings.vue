@@ -173,7 +173,7 @@
         <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '25rem' }">
             <div class="container">
                 <div class="flex justify-content-center align-items-center flex-column py-4 gap30">
-                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success message">
                     <h5 class="text-center fw-bold text-primary fw-bold">
                         {{ t('form_layout.success_update') }}
                     </h5>

@@ -19,10 +19,10 @@
                     <div class="flex align-items-center gap15">
                         <button class="btn p-0 border-0 min-w-min h-fit bg-transparent"
                             @click="editAddress(item.name, item.map_desc, item.description, item.lat, item.lng, 'edit', item.id)">
-                            <img src="~/assets/images/Pen-edit.svg" alt="">
+                            <img src="~/assets/images/Pen-edit.svg" alt="edit location">
                         </button>
                         <button class="btn p-0 border-0 min-w-min h-fit bg-transparent" @click="deleteAddress(item.id)">
-                            <img src="~/assets/images/Trash.svg" alt="">
+                            <img src="~/assets/images/Trash.svg" alt="remove location">
                         </button>
                     </div>
                 </label>

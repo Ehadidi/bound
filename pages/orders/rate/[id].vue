@@ -11,7 +11,7 @@
                     <div v-for="(item, index) in products" :key="index"
                         class="flex align-items-center justify-content-between flex-wrap p-3 border-bottom">
                         <div class="flex align-items-center gap20">
-                            <img class="width100 height150" style="object-fit: cover;" :src="item.product_image" alt="">
+                            <img class="width100 height150" style="object-fit: cover;" :src="item.product_image" :alt="item.product_name">
                             <div class="flex flex-column align-items-start gap10">
                                 <span class="font15 fw-bold">{{ item.product_name }}</span>
                                 <span>{{ item.price_per_day }}</span>
