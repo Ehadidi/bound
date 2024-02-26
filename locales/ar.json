@@ -237,7 +237,9 @@
     "rate_products": "تقييم المنتجات",
     "delivered": "تم التوصيل",
     "cancel_order_caption": "هل تريد الغاء هذا الطلب؟",
-    "this_order_canceled": "هذا الطلب تم إلغاؤه"
+    "this_order_canceled": "هذا الطلب تم إلغاؤه",
+    "my_orders_Receipts": "إيصالات طلباتي",
+    "view_order": "عرض الطلب"
   },
   "about": {
     "item1": "فساتين",
