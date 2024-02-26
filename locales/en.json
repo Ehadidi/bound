@@ -58,7 +58,9 @@
     "features": "Features",
     "product_sent": "Your product details sent successfully",
     "contact_soon": "We will contact you soon..",
-    "login_first": "You need to log in first"
+    "login_first": "You need to log in first",
+    "rate_products": "Rate Products",
+    "confirm_rate": "Confirm Ratings"
   },
   "header": {
     "auth": "Sign in / Register",

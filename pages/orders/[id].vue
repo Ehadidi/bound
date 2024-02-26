@@ -36,9 +36,9 @@
             v-if="order_status == 4" class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.received") }}
           </button>
-          <button v-if="order_status == 7" class="btn btn-primary arrow-effect mb-3">
+          <NuxtLink :to="localPath(`/orders/rate/${route.params.id}`)" v-if="order_status == 7" class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.rate_products") }}
-          </button>
+          </NuxtLink>
         </div>
 
         <div class="row">
@@ -222,6 +222,7 @@ import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
 import { useI18n } from "vue-i18n";
 // ================================================================================ data
+const localPath = useLocalePath();
 const authStore = useAuthStore();
 const { t } = useI18n();
 const axios = useNuxtApp().$axios;
