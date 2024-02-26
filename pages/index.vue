@@ -130,32 +130,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="col-12 md:col-6 lg:col-8">
-            <div class="category-card wide">
-              <div class="card-info">
-                <h5 class="title text-secondary ">{{ $t('layout.handbags') }}</h5>
-                <p class="fs-6 text-center">{{ $t('layout.handbags_caption') }}</p>
-                <NuxtLink class="default-link  arrow-btn" :to="localPath('/products/categories/2')">
-                  <div class="d-flex align-items-center">
-                    <span>{{ $t('layout.see_more') }}</span>
-                    <img src="~/assets/images/ArrowRight.svg" alt="arrow">
-                  </div>
-                </NuxtLink>
-                <span class="arrow" :class="htlang === 'ar' ? 'left' : 'right'"></span>
-              </div>
-              <div class="card-img">
-                <img src="" alt="">
-                <div class="hv-layer">
-                  <NuxtLink :to="localPath('/products/categories/2')">
-                    <div class="flex align-items-center w-100 h-100">
-                      <img class="width40 height40" src="~/assets/images/link-icon.svg" alt="link">
-                    </div>
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </section>

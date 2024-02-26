@@ -102,7 +102,7 @@
                   <div class="d-flex align-items-center gap-2">
                     <span>{{ $t("cart.deposit") }}: </span>
                     <img src="~/assets/images/info.png" v-tooltip.bottom="'will be Refunded after we retrieve the product'
-                      " alt="" class="icon" />
+                      " alt="info" class="icon" />
                   </div>
                   <span>{{ payment_details.refundable_deposit }}</span>
                 </div>
@@ -130,7 +130,7 @@
                 <div class="scroll_y">
                   <div class="cart_item" v-for="item in productsItems" :key="item.id">
                     <div class="left">
-                      <img :src="item.image" alt="" class="cart_pro_img" />
+                      <img :src="item.image" :alt="item.name" class="cart_pro_img" />
 
                       <div class="product_info">
                         <h6 class="name">{{ item.name }}</h6>
@@ -154,7 +154,7 @@
 
                         <div class="d-flex align-items-center gap-2">
                           <span>{{ item.refundable_deposit }}</span>
-                          <img src="~/assets/images/info.png" v-tooltip.bottom="$t('cart.depositInfo')" alt=""
+                          <img src="~/assets/images/info.png" v-tooltip.bottom="$t('cart.depositInfo')" alt="info"
                             class="icon" />
                         </div>
                       </div>

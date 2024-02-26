@@ -456,7 +456,7 @@
         <div
           class="flex justify-content-center align-items-center flex-column py-4 gap30"
         >
-          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="" />
+          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success" />
           <h5 class="text-center fw-bold text-primary fw-bold">
             {{ active_msg }}
           </h5>
@@ -476,7 +476,7 @@
         <div
           class="flex justify-content-center align-items-center flex-column py-4 gap30"
         >
-          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="" />
+          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success" />
           <h5 class="text-center fw-bold text-primary fw-bold">
             {{ active_msg }}
           </h5>

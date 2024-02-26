@@ -19,7 +19,7 @@
                                             @click="remove_from_cart(item.id, $event)">
                                             <img src="~/assets/images/Trash.png" alt="cart" class="ic">
                                         </button>
-                                        <img :src="item.product_image" alt="" class="cart_pro_img">
+                                        <img :src="item.product_image" :alt="item.product_name" class="cart_pro_img">
 
                                         <div class="product_info">
                                             <h6 class="name">{{ item.product_name }}</h6>
@@ -48,7 +48,7 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <span>{{ item.refundable_value }}</span>
                                                 <img src="~/assets/images/info.png"
-                                                    v-tooltip.bottom="$t('cart.depositInfo')" alt="" class="icon">
+                                                    v-tooltip.bottom="$t('cart.depositInfo')" alt="info" class="icon">
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                             :id="`payment${i}`" class="payment-input">
                                         <div class="payment-label">
 
-                                            <img :src="pay.icon" alt="" class="ic">
+                                            <img :src="pay.icon" alt="pay method icon" class="ic">
                                             <div class="name">{{ pay.name }}</div>
 
                                             <i class="fa-solid fa-circle-check circle"></i>
@@ -92,7 +92,7 @@
                             <FormInput :label2="$t('cart.location')" :placeholder="$t('cart.location')" :model="form"
                                 name="location" type="text" parentClass="my-3" :icon="true" :addition="true">
                                 <template #icon>
-                                    <img class="width20" src="~/assets/images/GPS.svg" alt="phone">
+                                    <img class="width20" src="~/assets/images/GPS.svg" alt="location">
                                 </template>
                                 <template #addition>
                                     <button class="btn border-0 min-w-min h-100 bg-transparent underline" type="button"
@@ -121,7 +121,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <span>{{ $t('cart.deposit') }}: </span>
                                     <img src="~/assets/images/info.png"
-                                        v-tooltip.bottom="'will be Refunded after we retrieve the product'" alt=""
+                                        v-tooltip.bottom="'will be Refunded after we retrieve the product'" alt="info"
                                         class="icon">
                                 </div>
                                 <span>{{ cartSummary.total_refundable_value }} {{ $t('product.currency') }}</span>
@@ -142,7 +142,7 @@
                             <button type="button" class="btn btn-primary arrow-effect ms-auto"
                                 @click="confirm_order">
                                 {{ $t('cart.sendOrder') }}
-                                <!-- <img src="~/assets/images/ArrowRight.svg" class="ic" alt=""> -->
+                                <!-- <img src="~/assets/images/ArrowRight.svg" class="ic" alt="arrow"> -->
                             </button>
                         </div>
 
@@ -203,7 +203,7 @@
         <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '20rem' }">
             <div class="container">
                 <div class="flex justify-content-center align-items-center flex-column py-5 gap30">
-                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="">
+                    <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success message">
                     <h5 class="text-center fw-bold text-primary fw-bold fs-6">
                         {{ $t('cart.done.text') }}
                     </h5>

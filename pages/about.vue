@@ -18,7 +18,7 @@
 
                             <div class="slider" v-if="slider.length">
                                 <div class="logo_con">
-                                    <img src="~/assets/images/white_logo.png" class="logo" alt="">
+                                    <img src="~/assets/images/white_logo.png" class="logo" alt="site logo">
                                 </div>
                                 <Carousel :value="slider" :numVisible="1" :numScroll="1"
                                     :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000"
