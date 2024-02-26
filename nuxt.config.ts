@@ -76,14 +76,14 @@ export default defineNuxtConfig({
     strategy: "prefix_except_default",
     locales: [
       {
-        code: "en-US",
-        iso: "en-US",
+        code: "en",
+        iso: "en",
         name: "English",
         file: "en.json",
       },
       {
-        code: "ar-EG",
-        iso: "ar-EG",
+        code: "ar",
+        iso: "ar",
         name: "arabic",
         file: "ar.json",
       },
