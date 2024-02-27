@@ -89,7 +89,7 @@ const { t } = useI18n({ useScope: 'global' });
 import { useAuthStore } from "~/stores/auth";
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { validate, change_valid } from "~/validation/validation";
+import { validate, change_valid  } from '~/utils/validation';
 // ============================================================================ data
 const emit = defineEmits(['modal_changed'])
 const address_modal = ref(false)
