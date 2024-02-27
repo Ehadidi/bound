@@ -88,7 +88,7 @@
                     <NuxtLink
                       class="dropdown-item defualt-link"
                       @click="dropShown = !dropShown"
-                      :to="localPath('/')"
+                      :to="localPath('/contact')"
                     >
                       <div class="d-flex align-items-center">
                         <img
@@ -116,24 +116,6 @@
                         />
                         <span class="user-txt">{{
                           $t("layout.suggestions")
-                        }}</span>
-                      </div>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="dropdown-item defualt-link"
-                      @click="dropShown = !dropShown"
-                      :to="localPath('/')"
-                    >
-                      <div class="d-flex align-items-center">
-                        <img
-                          class="user-icon me-2"
-                          src="~/assets/images/settings.svg"
-                          alt="profile"
-                        />
-                        <span class="user-txt">{{
-                          $t("layout.settings")
                         }}</span>
                       </div>
                     </NuxtLink>
@@ -456,7 +438,11 @@
         <div
           class="flex justify-content-center align-items-center flex-column py-4 gap30"
         >
-          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success" />
+          <img
+            src="~/assets/images/success.svg"
+            class="w-25 h-auto"
+            alt="success"
+          />
           <h5 class="text-center fw-bold text-primary fw-bold">
             {{ active_msg }}
           </h5>
@@ -476,7 +462,11 @@
         <div
           class="flex justify-content-center align-items-center flex-column py-4 gap30"
         >
-          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success" />
+          <img
+            src="~/assets/images/success.svg"
+            class="w-25 h-auto"
+            alt="success"
+          />
           <h5 class="text-center fw-bold text-primary fw-bold">
             {{ active_msg }}
           </h5>
@@ -500,6 +490,11 @@ import { toast_handel } from "~/network/ValidTost";
 import { response } from "~/network/response";
 import { useProductsSearchStore } from "~/stores/productsSearch";
 // ========================================================================= data
+
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const axios = useNuxtApp().$axios;
 const { t } = useI18n();
 const localPath = useLocalePath();
