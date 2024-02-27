@@ -1,5 +1,5 @@
-import i18n from '~/i18n-locale/index.js'
-const { t } = i18n.global
+// import i18n from '~/i18n-locale/index.js'
+// const { t } = i18n.global
 const remove_item = (array, item) => {
     const ind = array.indexOf(item);
     array.splice(ind, 1);
