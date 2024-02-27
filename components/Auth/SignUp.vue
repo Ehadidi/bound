@@ -4,7 +4,7 @@
       <FormInput
         :label="$t('form_layout.user_name')"
         InputClass="validated"
-        @change="change_valid"
+        @change="handleChange"
         :placeholder="$t('form_layout.enter_user_name')"
         :model="form"
         name="name"
@@ -19,7 +19,7 @@
       <FormInput
         :label="$t('form_layout.phone')"
         InputClass="validated"
-        @change="change_valid"
+        @change="handleChange"
         :placeholder="$t('form_layout.enter_phone')"
         :model="form"
         name="phone"
@@ -51,7 +51,7 @@
       </FormInput>
       <FormInput
         InputClass="validated"
-        @change="change_valid"
+        @change="handleChange"
         :label="$t('form_layout.email')"
         :placeholder="$t('form_layout.enter_email')"
         :model="form"
@@ -88,7 +88,7 @@
       </div>
       <FormInput
         InputClass="validated"
-        @change="change_valid"
+        @change="handleChange"
         :label="$t('form_layout.password')"
         :placeholder="$t('form_layout.enter_password')"
         :model="form"
@@ -107,7 +107,7 @@
       </FormInput>
       <FormInput
         InputClass="validated"
-        @change="change_valid"
+        @change="handleChange"
         :label="$t('form_layout.password')"
         :placeholder="$t('form_layout.re_enter_password')"
         :model="form"
@@ -128,7 +128,7 @@
         <div class="flex align-items-center gap5 font13">
           <FormCheckbox
             InputClass="check_valid"
-            @change="change_valid($event)"
+            @change="handleChange($event)"
             name="is_terms"
             :model="form"
           />
@@ -207,7 +207,7 @@ const { t } = useI18n({ useScope: "global" });
 import { useAuthStore } from "~/stores/auth";
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { validate, change_valid } from "~/validation/validation";
+import { validate, change_valid } from "~/utils/validation";
 // ========================================================================= data
 const emit = defineEmits(["activation-signup"]);
 const selectedCity = ref();
@@ -230,6 +230,11 @@ const authStore = useAuthStore();
 const loading = ref(null);
 const signUp_form = ref();
 // ========================================================================= methods
+// handel change validation
+const handleChange = (e) => {
+  change_valid(e, t);
+};
+//  ================
 // ===================================== get cities
 const get_cities = async () => {
   axios
@@ -266,7 +271,7 @@ const handelSignUp = async () => {
     fd.append("city_id", "");
   }
   city_check();
-  let valid = validate(signUp_form.value).valid;
+  let valid = validate(signUp_form.value, t).valid;
   let valid_ruls = valid === "isValid" && selectedCity.value;
   if (valid_ruls) {
     await authStore.handelSignUp(fd);

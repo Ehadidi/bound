@@ -16,11 +16,11 @@
           <form style="max-width: 90%" class="mx-auto py-3" @submit.prevent="handelAddProduct" ref="addProoduct">
             <FormInput :label="$t('layout.product_name') + ' (Ar)'" :placeholder="$t('layout.product_name') + ' (Ar)'"
               :model="addForm.name" name="name_ar" type="text" parentClass="w-100 mb-3" :icon="false"
-              InputClass="validated" @change="change_valid">
+              InputClass="validated" @change="handleChange">
             </FormInput>
             <FormInput :label="$t('layout.product_name') + ' (En)'" :placeholder="$t('layout.product_name') + ' (En)'"
               :model="addForm.name" name="name_en" type="text" parentClass="w-100 mb-3" :icon="false"
-              InputClass="validated" @change="change_valid">
+              InputClass="validated" @change="handleChange">
             </FormInput>
             <div class="mb-3">
               <label class="fw-bold txt_start d-block mb-2">{{
@@ -57,18 +57,18 @@
             <div class="mb-3">
               <FormInput :textarea="true" :label="$t('layout.product_description') + ' (Ar)'"
                 :placeholder="$t('layout.product_description') + ' (Ar)'" :model="addForm.description"
-                name="description_ar" InputClass="height120 w-100 validated" type="text" @change="change_valid">
+                name="description_ar" InputClass="height120 w-100 validated" type="text" @change="handleChange">
               </FormInput>
             </div>
             <div class="mb-3">
               <FormInput :textarea="true" :label="$t('layout.product_description') + ' (En)'"
                 :placeholder="$t('layout.product_description') + ' (En)'" :model="addForm.description"
-                name="description_en" InputClass="height120 w-100 validated" type="text" @change="change_valid">
+                name="description_en" InputClass="height120 w-100 validated" type="text" @change="handleChange">
               </FormInput>
             </div>
             <FormInput :label="$t('layout.product_price')" :placeholder="$t('layout.product_price')" :model="addForm"
               name="price" type="text" parentClass="w-100 mb-3" :icon="false" InputClass="validated"
-              @change="change_valid">
+              @change="handleChange">
             </FormInput>
             <div class="mb-3">
               <label class="fw-bold txt_start d-block mb-2">{{
@@ -185,7 +185,7 @@
 
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { validate, change_valid } from "~/validation/validation";
+import { validate, change_valid  } from '~/utils/validation';
 // ================================================================================ data
 
 const success_modal = ref(false);
@@ -227,6 +227,10 @@ const selectedColorsIds = ref([]);
 
 // ================================================================================ methods
 
+// handel change validation
+const handleChange = (e) => {
+  change_valid(e, t);
+};
 // get selected size
 const getSelectedSize = () => {
   selectedSizes.value = [];
@@ -528,7 +532,7 @@ const handelAddProduct = async () => {
   productImage_check();
   colorImage_check();
 
-  let valid = validate(addProoduct.value).valid;
+  let valid = validate(addProoduct.value, t).valid;
   let valid_ruls = valid === "isValid";
   if (
     valid_ruls &&
