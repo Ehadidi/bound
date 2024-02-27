@@ -2,14 +2,14 @@
     <div class="flex flex-column align-items-center">
         <img class="w-6rem h-auto my-4" src="~/assets/images/phoneLock.png" alt="phone active">
         <form @submit.prevent="change_password" class="w-100" ref="change_password_form">
-            <FormInput InputClass="validated" @change="change_valid" :label="$t('form_layout.password')"
+            <FormInput InputClass="validated" @change="handleChange" :label="$t('form_layout.password')"
                 :placeholder="$t('form_layout.enter_password')" :model="form" name="password" type="password"
                 parentClass="my-3" :icon="true">
                 <template #icon>
                     <img class="width20" src="~/assets/images/Lock.svg" alt="Lock password">
                 </template>
             </FormInput>
-            <FormInput InputClass="validated" @change="change_valid" :label="$t('form_layout.password')"
+            <FormInput InputClass="validated" @change="handleChange" :label="$t('form_layout.password')"
                 :placeholder="$t('form_layout.re_enter_password')" :model="form" name="password_confirmation"
                 type="password" parentClass="my-3" :icon="true">
                 <template #icon>
@@ -36,7 +36,7 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n({ useScope: 'global' });
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { validate, change_valid } from "~/validation/validation";
+import { validate, change_valid  } from '~/utils/validation';
 // ========================================================================== data
 const emit = defineEmits(['return_response']);
 const form = reactive({
@@ -59,6 +59,10 @@ const change_password_form = ref(null);
 const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
 //  ========================================================================== methods
+// handel change validation
+const handleChange = (e) => {
+  change_valid(e, t);
+};
 const change_password = async () => {
     loading.value = true;
     const fd = new FormData(change_password_form.value);
@@ -66,7 +70,7 @@ const change_password = async () => {
     fd.append('code', props.bindModal)
     fd.append("phone", props.phone_number);
     fd.append("country_code", props.country_code);
-    let valid = validate(change_password_form.value).valid;
+    let valid = validate(change_password_form.value, t).valid;
     let valid_ruls = valid === "isValid"
     if (valid_ruls) {
         const res = await axios.post('reset-password', fd)

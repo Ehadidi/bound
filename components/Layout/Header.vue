@@ -88,7 +88,7 @@
                     <NuxtLink
                       class="dropdown-item defualt-link"
                       @click="dropShown = !dropShown"
-                      :to="localPath('/')"
+                      :to="localPath('/contact')"
                     >
                       <div class="d-flex align-items-center">
                         <img
@@ -116,24 +116,6 @@
                         />
                         <span class="user-txt">{{
                           $t("layout.suggestions")
-                        }}</span>
-                      </div>
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="dropdown-item defualt-link"
-                      @click="dropShown = !dropShown"
-                      :to="localPath('/')"
-                    >
-                      <div class="d-flex align-items-center">
-                        <img
-                          class="user-icon me-2"
-                          src="~/assets/images/settings.svg"
-                          alt="profile"
-                        />
-                        <span class="user-txt">{{
-                          $t("layout.settings")
                         }}</span>
                       </div>
                     </NuxtLink>
