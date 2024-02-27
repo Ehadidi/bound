@@ -22,8 +22,6 @@ const showSplash = ref(true);
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-// ================================================================================ methods
-
 // ================================================================================ lifecycle hooks
 onMounted(() => {
   setTimeout(() => {
