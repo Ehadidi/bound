@@ -27,28 +27,6 @@
             <div class="sub-desc">
               <div class="fw-medium" v-html="item.description"></div>
             </div>
-            <!-- <div class="sub-adv">
-                            <ul>
-                                <li>
-                                    <div class="flex align-items-center gap10">
-                                        <img src="~/assets/images/check.svg" alt="check">
-                                        <span>Exclusive Products</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex align-items-center gap10">
-                                        <img src="~/assets/images/check.svg" alt="check">
-                                        <span>No insurance fees</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex align-items-center gap10">
-                                        <img src="~/assets/images/check.svg" alt="check">
-                                        <span>Big sale on renting items</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div> -->
             <div class="sub-btn">
               <img
                 class="logo-brand"

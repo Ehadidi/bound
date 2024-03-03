@@ -71,12 +71,14 @@
 .p-calendar {
   position: relative;
   height: 50px !important;
+
   .p-inputtext {
     height: 50px;
     border-radius: 0;
     padding-inline-start: 40px;
   }
-  .p-button{
+
+  .p-button {
     height: 50px;
     background-color: transparent;
     color: #000;
@@ -1685,8 +1687,10 @@ html[lang="ar"] {
     left: -100px;
     gap: 0;
     align-items: baseline;
+
     li {
       width: 100%;
+
       &:not(:last-of-type) {
         border-bottom: 1px solid #eee;
         margin-bottom: 10px;
@@ -1700,8 +1704,10 @@ html[lang="ar"] {
   .text-start {
     text-align: right !important;
   }
+
   .dropdown-menu {
     text-align: right;
+
     &.noti-dropdown {
       right: -100px;
       left: auto;
@@ -2065,6 +2071,7 @@ html[lang="ar"] {
       margin-top: 25px;
     }
   }
+
   .dropdown-menu {
     &.noti-dropdown {
       min-width: 230px;
@@ -2090,42 +2097,65 @@ html[lang="ar"] {
   border-width: 0 0 0 6px;
   color: #ff5757;
 }
+
 .p-toast .p-toast-message {
   margin: 0 0 1rem 0;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border-radius: 6px;
 }
+
 .p-toast-message {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
+
 .p-toast .p-toast-message .p-toast-message-content {
   padding: 1rem;
   border-width: 0 0 0 6px;
 }
+
 .p-toast-message-content {
   display: flex;
   align-items: flex-start;
 }
+
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon.p-icon {
   width: 2rem;
   height: 2rem;
 }
-.p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+
+.p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
   color: #ff5757;
 }
+
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
   font-size: 2rem;
 }
+
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
   margin: 0 0 0 1rem;
 }
+
 .p-toast-message-text {
   flex: 1 1 auto;
 }
+
 .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
   font-weight: 700;
 }
+
 .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
   margin: 0.5rem 0 0 0;
+}
+
+.container {
+  max-width: 100% !important;
+  padding-inline: 80px;
+}
+
+@media(max-width: 992px) {
+  .container {
+    padding-inline: 20px;
+  }
 }

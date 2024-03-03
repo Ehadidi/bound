@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         },
         {
           name: "description",
-          content: "nuxt 3 app",
+          content: "Choose what you like and rent your products straight away",
         },
         {
           charset: "utf-8",
@@ -65,6 +65,7 @@ export default defineNuxtConfig({
   ],
   plugins: [
     // "~/toast-service/toast.js",
+    // "~/plugins/vue-google-maps.js",
     "~/plugins/axios.ts",
   ],
   // build: {
