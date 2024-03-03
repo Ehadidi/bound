@@ -124,7 +124,7 @@ export function validate(form, t) {
             }
           } else {
             ErrorValids.push(Input.name);
-            return_valid(Input.name, feedback, "_wrong");
+            return_valid(Input.name, feedback, "_wrong" , t);
           }
         }
         //============== password check ==============>

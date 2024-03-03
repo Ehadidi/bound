@@ -40,7 +40,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/settings.svg"
                           alt="settings"
                         />
@@ -58,7 +58,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/wallet.svg"
                           alt="wallet"
                         />
@@ -74,7 +74,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/GPS.svg"
                           alt="GPS"
                         />
@@ -92,7 +92,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/Phone.svg"
                           alt="Phone"
                         />
@@ -110,7 +110,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/Shield.svg"
                           alt="Shield"
                         />
@@ -128,7 +128,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/document.svg"
                           alt="Receipts"
                         />
@@ -146,7 +146,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/box.svg"
                           alt="product box"
                         />
@@ -167,7 +167,7 @@
                     >
                       <div class="d-flex align-items-center">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/pen.svg"
                           alt="terms and conditions"
                         />
@@ -179,7 +179,7 @@
                     <button class="dropdown-item defualt-link" @click="logout">
                       <div class="d-flex align-items-center gap18">
                         <img
-                          class="user-icon me-2"
+                          class="user-icon mx-2"
                           src="~/assets/images/logout.svg"
                           alt="logout"
                         />
@@ -371,6 +371,7 @@
             <AuthLogin
               @login-toForgetPassword="forgetPassword"
               @login_success="login_success"
+              @activation-signup="Verification_signup"
             />
           </TabPanel>
           <TabPanel :header="$t('form_layout.sign_up')">
@@ -578,6 +579,7 @@ const returnmsg = (msg) => {
   setTimeout(() => {
     success_modal.value = false;
     get_profile();
+    window.location.reload();
   }, 1000);
 };
 // ================== verification after signup
@@ -735,8 +737,8 @@ onMounted(() => {
     get_cart_count();
     get_notifications_count();
     user_auth.value = authStore.user.data;
-    const localeToken = authStore.user.data.token;
-    console.log(localeToken);
+    const localeToken = authStore.user.data ? authStore.user.data.token : "";
+    // console.log(localeToken);
     if (localeToken) {
       IsAuth.value = true;
     } else {
@@ -750,7 +752,7 @@ onMounted(() => {
 watch(useRout, () => {
   if (authStore.user) {
     const localeToken = authStore.user.data.token;
-    console.log(localeToken);
+    // console.log(localeToken);
     if (localeToken) {
       IsAuth.value = true;
       get_cart_count();

@@ -284,13 +284,7 @@ const gethtlang = () => {
 
 //  =================================== get home data
 const getHomeData = async () => {
-  let config = "";
-  if (authStore.user) {
-    config = {
-      headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-    };
-  }
-  const res = await axios.get("home", config);
+  const res = await axios.get("home");
   let status = response(res).status;
   let data = response(res).data;
   if (status === "success") {
@@ -302,8 +296,8 @@ const getHomeData = async () => {
 
 const check_token = () => {
   if (authStore.user) {
-    const localeToken = authStore.user.data.token;
-    console.log(localeToken);
+    const localeToken = authStore.user.data ? authStore.user.data.token : "";
+    // console.log(localeToken);
     if (localeToken) {
       IsAuth.value = true;
     } else {

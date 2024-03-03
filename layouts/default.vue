@@ -55,7 +55,7 @@ onMounted(() => {
     .then((currentToken) => {
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
-        console.log("fcm currentToken", currentToken);
+        // console.log("fcm currentToken", currentToken);
         // ...
       } else {
         // Show permission request UI

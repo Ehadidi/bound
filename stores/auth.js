@@ -24,8 +24,11 @@ export const useAuthStore = defineStore("auth", {
 
     async handelVerification(form) {
       const response = await $axios.post("activate?_method=patch", form);
+      console.log("response", response);
       this.authUser = response.data;
-      this.token = response.data.data.token;
+      if (response.key == "success") {
+        this.token = response.data.data.token;
+      }
     },
 
     async handelLogin(form) {

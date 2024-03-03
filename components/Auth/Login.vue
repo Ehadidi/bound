@@ -1,46 +1,98 @@
 <template>
   <div class="flex flex-column align-items-center justify-content-center">
-    <img class="width163 height108" src="~/assets/images/auth-logo.png" alt="logo" />
+    <img
+      class="width163 height108"
+      src="~/assets/images/auth-logo.png"
+      alt="logo"
+    />
     <div class="flex align-items-center text-primary font12 fw-bold gap5 my-4">
       <span>{{ $t("form_layout.login_problem") }}</span>
       <NuxtLink class="underline" to="">{{ $t("header.contact_us") }}</NuxtLink>
     </div>
   </div>
   <form @submit.prevent="login" ref="loginForm">
-    <FormInput :label="$t('form_layout.phone')" InputClass="validated" @change="handleChange"
-      :placeholder="$t('form_layout.enter_phone')" :model="form" name="phone" type="number" parentClass="my-3"
-      :icon="true" :addition="true">
+    <FormInput
+      :label="$t('form_layout.phone')"
+      InputClass="validated"
+      @change="handleChange"
+      :placeholder="$t('form_layout.enter_phone')"
+      :model="form"
+      name="phone"
+      type="number"
+      parentClass="my-3"
+      :icon="true"
+      :addition="true"
+    >
       <template #icon>
         <img class="width20" src="~/assets/images/phone.svg" alt="phone" />
       </template>
       <template #addition>
         <div class="flex align-items-center gap5 height50 px-2">
-          <input style="background-color: transparent" class="width40 height50 border-0 font13" readonly type="text"
-            name="country_code" value="966" />
-          <img class="width20" src="~/assets/images/soud_flag.svg" alt="flag ksa" />
+          <input
+            style="background-color: transparent"
+            class="width40 height50 border-0 font13"
+            readonly
+            type="text"
+            name="country_code"
+            value="966"
+          />
+          <img
+            class="width20"
+            src="~/assets/images/soud_flag.svg"
+            alt="flag ksa"
+          />
         </div>
       </template>
     </FormInput>
-    <FormInput InputClass="validated" @change="handleChange" :label="$t('form_layout.password')"
-      :placeholder="$t('form_layout.enter_password')" :model="form" name="password" type="password" parentClass="my-3"
-      :icon="true">
+    <FormInput
+      InputClass="validated"
+      @change="handleChange"
+      :label="$t('form_layout.password')"
+      :placeholder="$t('form_layout.enter_password')"
+      :model="form"
+      name="password"
+      type="password"
+      parentClass="my-3"
+      :icon="true"
+    >
       <template #icon>
-        <img class="width20" src="~/assets/images/Lock.svg" alt="Lock password" />
+        <img
+          class="width20"
+          src="~/assets/images/Lock.svg"
+          alt="Lock password"
+        />
       </template>
     </FormInput>
     <div class="flex justify-content-end my-3">
-      <button type="button" @click="forget_send_code" class="btn p-0 w-fit h-fit min-w-min underline fw-bold font13">
+      <button
+        type="button"
+        @click="forget_send_code"
+        class="btn p-0 w-fit h-fit min-w-min underline fw-bold font13"
+      >
         {{ $t("form_layout.forgot_password") }}
       </button>
     </div>
     <div class="my-5">
-      <button class="btn w-100 btn-primary mb-4 mt-3" :loading="loading" :disabled="loading === true">
+      <button
+        class="btn w-100 btn-primary mb-4 mt-3"
+        :loading="loading"
+        :disabled="loading === true"
+      >
         <div class="d-flex align-items-center justify-content-center gap5">
           <span>{{ $t("form_layout.login") }}</span>
-          <div class="spinner-border spinner-border-sm" :class="loading ? 'd-block' : 'd-none'" role="status">
+          <div
+            class="spinner-border spinner-border-sm"
+            :class="loading ? 'd-block' : 'd-none'"
+            role="status"
+          >
             <span class="sr-only">Loading...</span>
           </div>
-          <span><img class="width25 height26" src="~/assets/images/login-arrow.svg" alt="login arrow" /></span>
+          <span
+            ><img
+              class="width25 height26"
+              src="~/assets/images/login-arrow.svg"
+              alt="login arrow"
+          /></span>
         </div>
       </button>
     </div>
@@ -55,7 +107,10 @@ import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
 import { validate, change_valid } from "~/utils/validation";
 // ========================================================================= data
-const emit = defineEmits(["login-toForgetPassword", "login_success"]);
+const emit = defineEmits([
+  "login-toForgetPassword",
+  "login_success, activation-signup",
+]);
 const form = reactive({
   phone: "",
   password: "",
@@ -101,6 +156,11 @@ const login = async () => {
       notify_toast(authStore.user.msg, "success");
       loginForm.value.reset();
       emit("login_success");
+    } else if (authStore.user.key == "needActive") {
+      loading.value = false;
+      notify_toast(authStore.user.msg, "info");
+      loginForm.value.reset();
+      emit("activation-signup");
     } else {
       loading.value = false;
       notify_toast(authStore.user.msg, "error");
