@@ -20,7 +20,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     console.log("authUser.data.token", authUser.data.token);
   }
 
-  const lang = i18n_redirected == "ar-EG" ? "ar" : "en";
+  const lang = i18n_redirected == "ar" ? "ar" : "en";
   // console.log('lang' , lang)
   let api = axios.create({
     baseURL: defaultUrl,

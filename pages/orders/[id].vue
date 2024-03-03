@@ -1,5 +1,10 @@
 <template>
   <section class="bg-sectionBg">
+    <div class="overlay-loader" :class="loading ? 'd-flex' : 'd-none'">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     <div class="container">
       <div class="py-5">
         <div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -29,14 +34,14 @@
             </div>
           </div>
 
-          <button v-if="order_status == 2" class="btn btn-primary arrow-effect mb-3">
+          <button v-if="order_status == 2" @click="procees_pay" class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.procees_pay") }}
           </button>
-          <button @click="recieved_order"
-            v-if="order_status == 4" class="btn btn-primary arrow-effect mb-3">
+          <button @click="recieved_order" v-if="order_status == 4" class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.received") }}
           </button>
-          <NuxtLink :to="localPath(`/orders/rate/${route.params.id}`)" v-if="order_status == 7" class="btn btn-primary arrow-effect mb-3">
+          <NuxtLink :to="localPath(`/orders/rate/${route.params.id}`)" v-if="order_status == 7"
+            class="btn btn-primary arrow-effect mb-3">
             {{ $t("orders.rate_products") }}
           </NuxtLink>
         </div>
@@ -245,6 +250,7 @@ const items = [
   { states: ['preparing', 'out_for_delivery', 'delivered', 'Retrieving', 'completed'], checkState: 'active_order', content: t("orders.active_order") },
   { states: ['completed'], checkState: 'completed', content: t("orders.completed") }
 ];
+const loading = ref(false); // loading
 // ================================================================================ methods
 //  ============================================== get order details
 const get_order_details = async () => {
@@ -308,39 +314,66 @@ const isActiveState = (states) => {
 
 // ================================================== cancel order
 const cancel_order = async () => {
+  loading.value = true
   const res = await axios.post(`cancel-order/${route.params.id}`);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
+    loading.value = false
     notify_toast(msg, "success");
+    get_order_details()
     cancelModal.value = false;
   } else {
+    loading.value = false
     notify_toast(msg, "error");
   }
 }
 // ================================================== report order
 const report_order = async () => {
+  loading.value = true
   const fd = new FormData(report_form.value);
   fd.append("order_id", route.params.id);
-  const res = await axios.post(`add-report` , fd);
+  const res = await axios.post(`add-report`, fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
+    loading.value = false
     notify_toast(msg, "success");
     report_modal.value = false;
+    get_order_details()
   } else {
+    loading.value = false
     notify_toast(msg, "error");
   }
 }
 
 // ================================================== recieve order
 const recieved_order = async () => {
+  loading.value = true
   const res = await axios.post(`recieved-order/${route.params.id}`);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
+    loading.value = false
     notify_toast(msg, "success");
+    get_order_details()
   } else {
+    loading.value = false
+    notify_toast(msg, "error");
+  }
+}
+
+const procees_pay = async () => {
+  loading.value = true
+  const res = await axios.post(`payment-order/${route.params.id}`);
+  let status = response(res).status;
+  let msg = response(res).msg;
+  if (status === "success") {
+    loading.value = false
+    notify_toast(msg, "success");
+    get_order_details()
+  } else {
+    loading.value = false
     notify_toast(msg, "error");
   }
 }

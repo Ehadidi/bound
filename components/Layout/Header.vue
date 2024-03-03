@@ -490,7 +490,6 @@ import { toast_handel } from "~/network/ValidTost";
 import { response } from "~/network/response";
 import { useProductsSearchStore } from "~/stores/productsSearch";
 // ========================================================================= data
-
 const axios = useNuxtApp().$axios;
 const { t } = useI18n();
 const localPath = useLocalePath();
