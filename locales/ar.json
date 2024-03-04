@@ -126,7 +126,9 @@
     "address_description":"وصف العنوان",
     "enter_address_description":"ادخل وصف العنوان",
     "location":"الموقع",
-    "select_location":"اختر الموقع على الخريطة"
+    "select_location":"اختر الموقع على الخريطة",
+    "success_update": "تم التعديل بنجاح",
+    "confirm":"تأكيد"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",

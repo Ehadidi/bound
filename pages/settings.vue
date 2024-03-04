@@ -309,7 +309,7 @@
                 type="button"
                 class="btn p-0 underline fw-bold font13 w-fit min-w-min"
                 @click="resend_code"
-                disabled
+                :disabled="Count_txt != '00:00'"
               >
                 <span>{{ $t("form_layout.reSend") }}</span>
                 <div
@@ -505,7 +505,7 @@ const check_phone = ref(false);
 const change_avtivation = ref(false);
 const success_modal = ref(false);
 const check_phone_form = ref(null);
-const Count_txt = ref();
+const Count_txt = ref("01:00");
 const change_password_modal = ref(false);
 const change_password_fornm = ref();
 // ============================================================================== methods
@@ -681,7 +681,23 @@ const resend_code = async () => {
 };
 // ============================================================================== lifecycle
 onMounted(() => {
-  Count_txt.value = "00:00";
+  let secondsLeft = 60; // 1 minute
+
+  const timerId = setInterval(() => {
+    secondsLeft--;
+
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+
+    Count_txt.value = `${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart(2, "0")}`;
+
+    if (secondsLeft === 0) {
+      clearInterval(timerId);
+      Count_txt.value = "00:00";
+    }
+  }, 1000);
   get_profile();
   get_cities();
 });

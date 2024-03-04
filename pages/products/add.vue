@@ -13,24 +13,52 @@
           </h6>
         </div>
         <div class="col-12 md:col-8 lg:col-7 mx-auto bg-white main_shadow">
-          <form style="max-width: 90%" class="mx-auto py-3" @submit.prevent="handelAddProduct" ref="addProoduct">
-            <FormInput :label="$t('layout.product_name') + ' (Ar)'" :placeholder="$t('layout.product_name') + ' (Ar)'"
-              :model="addForm.name" name="name_ar" type="text" parentClass="w-100 mb-3" :icon="false"
-              InputClass="validated" @change="handleChange">
+          <form
+            style="max-width: 90%"
+            class="mx-auto py-3"
+            @submit.prevent="handelAddProduct"
+            ref="addProoduct"
+          >
+            <FormInput
+              :label="$t('layout.product_name') + ' (Ar)'"
+              :placeholder="$t('layout.product_name') + ' (Ar)'"
+              :model="addForm.name"
+              name="name_ar"
+              type="text"
+              parentClass="w-100 mb-3"
+              :icon="false"
+              InputClass="validated"
+              @change="handleChange"
+            >
             </FormInput>
-            <FormInput :label="$t('layout.product_name') + ' (En)'" :placeholder="$t('layout.product_name') + ' (En)'"
-              :model="addForm.name" name="name_en" type="text" parentClass="w-100 mb-3" :icon="false"
-              InputClass="validated" @change="handleChange">
+            <FormInput
+              :label="$t('layout.product_name') + ' (En)'"
+              :placeholder="$t('layout.product_name') + ' (En)'"
+              :model="addForm.name"
+              name="name_en"
+              type="text"
+              parentClass="w-100 mb-3"
+              :icon="false"
+              InputClass="validated"
+              @change="handleChange"
+            >
             </FormInput>
             <div class="mb-3">
               <label class="fw-bold txt_start d-block mb-2">{{
                 $t("layout.categories")
               }}</label>
               <div class="form-inputs">
-                <Dropdown filter @change="category_check" v-model="addForm.category"
+                <Dropdown
+                  filter
+                  @change="category_check"
+                  v-model="addForm.category"
                   :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
-                  :emptyMessage="$t('validate_msg.emptyFilterMessage')" :options="categories" optionLabel="name"
-                  :placeholder="$t('layout.categories')" class="w-full ps-1" />
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="categories"
+                  optionLabel="name"
+                  :placeholder="$t('layout.categories')"
+                  class="w-full ps-1"
+                />
                 <div class="feedback category_feedback"></div>
               </div>
             </div>
@@ -39,46 +67,88 @@
                 $t("layout.sub_category")
               }}</label>
               <div class="form-inputs">
-                <Dropdown filter @change="subCategory_check" v-model="addForm.sub_category"
+                <Dropdown
+                  filter
+                  @change="subCategory_check"
+                  v-model="addForm.sub_category"
                   :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
-                  :emptyMessage="$t('validate_msg.emptyFilterMessage')" :options="sub_categories" optionLabel="name"
-                  :placeholder="$t('layout.sub_category')" class="w-full ps-1" />
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="sub_categories"
+                  optionLabel="name"
+                  :placeholder="$t('layout.sub_category')"
+                  class="w-full ps-1"
+                />
                 <div class="feedback subCategory_feedback"></div>
               </div>
             </div>
 
             <div class="w-100 mb-3">
-              <FormFileUploader @update:fileUrl="handleFileUrlUpdate" name="image" id="product-image" :icon="false"
-                :label="$t('layout.product_image')" :placeholder="$t('layout.product_image')">
+              <FormFileUploader
+                @update:fileUrl="handleFileUrlUpdate"
+                name="image"
+                id="product-image"
+                :icon="false"
+                :label="$t('layout.product_image')"
+                :placeholder="$t('layout.product_image')"
+              >
               </FormFileUploader>
               <div class="feedback product_image_feedback"></div>
             </div>
 
             <div class="mb-3">
-              <FormInput :textarea="true" :label="$t('layout.product_description') + ' (Ar)'"
-                :placeholder="$t('layout.product_description') + ' (Ar)'" :model="addForm.description"
-                name="description_ar" InputClass="height120 w-100 validated" type="text" @change="handleChange">
+              <FormInput
+                :textarea="true"
+                :label="$t('layout.product_description') + ' (Ar)'"
+                :placeholder="$t('layout.product_description') + ' (Ar)'"
+                :model="addForm.description"
+                name="description_ar"
+                InputClass="height120 w-100 validated"
+                type="text"
+                @change="handleChange"
+              >
               </FormInput>
             </div>
             <div class="mb-3">
-              <FormInput :textarea="true" :label="$t('layout.product_description') + ' (En)'"
-                :placeholder="$t('layout.product_description') + ' (En)'" :model="addForm.description"
-                name="description_en" InputClass="height120 w-100 validated" type="text" @change="handleChange">
+              <FormInput
+                :textarea="true"
+                :label="$t('layout.product_description') + ' (En)'"
+                :placeholder="$t('layout.product_description') + ' (En)'"
+                :model="addForm.description"
+                name="description_en"
+                InputClass="height120 w-100 validated"
+                type="text"
+                @change="handleChange"
+              >
               </FormInput>
             </div>
-            <FormInput :label="$t('layout.product_price')" :placeholder="$t('layout.product_price')" :model="addForm"
-              name="price" type="text" parentClass="w-100 mb-3" :icon="false" InputClass="validated"
-              @change="handleChange">
+            <FormInput
+              :label="$t('layout.product_price')"
+              :placeholder="$t('layout.product_price')"
+              :model="addForm"
+              name="price"
+              type="text"
+              parentClass="w-100 mb-3"
+              :icon="false"
+              InputClass="validated"
+              @change="handleChange"
+            >
             </FormInput>
             <div class="mb-3">
               <label class="fw-bold txt_start d-block mb-2">{{
                 $t("product.brand")
               }}</label>
               <div class="form-inputs">
-                <Dropdown filter @change="brand_check" v-model="addForm.brand"
+                <Dropdown
+                  filter
+                  @change="brand_check"
+                  v-model="addForm.brand"
                   :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
-                  :emptyMessage="$t('validate_msg.emptyFilterMessage')" :options="brands" optionLabel="name"
-                  :placeholder="$t('product.brand')" class="w-full ps-1" />
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="brands"
+                  optionLabel="name"
+                  :placeholder="$t('product.brand')"
+                  class="w-full ps-1"
+                />
                 <div class="feedback brand_feedback"></div>
               </div>
             </div>
@@ -87,23 +157,41 @@
                 $t("layout.product_type")
               }}</label>
               <div class="form-inputs">
-                <Dropdown filter @change="productType_check" v-model="addForm.product_type"
+                <Dropdown
+                  filter
+                  @change="productType_check"
+                  v-model="addForm.product_type"
                   :emptyFilterMessage="$t('validate_msg.emptyFilterMessage')"
-                  :emptyMessage="$t('validate_msg.emptyFilterMessage')" :options="types" optionLabel="name"
-                  :placeholder="$t('layout.product_type')" class="w-full ps-1" />
+                  :emptyMessage="$t('validate_msg.emptyFilterMessage')"
+                  :options="types"
+                  optionLabel="name"
+                  :placeholder="$t('layout.product_type')"
+                  class="w-full ps-1"
+                />
                 <div class="feedback product_type_feedback"></div>
               </div>
             </div>
 
-            <div class="mb-3" v-for="(row, index) in addForm.features_rows" :key="index">
+            <div
+              v-if="addForm.product_type.id == 'various'"
+              class="mb-3"
+              v-for="(row, index) in addForm.features_rows"
+              :key="index"
+            >
               <div class="bg-gray-200 mb-3 p-3">
                 <div v-if="!featureExist">
                   <label class="fw-bold txt_start d-block mb-2">{{
                     $t("layout.features")
                   }}</label>
                   <div class="form-inputs">
-                    <Dropdown filter v-model="addForm.features_rows[index].feature" :options="features" optionLabel="name"
-                      :placeholder="$t('layout.features')" class="w-full ps-1" />
+                    <Dropdown
+                      filter
+                      v-model="addForm.features_rows[index].feature"
+                      :options="features"
+                      optionLabel="name"
+                      :placeholder="$t('layout.features')"
+                      class="w-full ps-1"
+                    />
                     <div class="feedback city_feedback"></div>
                   </div>
                 </div>
@@ -112,21 +200,41 @@
                     $t("product.select_colors")
                   }}</label>
                   <div class="form-inputs mb-3">
-                    <MultiSelect v-model="addForm.features_rows[index].colors" @change="getSelectedcolor()"
-                      :options="colors" optionLabel="color" :placeholder="$t('product.color')" class="w-full ps-1" />
+                    <MultiSelect
+                      v-model="addForm.features_rows[index].colors"
+                      @change="getSelectedcolor()"
+                      :options="colors"
+                      optionLabel="color"
+                      :placeholder="$t('product.color')"
+                      class="w-full ps-1"
+                    />
                   </div>
 
-                  <div v-for="(color, colorIndex) in addForm.features_rows[index]
-                    .colors" :key="colorIndex" class="w-100 mb-3">
-                    <FormFileUploader :name="`colors.${colorIndex}.image`" @update:fileUrl="
-                      handleColorUrlUpdate(
-                        $event,
-                        color.id,
-                        addForm.features_rows[index].colors
-                      )
-                      " :id="color.id" :icon="false" :label="color.color" :placeholder="color.color">
+                  <div
+                    v-for="(color, colorIndex) in addForm.features_rows[index]
+                      .colors"
+                    :key="colorIndex"
+                    class="w-100 mb-3"
+                  >
+                    <FormFileUploader
+                      :name="`colors.${colorIndex}.image`"
+                      @update:fileUrl="
+                        handleColorUrlUpdate(
+                          $event,
+                          color.id,
+                          addForm.features_rows[index].colors
+                        )
+                      "
+                      :id="color.id"
+                      :icon="false"
+                      :label="color.color"
+                      :placeholder="color.color"
+                    >
                     </FormFileUploader>
-                    <div class="feedback" :class="`color_image${color.id}_feedback`"></div>
+                    <div
+                      class="feedback"
+                      :class="`color_image${color.id}_feedback`"
+                    ></div>
                   </div>
                 </div>
                 <div v-if="addForm.features_rows[index].feature.id == 'size'">
@@ -134,24 +242,46 @@
                     $t("product.select_sizes")
                   }}</label>
                   <div class="form-inputs">
-                    <MultiSelect v-model="addForm.features_rows[index].sizes" @change="getSelectedSize()" :options="sizes"
-                      optionLabel="size" :placeholder="$t('product.size')" class="w-full ps-1" />
+                    <MultiSelect
+                      v-model="addForm.features_rows[index].sizes"
+                      @change="getSelectedSize()"
+                      :options="sizes"
+                      optionLabel="size"
+                      :placeholder="$t('product.size')"
+                      class="w-full ps-1"
+                    />
                   </div>
                 </div>
               </div>
             </div>
 
-            <button v-if="(addForm.product_type.id == 'various') &
-              !bothColorAndSizeSelected
-              " @click="addFeatureRow" type="button" class="btn w-100 transparent btn-primary fw-bold">
+            <button
+              v-if="
+                (addForm.product_type.id == 'various') &
+                !bothColorAndSizeSelected
+              "
+              @click="addFeatureRow"
+              type="button"
+              class="btn w-100 transparent btn-primary fw-bold"
+            >
               {{ $t("layout.add_feature") }}
               <i class="fa-solid fa-circle-plus mx-1 fs-5 text-gray-600"></i>
             </button>
 
-            <button class="btn btn-primary w-100 mt-3" :loading="loading" :disabled="loading === true">
-              <div class="d-flex align-items-center justify-content-center gap5">
+            <button
+              class="btn btn-primary w-100 mt-3"
+              :loading="loading"
+              :disabled="loading === true"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center gap5"
+              >
                 <span>{{ $t("layout.send") }}</span>
-                <div class="spinner-border spinner-border-sm" :class="loading ? 'd-block' : 'd-none'" role="status">
+                <div
+                  class="spinner-border spinner-border-sm"
+                  :class="loading ? 'd-block' : 'd-none'"
+                  role="status"
+                >
                   <span class="sr-only">Loading...</span>
                 </div>
               </div>
@@ -161,17 +291,32 @@
       </div>
     </div>
 
-    <Dialog class="site-modal none-header" v-model:visible="success_modal" modal :style="{ width: '25rem' }">
+    <Dialog
+      class="site-modal none-header"
+      v-model:visible="success_modal"
+      modal
+      :style="{ width: '25rem' }"
+    >
       <div class="container">
-        <div class="flex justify-content-center align-items-center flex-column py-4 gap30">
-          <img src="~/assets/images/success.svg" class="w-25 h-auto" alt="success message" />
+        <div
+          class="flex justify-content-center align-items-center flex-column py-4 gap30"
+        >
+          <img
+            src="~/assets/images/success.svg"
+            class="w-25 h-auto"
+            alt="success message"
+          />
           <h5 class="text-center fw-bold text-primary">
             {{ $t("layout.product_sent") }}
           </h5>
           <h6 class="text-center text-primary">
             {{ $t("layout.contact_soon") }}
           </h6>
-          <NuxtLink class="btn btn-primary w-100" @click="success_modal = false" :to="localPath('/')">
+          <NuxtLink
+            class="btn btn-primary w-100"
+            @click="success_modal = false"
+            :to="localPath('/')"
+          >
             {{ $t("cart.done.home") }}
           </NuxtLink>
         </div>
@@ -185,7 +330,7 @@
 
 import { response } from "~/network/response";
 import { toast_handel } from "~/network/ValidTost";
-import { validate, change_valid  } from '~/utils/validation';
+import { validate, change_valid } from "~/utils/validation";
 // ================================================================================ data
 
 const success_modal = ref(false);

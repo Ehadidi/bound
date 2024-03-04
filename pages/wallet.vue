@@ -45,7 +45,7 @@
                             <img class="w-auto height30" :src="item.image" :alt="item.name">
                         </label>
                     </div>
-                    <button class="btn w-100 btn-primary mb-4 mt-3 up" :loading="loading" :disabled="loading === true">
+                    <button class="btn w-100 btn-primary mb-4 mt-3 up" :loading="loading" :disabled="form.brand === null || form.amount === ''">
                         <div class="d-flex align-items-center justify-content-center gap5">
                             <span>{{ $t('form_layout.confirm_payment') }}</span>
                             <div class="spinner-border spinner-border-sm" :class="loading ? 'd-block' : 'd-none'"
@@ -70,9 +70,9 @@ const authStore = useAuthStore();
 const axios = useNuxtApp().$axios;
 const { notify_toast } = toast_handel();
 const charge_wallet_modal = ref(false)
-const form = reactive({
+const form = ref({
     amount: '',
-    brand: '',
+    brand: null,
 })
 const brands = ref([])
 const loading = ref(false)
@@ -81,10 +81,7 @@ const charge_wallet_form = ref(null)
 // =============================================================================== methods
 // ========================================== get payment brands
 const get_payment_brands = async () => {
-    const config = {
-        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
-    }
-    const res = await axios.get('payment-brands', config)
+    const res = await axios.get('payment-brands')
     let status = response(res).status
     let data = response(res).data
     if (status === 'success') {
@@ -93,10 +90,7 @@ const get_payment_brands = async () => {
 }
 //  ======================================== get wallet
 const get_wallet = async () => {
-    const config = {
-        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
-    }
-    const res = await axios.get('show-wallet', config)
+    const res = await axios.get('show-wallet')
     let status = response(res).status
     let data = response(res).data
     if (status === 'success') {
@@ -109,10 +103,8 @@ const get_wallet = async () => {
 const charge_wallet = async () => {
     loading.value = true
     const fd = new FormData(charge_wallet_form.value)
-    const config = {
-        headers: { Authorization: `Bearer ${authStore.user.data.token}` }
-    }
-    const res = await axios.post('charge-wallet', fd, config)
+    fd.append("brand", form.value.brand);
+    const res = await axios.post('charge-wallet', fd)
     let status = response(res).status
     let msg = response(res).msg
     if (status === 'success') {
