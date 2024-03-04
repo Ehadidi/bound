@@ -579,7 +579,10 @@ const returnmsg = (msg) => {
   setTimeout(() => {
     success_modal.value = false;
     get_profile();
-    window.location.reload();
+    route.push(localPath({ path: "/" }));
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   }, 1000);
 };
 // ================== verification after signup

@@ -7,7 +7,7 @@
                 separator="" :num-inputs="4" :should-auto-focus="true" input-type="letter-numeric"
                 :conditionalClass="['one', 'two', 'three', 'four']" @on-complete="handleOnComplete" />
             <div class="flex align-items-center justify-content-between w-100">
-                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min" @click="resend_code" disabled>
+                <button type="button" class="btn p-0 underline fw-bold font13 w-fit min-w-min" @click="resend_code" :disabled="Count_txt != '00:00'">
                     <span>{{ $t('form_layout.reSend') }}</span>
                     <div class="spinner-border spinner-border-sm d-none" :class="{ 'd-block': LoadBtn }" role="status">
                         <span class="sr-only">Loading...</span>
@@ -76,7 +76,7 @@ const handleOnComplete = (value) => {
     return value
 };
 const emit = defineEmits(['backToLogin', 'backToLogin_from_reset']);
-const Count_txt = ref()
+const Count_txt = ref("01:00");
 const loading = ref(false)
 //  ========================================================================== methods
 const return_response_from_reset = (res) => {
@@ -108,7 +108,7 @@ const forget_verification = async () => {
 
 //  ======================== resend code
 const resend_code = async () => {
-    const res = await axios.get(`resend-code?phone=${props.user_auth.phone}&country_code=${props.user_auth.country_code}`)
+    const res = await axios.get(`resend-code?phone=${props.phone_number}&country_code=${props.country_code}`)
     let status = response(res).status
     let msg = response(res).msg
     if (status === 'success') {
@@ -124,8 +124,24 @@ const back_to_login = () => {
 
 // ============================================================================= lifecycle
 onMounted(() => {
-    Count_txt.value = "00:00";
-})
+  let secondsLeft = 60; // 1 minute
+
+  const timerId = setInterval(() => {
+    secondsLeft--;
+
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+
+    Count_txt.value = `${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart(2, "0")}`;
+
+    if (secondsLeft === 0) {
+      clearInterval(timerId);
+      Count_txt.value = "00:00";
+    }
+  }, 1000);
+});
 </script>
 
 <style lang="scss" scoped></style>

@@ -35,17 +35,17 @@
                 }}</NuxtLink>
               </li>
               <li>
-                <NuxtLink class="default-link" :to="localPath('/')">{{
+                <NuxtLink class="default-link" :to="localPath('/about')">{{
                   $t("header.about")
                 }}</NuxtLink>
               </li>
-              <li>
-                <NuxtLink class="default-link" :to="localPath('/')"
+              <li v-if="authStore.user">
+                <NuxtLink class="default-link" :to="localPath('/subscribtions')"
                   >{{ $t("header.subscription") }}
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink class="default-link" :to="localPath('/')">{{
+                <NuxtLink class="default-link" :to="localPath('/contact')">{{
                   $t("header.contact_us")
                 }}</NuxtLink>
               </li>
@@ -62,9 +62,7 @@
                 <span
                   ><img src="~/assets/images/location.svg" alt="location"
                 /></span>
-                <span class="fw-bold"
-                  >{{ contact_us[0] }}</span
-                >
+                <span class="fw-bold">{{ contact_us[0] }}</span>
               </li>
               <li>
                 <span
@@ -72,7 +70,9 @@
                     src="~/assets/images/phoneIcon.svg"
                     alt="contact us phone"
                 /></span>
-                <a :href="`tel:${contact_us[1]}`" class="default-link fw-bold"
+                <a
+                  :href="`tel:${contact_us[1]}`"
+                  class="default-link fw-bold"
                   >{{ contact_us[1] }}</a
                 >
               </li>
@@ -82,9 +82,9 @@
                     src="~/assets/images/LetterIcon.svg"
                     alt="contact us mail"
                 /></span>
-                <a href="mailto:Sample.21@g.com" class="default-link fw-bold"
-                  >{{ contact_us[2] }}</a
-                >
+                <a href="mailto:Sample.21@g.com" class="default-link fw-bold">{{
+                  contact_us[2]
+                }}</a>
               </li>
             </ul>
           </div>
@@ -164,7 +164,7 @@ const form = reactive({
   email: "",
 });
 const socials = ref([]);
-const intro_text = ref('');
+const intro_text = ref("");
 const contact_us = ref([]);
 
 // ===================================== filter

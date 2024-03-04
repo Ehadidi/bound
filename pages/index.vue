@@ -290,7 +290,7 @@ const getHomeData = async () => {
   if (status === "success") {
     home_data.value = data;
     categories.value = data.categories;
-    console.log(categories.value);
+    // console.log(categories.value);
   }
 };
 

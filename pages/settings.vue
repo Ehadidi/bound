@@ -376,7 +376,7 @@
       <template #header>
         <div class="border-bottom w-100 pt-2 pb-3">
           <h6 class="text-center fw-bold text-primary">
-            {{ $t("form_layout.change_phone") }}
+            {{ $t("form_layout.change_password") }}
           </h6>
         </div>
       </template>

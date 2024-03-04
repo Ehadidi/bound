@@ -30,7 +30,7 @@
           type="button"
           class="btn p-0 underline fw-bold font13 w-fit min-w-min"
           @click="resend_code"
-          :disabled="Count_txt != 'EXPIRED'"
+          :disabled="Count_txt != '00:00'"
         >
           <span>{{ $t("form_layout.reSend") }}</span>
           <div
@@ -84,7 +84,7 @@ const { notify_toast } = toast_handel();
 const loading = ref(false);
 const authStore = useAuthStore();
 const activ_code = ref();
-const Count_txt = ref();
+const Count_txt = ref("01:00");
 const loading_resend = ref(false);
 // ========================================================================== methods
 //  ======================== clear otp
@@ -148,31 +148,23 @@ const resend_code = async () => {
 
 //  ========================================================================== lifecycle
 onMounted(() => {
-  const countDownDate = new Date(
-    authStore.user.data.code_expire
-      ? authStore.user.data.code_expire
-      : authStore.user.data.user.code_expire
-  ).getTime();
+  let secondsLeft = 60; // 1 minute
 
-  const updateCountdown = () => {
-    const now = new Date().getTime();
-    const distance = countDownDate - now;
+  const timerId = setInterval(() => {
+    secondsLeft--;
 
-    if (distance <= 0) {
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+
+    Count_txt.value = `${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart(2, "0")}`;
+
+    if (secondsLeft === 0) {
       clearInterval(timerId);
-      Count_txt.value = "EXPIRED";
-      return;
+      Count_txt.value = "00:00";
     }
-
-    const hours = Math.floor(distance / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    Count_txt.value = `${hours}:${minutes}:${seconds}`;
-  };
-
-  updateCountdown(); // Update countdown immediately
-
-  const timerId = setInterval(updateCountdown, 1000); // Update countdown every second
+  }, 1000);
 });
 </script>
 
