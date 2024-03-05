@@ -492,6 +492,8 @@ const form = reactive({
   name: "",
   email: "",
   password: "",
+  old_password: "",
+  password_confirmation: "",
   phone: "",
 });
 const otpInput = ref(null);
@@ -524,10 +526,7 @@ const get_cities = async () => {
 };
 //  ================================= get profile data
 const get_profile = async () => {
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.get("profile", config);
+  const res = await axios.get("profile");
   let status = response(res).status;
   let data = response(res).data;
   if (status === "success") {
@@ -541,10 +540,7 @@ const edit_profile = async () => {
   loading.value = true;
   const fd = new FormData(edit_form.value);
   fd.append("city_id", selectedCity.value.id);
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.post("update-profile?_method=put", fd, config);
+  const res = await axios.post("update-profile?_method=put", fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -559,19 +555,18 @@ const edit_profile = async () => {
 //  ======================================================== change password
 const change_password = async () => {
   const fd = new FormData(change_password_fornm.value);
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-
   let valid = validate(change_password_fornm.value, t).valid;
   let valid_ruls = valid === "isValid";
   if (valid_ruls) {
-    const res = await axios.post("update-passward?_method=patch", fd, config);
+    const res = await axios.post("update-passward?_method=patch", fd);
     let status = response(res).status;
     let msg = response(res).msg;
     if (status === "success") {
       notify_toast(msg, "success");
       loading.value = false;
+      form.old_password = "";
+      form.password = "";
+      form.password_confirmation = "";
       change_password_modal.value = false;
       success_modal.value = true;
     } else {
@@ -589,10 +584,7 @@ const comfirm_password = async () => {
   loading.value = true;
   const fd = new FormData();
   fd.append("password", form.password);
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.post("check-password", fd, config);
+  const res = await axios.post("check-password", fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -611,10 +603,7 @@ const check_phone_send_code = async () => {
   loading.value = true;
   const fd = new FormData(check_phone_form.value);
   fd.append("password", form.password);
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.post("change-phone-send-code", fd, config);
+  const res = await axios.post("change-phone-send-code", fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -642,10 +631,7 @@ const verification = async () => {
   fd.append("code", activ_code.value);
   fd.append("phone", form.phone);
   fd.append("country_code", "966");
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.post("change-phone-check-code", fd, config);
+  const res = await axios.post("change-phone-check-code", fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -667,10 +653,7 @@ const resend_code = async () => {
   fd.append("code", activ_code.value);
   fd.append("phone", form.phone);
   fd.append("country_code", "966");
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.get(`change-phone-resend-code`, fd, config);
+  const res = await axios.get(`change-phone-resend-code`, fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
