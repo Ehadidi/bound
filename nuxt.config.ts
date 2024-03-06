@@ -66,7 +66,7 @@ export default defineNuxtConfig({
   plugins: [
     // "~/toast-service/toast.js",
     // "~/plugins/vue-google-maps.js",
-    "~/plugins/axios.ts",
+    // "~/plugins/axios.ts",
   ],
   // build: {
   //   transpile: ["@fawmi/vue-google-maps"],

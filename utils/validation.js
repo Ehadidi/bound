@@ -4,15 +4,19 @@ export function remove_item(array, item) {
 }
 
 export function return_valid(InputName, feedback, _wrong, t) {
-  feedback.classList.add("valid");
-  feedback.innerHTML = `<span>${t(
-    `validate_msg.${InputName}${_wrong}`
-  )}</span>`;
+  if (feedback) {
+    feedback.classList.add("valid");
+    feedback.innerHTML = `<span>${t(
+      `validate_msg.${InputName}${_wrong}`
+    )}</span>`;
+  }
 }
 
 export function empty_valid(feedback) {
-  feedback.classList.remove("valid");
-  feedback.innerHTML = "";
+  if (feedback) {
+    feedback.classList.remove("valid");
+    feedback.innerHTML = "";
+  }
 }
 
 export function validate(form, t) {
@@ -124,11 +128,11 @@ export function validate(form, t) {
             }
           } else {
             ErrorValids.push(Input.name);
-            return_valid(Input.name, feedback, "_wrong");
+            return_valid(Input.name, feedback, "_wrong", t);
           }
         }
         //============== password check ==============>
-        else if (type === "password") {
+        else if (type === "password" || Input.name === "password" || Input.name === "password_confirmation") {
           let Input_password = form.querySelectorAll('[name="password"]')[0];
           //============== check length password ==============>
           if (Input.name === "password") {

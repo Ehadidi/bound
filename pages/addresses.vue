@@ -40,7 +40,7 @@
                                 :style="{ width: '615px' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
                                 <template #header>
                                     <div class="border-bottom w-100 pt-2 pb-3">
-                                        <h6 class="text-center fw-bold text-primary">{{ $t('layout.charge_my_wallet') }}
+                                        <h6 class="text-center fw-bold text-primary">{{ $t('form_layout.add_new_address') }}
                                         </h6>
                                     </div>
                                 </template>
@@ -80,7 +80,7 @@
                                         <button class="btn w-100 btn-primary mb-4 mt-3 up" :loading="loading"
                                             :disabled="loading === true">
                                             <div class="d-flex align-items-center justify-content-center gap5">
-                                                <span>{{ $t('form_layout.confirm_payment') }}</span>
+                                                <span>{{ $t('form_layout.confirm') }}</span>
                                                 <div class="spinner-border spinner-border-sm"
                                                     :class="loading ? 'd-block' : 'd-none'" role="status">
                                                     <span class="sr-only">Loading...</span>

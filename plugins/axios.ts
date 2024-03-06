@@ -2,8 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 export default defineNuxtPlugin((nuxtApp) => {
   const defaultUrl = "https://bondstreet.vip/api/";
-  const i18n_redirected = Cookies.get("i18n_redirected");
-
+  // const i18n_redirected = Cookies.get("i18n_redirected");
+  let lang;
+  if (nuxtApp) {
+    lang = nuxtApp.$i18n.locale.value;
+  }
   // Get the JSON string from the "auth" cookie
   const authCookie = Cookies.get("auth");
 
@@ -17,11 +20,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   let token = "";
   if (authUser && authUser.data && authUser.data.token) {
     token = authUser.data.token;
-    console.log("authUser.data.token", authUser.data.token);
+    // console.log("authUser.data.token", authUser.data.token);
   }
 
-  const lang = i18n_redirected == "ar" ? "ar" : "en";
-  // console.log('lang' , lang)
+  // console.log("lang", lang);
+
   let api = axios.create({
     baseURL: defaultUrl,
     headers: {

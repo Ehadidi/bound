@@ -67,7 +67,7 @@
         <img
           src="~/assets/images/ArrowRight.svg"
           alt="arrow"
-          class="mx-2 filter-arrow"
+          class="mx-2 filter-arrow rotateY180"
         />
       </NuxtLink>
       <div v-else class="d-flex justify-content-end w-100">

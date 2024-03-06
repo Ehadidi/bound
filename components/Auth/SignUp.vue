@@ -136,7 +136,10 @@
           <button
             type="button"
             class="btn underline p-0 h-fit min-w-min w-fit"
-            @click="terms_conditions = true"
+            @click="
+              terms_conditions = true;
+              get_terms();
+            "
           >
             {{ $t("layout.terms") }}
           </button>
@@ -155,26 +158,7 @@
               </button>
             </div>
             <h5 class="fw-bold mb-3 text-primary">{{ $t("layout.terms") }}</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis
-              eget congue semper. Egestas in eget lectus sed consectetur lacus
-              facilisis. Blandit eu in adipiscing at amet. Laoreet purus dui
-              nibh laoreet commodo adipiscing quam lobortis consectetur. Lorem
-              ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
-              congue semper. Egestas in eget lectus sed consectetur lacus
-              facilisis. Blandit eu in adipiscing at amet. Laoreet purus dui
-              nibh laoreet commodo adipiscing quam lobortis consectetur.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Vestibulum odio eu duis
-              eget congue semper. Egestas in eget lectus sed consectetur lacus
-              facilisis. Blandit eu in adipiscing at amet. Laoreet purus dui
-              nibh laoreet commodo adipiscing quam lobortis consectetur. Lorem
-              ipsum dolor sit amet consectetur. Vestibulum odio eu duis eget
-              congue semper. Egestas in eget lectus sed consectetur lacus
-              facilisis. Blandit eu in adipiscing at amet. Laoreet purus dui
-              nibh laoreet commodo adipiscing quam lobortis consectetur.
-            </p>
+            <div v-html="terms"></div>
           </div>
         </Dialog>
       </div>
@@ -229,6 +213,7 @@ const { notify_toast } = toast_handel();
 const authStore = useAuthStore();
 const loading = ref(null);
 const signUp_form = ref();
+const terms = ref("");
 // ========================================================================= methods
 // handel change validation
 const handleChange = (e) => {
@@ -287,6 +272,22 @@ const handelSignUp = async () => {
     notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
+};
+
+// ===================================== terms
+const get_terms = async () => {
+  axios
+    .get(`terms`)
+    .then((res) => {
+      let status = response(res).status;
+      let data = response(res).data;
+      if (status === "success") {
+        terms.value = data;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
 };
 
 // ========================================================================= lifecycle hooks

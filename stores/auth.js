@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
     token: "",
     logoutRes: null,
     isNavigatingToLogin: false,
+    lang: useNuxtApp().$i18n.locale._value,
   }),
   getters: {
     user: (state) => state.authUser,
@@ -18,21 +19,28 @@ export const useAuthStore = defineStore("auth", {
       this.isNavigatingToLogin = value;
     },
     async handelSignUp(form) {
+      $axios.defaults.headers.common["lang"] = this.lang;
       const response = await $axios.post("sign-up", form);
       this.authUser = response.data;
     },
 
     async handelVerification(form) {
+      $axios.defaults.headers.common["lang"] = this.lang;
       const response = await $axios.post("activate?_method=patch", form);
+      console.log("response", response);
       this.authUser = response.data;
-      this.token = response.data.data.token;
+      if (response.key == "success") {
+        this.token = response.data.data.token;
+      }
     },
 
     async handelLogin(form) {
+      $axios.defaults.headers.common["lang"] = this.lang;
       const response = await $axios.post("sign-in?count_notifications=", form);
       this.authUser = response.data;
     },
     async logout(token) {
+      $axios.defaults.headers.common["lang"] = this.lang;
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };

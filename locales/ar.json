@@ -60,7 +60,8 @@
     "contact_soon": "سوف نتصل بك قريبا..",
     "login_first": "انت تحتاج لتسجيل الدخول اولا",
     "rate_products": "تقييم المنتجات",
-    "confirm_rate": "تأكيد التقييم"
+    "confirm_rate": "تأكيد التقييم",
+    "no_notifications": "لا توجد اشعارات"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -126,7 +127,9 @@
     "address_description":"وصف العنوان",
     "enter_address_description":"ادخل وصف العنوان",
     "location":"الموقع",
-    "select_location":"اختر الموقع على الخريطة"
+    "select_location":"اختر الموقع على الخريطة",
+    "success_update": "تم التعديل بنجاح",
+    "confirm":"تأكيد"
   },
   "validate_msg": {
     "phone": "رقم الجوال مطلوب",
@@ -210,6 +213,7 @@
     "depositInfo": "سيتم رد المبلغ المدفوع بعد استرجاع المنتج",
     "save_changes": "حفظ التغييرات",
     "cancel": "الغاء",
+    "no_items": "لا يوجد عناصر في السلة",
     "payment": {
       "online": "الدفع الالكتروني",
       "wallet": "المحفظة"
@@ -241,7 +245,8 @@
     "cancel_order_caption": "هل تريد الغاء هذا الطلب؟",
     "this_order_canceled": "هذا الطلب تم إلغاؤه",
     "my_orders_Receipts": "إيصالات طلباتي",
-    "view_order": "عرض الطلب"
+    "view_order": "عرض الطلب",
+    "no_notes": "لا توجد ملاحظات"
   },
   "about": {
     "item1": "فساتين",

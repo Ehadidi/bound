@@ -60,7 +60,8 @@
     "contact_soon": "We will contact you soon..",
     "login_first": "You need to log in first",
     "rate_products": "Rate Products",
-    "confirm_rate": "Confirm Ratings"
+    "confirm_rate": "Confirm Ratings",
+    "no_notifications": "No notifications"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -210,6 +211,7 @@
     "depositInfo": "will be Refunded after we retrieve the product",
     "save_changes": "Save changes",
     "cancel": "Cancel",
+    "no_items": "No items in your cart",
     "payment": {
       "online": "Online Payment",
       "wallet": "My Wallet"
@@ -241,7 +243,8 @@
     "cancel_order_caption": "Are you sure you want to cancel this order?",
     "this_order_canceled": "This order was canceled",
     "my_orders_Receipts": "My orders Receipts",
-    "view_order": "View order"
+    "view_order": "View order",
+    "no_notes": "No notes"
   },
   "about": {
     "item1": "Dresses",
