@@ -270,6 +270,11 @@
                     v-if="noti_dropShown"
                     class="dropdown-menu flex-column fs-13px p-2 noti-dropdown"
                   >
+                    <LayoutNoData
+                      v-if="!notifications.length"
+                      :msg="$t('layout.no_notifications')"
+                    />
+
                     <li v-for="noti in notifications" :key="noti.id">
                       <div class="d-flex">
                         <div class="flex-shrink-0">

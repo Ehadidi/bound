@@ -1702,6 +1702,8 @@ html[lang="ar"] {
     left: -100px;
     gap: 0;
     align-items: baseline;
+    max-height: 300px;
+    overflow-y: auto;
 
     li {
       width: 100%;

@@ -157,6 +157,7 @@
                     icon="pi pi-calendar"
                     :placeholder="$t('product.selectDate')"
                     name="time"
+                    :disabledDates="reservedDates"
                   />
                 </div>
               </div>
@@ -336,6 +337,7 @@ const breakpoints = {
 };
 const product = ref({});
 const attchements = ref([]);
+const reservedDates = ref([]);
 const selectedSize = ref(null);
 const selectedColor = ref(null);
 const selectedDuration = ref(null);
@@ -367,6 +369,10 @@ const get_detailes = async () => {
         product.value = data.product;
         you_may_also_know.value = data.you_may_also_know;
         attchements.value = data.product.imagesAndColors;
+
+        reservedDates.value = data.product.reserved_dates.map(
+          (dateString) => new Date(dateString)
+        );
         if (data.product.sizes.length) {
           selectedSize.value = data.product.sizes[0].size_id;
         }
@@ -436,4 +442,10 @@ watch(activeIndex, (newVal) => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.disabled {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.5; /* Reduce opacity for disabled dates */
+}
+</style>

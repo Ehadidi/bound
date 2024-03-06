@@ -7,8 +7,10 @@
             <h6 class="mb-3 fs-6">{{ $t("cart.items") }}</h6>
 
             <div class="bg-white py-4 px-3 main_shadow">
-
-              <LayoutNoData v-if="!cartItems.length" :msg="$t('cart.no_items')" />
+              <LayoutNoData
+                v-if="!cartItems.length"
+                :msg="$t('cart.no_items')"
+              />
 
               <div class="scroll_y">
                 <div class="cart_item" v-for="item in cartItems" :key="item.id">
@@ -65,7 +67,7 @@
                         <span>{{ item.refundable_value }}</span>
                         <img
                           src="~/assets/images/info.png"
-                          v-tooltip.bottom="$t('cart.depositInfo')"
+                          v-tooltip.bottom="refundable_text"
                           alt="info"
                           class="icon"
                         />
@@ -170,9 +172,7 @@
                   <span>{{ $t("cart.deposit") }}: </span>
                   <img
                     src="~/assets/images/info.png"
-                    v-tooltip.bottom="
-                      'will be Refunded after we retrieve the product'
-                    "
+                    v-tooltip.bottom="refundable_text"
                     alt="info"
                     class="icon"
                   />
@@ -367,17 +367,17 @@ const form = reactive({
 });
 
 // PayMent
-const payment = ref(0);
+const payment = ref(1);
 const paymentItems = ref([
   {
     id: 1,
-    icon: pay1,
-    name: t("cart.payment.online"),
+    icon: pay2,
+    name: t("cart.payment.wallet"),
   },
   {
     id: 2,
-    icon: pay2,
-    name: t("cart.payment.wallet"),
+    icon: pay1,
+    name: t("cart.payment.online"),
   },
 ]);
 
@@ -392,7 +392,20 @@ const durations = ref([]);
 const start_date = ref();
 const selectedDuration = ref();
 const editable_id = ref();
+const refundable_text = ref("");
 // ================================================================================ methods
+//  ============================================== get refundable text
+const get_refundable_text = async () => {
+  const res = await axios.get(`refundable_deposit_text`);
+  let status = response(res).status;
+  let data = response(res).data;
+  let msg = response(res).msg;
+  if (status === "success") {
+    refundable_text.value = data;
+  } else {
+    notify_toast(msg, "error");
+  }
+};
 // ========================================== formating Date
 const formatingDate = computed(() => {
   var d = new Date(start_date.value),
@@ -438,10 +451,7 @@ const update_cart = async () => {
   const fd = new FormData();
   fd.append("start_date", formatingDate.value);
   fd.append("duration_id", selectedDuration.value);
-  const res = await axios.post(
-    `update-cart-item/${editable_id.value}`,
-    fd
-  );
+  const res = await axios.post(`update-cart-item/${editable_id.value}`, fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -485,6 +495,7 @@ const remove_from_cart = async (id) => {
 const confirm_order = async () => {
   const fd = new FormData();
   fd.append("notes", form.detailes);
+  fd.append("pay_type", payment.value);
   const res = await axios.post("confirm-order", fd);
   let status = response(res).status;
   let msg = response(res).msg;
@@ -514,6 +525,7 @@ onMounted(() => {
   get_cart_items();
   get_durations();
   get_cart_summary();
+  get_refundable_text();
 });
 </script>
 

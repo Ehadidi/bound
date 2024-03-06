@@ -143,7 +143,11 @@
                 <div class="mb-3">
                   <div class="product_bread">{{ $t("cart.other") }}</div>
                   <div class="fw-bold mt-1 fs-13px">
-                    {{ order_data.notes? order_data.notes : $t("orders.no_notes") }}
+                    {{
+                      order_data.notes
+                        ? order_data.notes
+                        : $t("orders.no_notes")
+                    }}
                   </div>
                 </div>
               </div>
@@ -166,9 +170,7 @@
                     <span>{{ $t("cart.deposit") }}: </span>
                     <img
                       src="~/assets/images/info.png"
-                      v-tooltip.bottom="
-                        'will be Refunded after we retrieve the product'
-                      "
+                      v-tooltip.bottom="refundable_text"
                       alt="info"
                       class="icon"
                     />
@@ -246,7 +248,7 @@
                           <span>{{ item.refundable_deposit }}</span>
                           <img
                             src="~/assets/images/info.png"
-                            v-tooltip.bottom="$t('cart.depositInfo')"
+                            v-tooltip.bottom="refundable_text"
                             alt="info"
                             class="icon"
                           />
@@ -429,13 +431,11 @@ const items = [
   },
 ];
 const loading = ref(false); // loading
+const refundable_text = ref("");
 // ================================================================================ methods
 //  ============================================== get order details
 const get_order_details = async () => {
-  const config = {
-    headers: { Authorization: `Bearer ${authStore.user.data.token}` },
-  };
-  const res = await axios.get(`order-details/${route.params.id}`, config);
+  const res = await axios.get(`order-details/${route.params.id}`);
   let status = response(res).status;
   let data = response(res).data;
   let msg = response(res).msg;
@@ -444,6 +444,18 @@ const get_order_details = async () => {
     order_status.value = Number(data.order.status);
     payment_details.value = data.order.payment_details;
     productsItems.value = data.products;
+  } else {
+    notify_toast(msg, "error");
+  }
+};
+//  ============================================== get refundable text
+const get_refundable_text = async () => {
+  const res = await axios.get(`refundable_deposit_text`);
+  let status = response(res).status;
+  let data = response(res).data;
+  let msg = response(res).msg;
+  if (status === "success") {
+    refundable_text.value = data;
   } else {
     notify_toast(msg, "error");
   }
@@ -558,6 +570,7 @@ const procees_pay = async () => {
 // ================================================================================ lifecycle hooks
 onMounted(() => {
   get_order_details();
+  get_refundable_text();
 });
 </script>
 
