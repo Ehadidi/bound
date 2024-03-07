@@ -5,6 +5,7 @@
       <GoogleMap
         height="600px"
         apiKey="AIzaSyBNLoYGrbnQI_GMqHt6m0PSN9yA7Zvq7gA"
+        language="ar"
         :location="{ lat: 24.7136, lng: 46.6753 }"
       />
     </div>
