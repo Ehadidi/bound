@@ -269,7 +269,6 @@ const handelSignUp = async () => {
       notify_toast(authStore.user.msg, "error");
     }
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };

@@ -574,7 +574,6 @@ const change_password = async () => {
       loading.value = false;
     }
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };
@@ -658,12 +657,14 @@ const resend_code = async () => {
   let msg = response(res).msg;
   if (status === "success") {
     notify_toast(msg, "success");
+    count_down();
   } else {
     notify_toast(msg, "error");
   }
 };
-// ============================================================================== lifecycle
-onMounted(() => {
+
+//  ========================  count down
+const count_down = async () => {
   let secondsLeft = 60; // 1 minute
 
   const timerId = setInterval(() => {
@@ -681,6 +682,11 @@ onMounted(() => {
       Count_txt.value = "00:00";
     }
   }, 1000);
+};
+
+// ============================================================================== lifecycle
+onMounted(() => {
+  count_down();
   get_profile();
   get_cities();
 });

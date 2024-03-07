@@ -102,8 +102,8 @@
                     class="flex flex-column align-items-center px-3 mx-auto"
                   >
                     <FormInput
-                      :label="$t('form_layout.address')"
-                      :placeholder="$t('form_layout.enter_address')"
+                      :label="$t('form_layout.address_name')"
+                      :placeholder="$t('form_layout.enter_address_name')"
                       :model="form"
                       name="name"
                       type="text"

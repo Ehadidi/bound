@@ -142,8 +142,8 @@ const authStore = useAuthStore();
 
 // options
 const options = ref([
-  { name: t("form_layout.complaint"), id: 1 },
-  { name: t("form_layout.suggestion"), id: 2 },
+  { name: t("form_layout.complaint"), id: 'complaint'},
+  { name: t("form_layout.suggestion"), id: 'suggestion' },
 ]);
 
 // complaintSelected
@@ -170,7 +170,7 @@ const suggestionsFunc = async () => {
   loading.value = true;
   const fd = new FormData(suggestionsForm.value);
 
-  fd.append("subject", complaintSelected.value.name);
+  fd.append("subject", complaintSelected.value.id);
 
   let valid = validate(suggestionsForm.value, t).valid;
   let valid_ruls = valid === "isValid";
@@ -187,7 +187,6 @@ const suggestionsFunc = async () => {
       notify_toast(msg, "error");
     }
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };

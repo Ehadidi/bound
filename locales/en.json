@@ -89,6 +89,7 @@
     "confirm_password": "Confirm password",
     "enter_phone": "Enter your phone number",
     "phone": "Phone number",
+    "address_name": "Address name",
     "address": "Address",
     "city": "City",
     "country": "Country",
@@ -125,11 +126,13 @@
     "confirm_payment":"Confirm and Pay",
     "add_new_address":"Add new address",
     "enter_address":"Enter address",
+    "enter_address_name":"Enter address name",
     "address_description":"Address Description",
     "enter_address_description":"Enter address description",
     "location":"Location",
     "select_location":"Select location on map",
-    "confirm":"Confirm"
+    "confirm":"Confirm",
+    "enter_code":"Please, enter the code sent on your phone"
   },
   "validate_msg": {
     "phone": "Mobile number is required",
