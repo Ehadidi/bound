@@ -167,7 +167,6 @@ const contact_us = async () => {
       notify_toast(msg, "error");
     }
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };

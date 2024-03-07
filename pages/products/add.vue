@@ -729,7 +729,6 @@ const handelAddProduct = async () => {
         console.error(e);
       });
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };

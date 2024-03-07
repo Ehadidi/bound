@@ -125,7 +125,6 @@ const change_password = async () => {
       loading.value = false;
     }
   } else {
-    notify_toast(t(`validate_msg.uncomplete`), "error");
     loading.value = false;
   }
 };
