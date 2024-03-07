@@ -63,14 +63,6 @@ export default defineNuxtConfig({
     "primevue/resources/themes/lara-light-indigo/theme.css",
     "assets/style/style.scss",
   ],
-  plugins: [
-    // "~/toast-service/toast.js",
-    // "~/plugins/vue-google-maps.js",
-    // "~/plugins/axios.ts",
-  ],
-  // build: {
-  //   transpile: ["@fawmi/vue-google-maps"],
-  // },
   i18n: {
     lazy: true,
     langDir: "locales",
