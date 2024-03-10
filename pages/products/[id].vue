@@ -41,7 +41,11 @@
             </div>
 
             <div class="not_found galleria" v-else>
-              <p>{{ $t("notFound.Images") }}</p>
+              <img
+                class="thumbnail_img w-100 h-100"
+                :src="product.image"
+                alt="thumbnail"
+              />
             </div>
           </div>
 
@@ -83,7 +87,7 @@
                   {{ product.rate_avg }} <i class="fa-solid fa-star"></i>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                  {{ product.rate_count }} Review
+                  {{ product.rate_count }} {{ $t("layout.review") }}
                 </div>
               </div>
             </div>
@@ -97,7 +101,10 @@
             <div class="mb-4">
               <div class="product_bread">{{ $t("product.size") }}</div>
 
-              <div class="pro_filter_btns mt-2">
+              <div
+                v-if="product.sizes && product.sizes.length"
+                class="pro_filter_btns mt-2"
+              >
                 <label
                   class="pro_btn"
                   v-for="size in product.sizes"
@@ -112,13 +119,19 @@
                   {{ size.size }}
                 </label>
               </div>
+              <div v-else class="c-primary mt-1">
+                {{ $t("product.no_size") }}
+              </div>
             </div>
 
             <!-- Color -->
             <div>
               <div class="product_bread">{{ $t("product.color") }}</div>
 
-              <div class="pro_filter_btns mt-2">
+              <div
+                v-if="product.imagesAndColors && product.imagesAndColors.length"
+                class="pro_filter_btns mt-2"
+              >
                 <label
                   class="pro_btn"
                   v-for="color in product.imagesAndColors"
@@ -137,6 +150,9 @@
                     class="color"
                   ></span>
                 </label>
+              </div>
+              <div v-else class="c-primary mt-1">
+                {{ $t("product.no_color") }}
               </div>
             </div>
           </div>
