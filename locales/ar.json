@@ -61,7 +61,8 @@
     "login_first": "انت تحتاج لتسجيل الدخول اولا",
     "rate_products": "تقييم المنتجات",
     "confirm_rate": "تأكيد التقييم",
-    "no_notifications": "لا توجد اشعارات"
+    "no_notifications": "لا توجد اشعارات",
+    "review": "التقييم"
   },
   "header": {
     "auth": "دخول / تسجيل",
@@ -198,7 +199,9 @@
     "cancel": "الغاء",
     "add_to_cart": "اضف للسلة",
     "select_colors": "اختر الالوان",
-    "select_sizes": "اختر الاحجام"
+    "select_sizes": "اختر الاحجام",
+    "no_color": "لا يوجد لون",
+    "no_size": "لا يوجد حجم"
   },
   "cart": {
     "change": "تغيير",

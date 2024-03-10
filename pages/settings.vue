@@ -610,6 +610,7 @@ const check_phone_send_code = async () => {
     notify_toast(msg, "success");
     check_phone.value = false;
     change_avtivation.value = true;
+    count_down();
   } else {
     loading.value = false;
     notify_toast(msg, "error");
@@ -651,8 +652,8 @@ const resend_code = async () => {
   const fd = new FormData();
   fd.append("code", activ_code.value);
   fd.append("phone", form.phone);
-  fd.append("country_code", "966");
-  const res = await axios.get(`change-phone-resend-code`, fd);
+  fd.append("password", form.password);
+  const res = await axios.post(`change-phone-resend-code`, fd);
   let status = response(res).status;
   let msg = response(res).msg;
   if (status === "success") {
@@ -686,7 +687,6 @@ const count_down = async () => {
 
 // ============================================================================== lifecycle
 onMounted(() => {
-  count_down();
   get_profile();
   get_cities();
 });

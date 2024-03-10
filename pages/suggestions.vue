@@ -181,7 +181,11 @@ const suggestionsFunc = async () => {
     if (status === "success") {
       loading.value = false;
       notify_toast(msg, "success");
-      suggestionsForm.value.reset();
+      form.user_name = "";
+      form.phone = "";
+      form.subject = "";
+      form.complaint = "";
+      // suggestionsForm.value.reset();
     } else {
       loading.value = false;
       notify_toast(msg, "error");

@@ -77,7 +77,7 @@
         <template #header>
           <div class="border-bottom w-100 pt-2 pb-3">
             <h6 class="text-center fw-bold text-primary">
-              {{ $t("layout.charge_my_wallet") }}
+              {{ $t("form_layout.add_new_address") }}
             </h6>
           </div>
         </template>
@@ -153,7 +153,7 @@
               <div
                 class="d-flex align-items-center justify-content-center gap5"
               >
-                <span>{{ $t("form_layout.confirm_payment") }}</span>
+                <span>{{ $t("form_layout.confirm") }}</span>
                 <div
                   class="spinner-border spinner-border-sm"
                   :class="loading ? 'd-block' : 'd-none'"

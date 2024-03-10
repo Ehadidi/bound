@@ -61,7 +61,8 @@
     "login_first": "You need to log in first",
     "rate_products": "Rate Products",
     "confirm_rate": "Confirm Ratings",
-    "no_notifications": "No notifications"
+    "no_notifications": "No notifications",
+    "review": "Review"
   },
   "header": {
     "auth": "Sign in / Register",
@@ -196,7 +197,9 @@
     "cancel": "Cancel",
     "add_to_cart": "Add to cart",
     "select_colors": "Select colors",
-    "select_sizes": "Select sizes"
+    "select_sizes": "Select sizes",
+    "no_color": "No color",
+    "no_size": "No size"
   },
   "cart": {
     "change": "Change",

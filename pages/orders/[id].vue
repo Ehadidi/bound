@@ -239,7 +239,7 @@
                       <div class="cart_text mb-2">
                         <span>{{ $t("cart.rentingCost") }}: </span>
 
-                        <span>{{ item.price }}</span>
+                        <span>{{ item.price }} {{ $t("product.currency") }}</span>
                       </div>
                       <div class="cart_text">
                         <span>{{ $t("cart.deposit") }}: </span>
