@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         },
         {
           name: "description",
-          content: "nuxt 3 app",
+          content: "Choose what you like and rent your products straight away",
         },
         {
           charset: "utf-8",
@@ -49,16 +49,19 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ["@nuxtjs/i18n", "nuxt-swiper", "nuxt-primevue", "@vueuse/nuxt", "@pinia/nuxt" , '@pinia-plugin-persistedstate/nuxt'],
+  modules: [
+    "@nuxtjs/i18n",
+    "nuxt-swiper",
+    "nuxt-primevue",
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
+  ],
   css: [
     "bootstrap/dist/css/bootstrap.css",
     "/node_modules/primeflex/primeflex.css",
     "primevue/resources/themes/lara-light-indigo/theme.css",
     "assets/style/style.scss",
-  ],
-  plugins: [
-    "@/plugins/vue-google-maps",
-    "~/plugins/toast.js",
   ],
   i18n: {
     lazy: true,
@@ -66,14 +69,14 @@ export default defineNuxtConfig({
     strategy: "prefix_except_default",
     locales: [
       {
-        code: "en-US",
-        iso: "en-US",
+        code: "en",
+        iso: "en",
         name: "English",
         file: "en.json",
       },
       {
-        code: "ar-EG",
-        iso: "ar-EG",
+        code: "ar",
+        iso: "ar",
         name: "arabic",
         file: "ar.json",
       },

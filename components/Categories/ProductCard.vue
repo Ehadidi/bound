@@ -1,15 +1,21 @@
 <template>
     <div class="product-item">
-        <NuxtLink :to="localPath('/')">
+        <NuxtLink :to="localPath(`/products/${id}`)">
             <div class="flex align-items-center flex-column justify-content-center w-100 gap10">
-                <img :src="productImg" alt="handbag">
-                <span class="price">
+                <img :src="productImg" alt="product image">
+                <span class="line-through">
+                    {{ price_before }}
+                </span>
+                <span class="price fw-bold">
                     {{ price }}
                 </span>
                 <span class="product-name">
                     {{ productName }}
                 </span>
-                <!-- <v-rating density="compact" v-model="rating" readonly hover half-increments></v-rating> -->
+                <Rating v-model="rating" class="small justify-content-end gap-1" dir="ltr" readonly :cancel="false" />
+                <div>
+                    {{ end_date }}
+                </div>
             </div>
         </NuxtLink>
     </div>
@@ -20,6 +26,12 @@ const props = defineProps({
     price: {
         type: String,
         default: '250 SAR'
+    },
+    end_date: {
+        type: String,
+    },
+    price_before: {
+        type: String,
     },
     productName: {
         type: String,
